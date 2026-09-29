@@ -1,0 +1,53 @@
+{
+  "bbbc038": [
+    {
+      "quantile": 0.1,
+      "id": "eea70a7948d25a9a791dbcb39228af4ea4049fe5ebdee9c04884be8cca3da835",
+      "dice": 0.23518005540166206
+    },
+    {
+      "quantile": 0.5,
+      "id": "fac507fa4d1649e8b24c195d990f1fc3ca3633d917839e1751a9d412a14ab5e3",
+      "dice": 0.8940106141015921
+    },
+    {
+      "quantile": 0.9,
+      "id": "4be73d68f433869188fe5e7f09c7f681ed51003da6aa5d19ce368726d8e271ee",
+      "dice": 0.9422299500108672
+    }
+  ],
+  "bbbc039": [
+    {
+      "quantile": 0.1,
+      "id": "IXMtest_D06_s8_w1BE84C8EF-4CD0-4B56-8267-4E662F57AC25",
+      "dice": 0.8820897418404746
+    },
+    {
+      "quantile": 0.5,
+      "id": "IXMtest_I17_s7_w1BB3D534E-DF08-4F21-BAC6-6B105BB40AF9",
+      "dice": 0.9123405476714854
+    },
+    {
+      "quantile": 0.9,
+      "id": "IXMtest_O01_s6_w11A23978B-BAAD-4287-B1F6-FFBCF45C5E2F",
+      "dice": 0.9492544397421192
+    }
+  ],
+  "tnbc": [
+    {
+      "quantile": 0.1,
+      "id": "04_2",
+      "dice": 0.008183887580872505
+    },
+    {
+      "quantile": 0.5,
+      "id": "09_3",
+      "dice": 0.16970740708197873
+    },
+    {
+      "quantile": 0.9,
+      "id": "08_3",
+      "dice": 0.3654570966544388
+    }
+  ]
+}

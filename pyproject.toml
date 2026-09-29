@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "breastseg-isbi"
+version = "0.1.0"
+description = "Audited breast nucleus segmentation and public benchmark experiments"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.6", "segmentation-models-pytorch==0.5.0", "numpy", "scipy", "opencv-python-headless", "matplotlib", "reportlab"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

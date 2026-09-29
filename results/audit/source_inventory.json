@@ -1,0 +1,1173 @@
+{
+  "source_a": "/home/vdasoju/Desktop/breast-3d/2d/breast-seg/embc2026-breast-seg",
+  "source_b": "/home/vdasoju/Desktop/breast-3d/2d/embc2026-breast-seg",
+  "files_a": {
+    ".gitignore": {
+      "bytes": 106,
+      "sha256": "65ff74b7e93a6ae9b4aba4e3f03796ef0bcc072b2d4dc16c9db084f8a67557fe"
+    },
+    "README.md": {
+      "bytes": 16176,
+      "sha256": "0be30ae95d82229a9e23e44fe1fbb3d093cc73daf560f2249050c66ca14eee73"
+    },
+    "benchmark_efficiency.py": {
+      "bytes": 3472,
+      "sha256": "d4d4b870b95f64d05eafa57f953b1a7074a04c9b6b8115b27d3b701d0fd6569d"
+    },
+    "configs/default.yaml": {
+      "bytes": 1091,
+      "sha256": "e95c394dfeac1d7847ec51720d01b45cfbc47057cdcd1404b0dca112ceb3f076"
+    },
+    "evaluate.py": {
+      "bytes": 7042,
+      "sha256": "9b1515a793caa4a2cbd9f15155521246c9675c76a19b644ec78b4c84c599c785"
+    },
+    "generate_figures.py": {
+      "bytes": 9146,
+      "sha256": "5fe2a8ea01914481fe4293f4f170d1293e897d12997a1293602526a8471d34c1"
+    },
+    "generate_tables.py": {
+      "bytes": 3603,
+      "sha256": "2aa306f9b253cfb01fab34d4cea20368f9baf3d879d7ef5d575ff284fce1b5f6"
+    },
+    "requirements.txt": {
+      "bytes": 165,
+      "sha256": "4cda5cddee0d61e89141c8da00655870beb8bf93899d8f058b29c5bfbab921c9"
+    },
+    "results/ablation_no_gabor/best_ablation_no_gabor.pt": {
+      "bytes": 809751486,
+      "sha256": "351e7fd2896f3cca74ba763dbaa99b1dcf0ad5ee09c401d4e27362b35889d678"
+    },
+    "results/ablation_no_gabor/curves_ablation_no_gabor.png": {
+      "bytes": 186034,
+      "sha256": "aa8af5518fc35f34bcb9d639f416ebdfd4998452449c9ab254595a08d11323b0"
+    },
+    "results/ablation_no_gabor/test_metrics.json": {
+      "bytes": 17387,
+      "sha256": "833c72ab131ea24238a8b273ed00c18c5d7457429b53fb8ae5fa63e604fdd5b3"
+    },
+    "results/ablation_no_scse/best_ablation_no_scse.pt": {
+      "bytes": 807338982,
+      "sha256": "80d8b78d3ae5520023e620e8a73afa2f649cbe5c069ea35dd0d496d918410c1a"
+    },
+    "results/ablation_no_scse/curves_ablation_no_scse.png": {
+      "bytes": 185294,
+      "sha256": "e416518c7fd96b5cea68a968bf00af454936c0006da527bd747b73fab25c191b"
+    },
+    "results/ablation_no_scse/test_metrics.json": {
+      "bytes": 17442,
+      "sha256": "b99d42da48430c484edc4c9c5c8232dd2da6b04abd82a37347e38322ef5c33d4"
+    },
+    "results/ablation_no_weighted_sampling/best_ablation_no_weighted_sampling.pt": {
+      "bytes": 809839818,
+      "sha256": "c419219124ff6d749a510019d7e5328c7406a095b61a0e63799c726a394dcdd0"
+    },
+    "results/ablation_no_weighted_sampling/curves_ablation_no_weighted_sampling.png": {
+      "bytes": 189869,
+      "sha256": "802471514be9b5432b8edb627889360c0dcb63626b92729629b9a251673ecedc"
+    },
+    "results/ablation_no_weighted_sampling/test_metrics.json": {
+      "bytes": 17485,
+      "sha256": "ceec023994b9cbc4ec1126713c24d355d653edaa71c2a27d994271e4d1c90b56"
+    },
+    "results/ablation_standard_loss/best_ablation_standard_loss.pt": {
+      "bytes": 809808976,
+      "sha256": "4e75de54fc9c43e3427661a84990574e6c71bd894e24d837e1ce7c1cd627a74d"
+    },
+    "results/ablation_standard_loss/curves_ablation_standard_loss.png": {
+      "bytes": 182795,
+      "sha256": "79d894bfbd694cc8d6d574158b5b88893210acdc39429b5b715f5ec8208c6f65"
+    },
+    "results/ablation_standard_loss/test_metrics.json": {
+      "bytes": 17431,
+      "sha256": "ad7054074432f306941c663c67d6032519ca0a545a9358ea1468bc87a72de03d"
+    },
+    "results/ablation_unet_not_unetpp/best_ablation_unet_not_unetpp.pt": {
+      "bytes": 796099224,
+      "sha256": "b4f56d04b9ce2888155c422e6ca0f418fd2bdc337acef081e2cd67ee0979c082"
+    },
+    "results/ablation_unet_not_unetpp/curves_ablation_unet_not_unetpp.png": {
+      "bytes": 183868,
+      "sha256": "828a655122203e289167c854c0c37b6cb9890d60b66a751c54fa6ce1b92fac98"
+    },
+    "results/ablation_unet_not_unetpp/test_metrics.json": {
+      "bytes": 17550,
+      "sha256": "279446f1c27759d6e335332990dd8148c58f82b9a05ad21a312d563a98b1e700"
+    },
+    "results/comparison_table.csv": {
+      "bytes": 3263,
+      "sha256": "20eb32379669f038613ac7e60194568c253ff8e77c8e3fdc971635e9c9f918e7"
+    },
+    "results/efficiency_table.csv": {
+      "bytes": 571,
+      "sha256": "306232d677b07649d294affddac5e36515dad6c86e2a5cef8bdfa1aaf754c754"
+    },
+    "results/efficiency_table.tex": {
+      "bytes": 649,
+      "sha256": "1d5fe3f558b0aa2539f2c239529cd5763d842df1c0f044be115d858965d6faa0"
+    },
+    "results/figures/fig_ablation_bars.pdf": {
+      "bytes": 23272,
+      "sha256": "9eb9a85a78a6fe03c63f83c334c79c23aa05e8e32c01dd5661d7d44acabe2ac6"
+    },
+    "results/figures/fig_ablation_bars.png": {
+      "bytes": 89521,
+      "sha256": "cb3e10bf98266d03ebf70a94e9d0d9d27a63383a260d217d4bdfac4154845261"
+    },
+    "results/figures/fig_boxplot_comparison.pdf": {
+      "bytes": 21178,
+      "sha256": "00693eb340b70f381151a073179cae88bc6da31de50f8c7101fb1086fd1f1497"
+    },
+    "results/figures/fig_boxplot_comparison.png": {
+      "bytes": 132148,
+      "sha256": "5a2d4788aacecfe4323a2cd9d4702a9ebfc26d3dc96d911fce150d3772713ed1"
+    },
+    "results/figures/fig_dice_histogram.pdf": {
+      "bytes": 17129,
+      "sha256": "570eb78364c0d9a692e9ecb0590552d5d26a3ef06ae279f5b72d29a0809842f4"
+    },
+    "results/figures/fig_dice_histogram.png": {
+      "bytes": 80069,
+      "sha256": "b98989befb1fb63f444ea16e50305b7f5e23abc358f94693d6e275535137de8d"
+    },
+    "results/figures/fig_sota_bars.pdf": {
+      "bytes": 22988,
+      "sha256": "2f3455f2d2ee0d3285b46d5012628b8106443a7075dcfb11861e8b71cdb3eb4d"
+    },
+    "results/figures/fig_sota_bars.png": {
+      "bytes": 97448,
+      "sha256": "1feaed88b29ba97d557216d39a0d30669e364fbc36823e52e3db40cfc78ffc95"
+    },
+    "results/proposed_full/test_metrics.json": {
+      "bytes": 17519,
+      "sha256": "bf9bf79a119ab8819517fcd18d8ea84e0b45454783e19de304d19eeb1e24ff75"
+    },
+    "results/significance_tests.csv": {
+      "bytes": 879,
+      "sha256": "b6d2b7dbea8318fff938b9b0dbc0f58d0634032db82844570454088b6c5aee61"
+    },
+    "results/significance_tests.tex": {
+      "bytes": 1115,
+      "sha256": "f5fb882062c44dc348d3fc8510cc1e8e115162f9680b22feab7a099f62debf11"
+    },
+    "results/sota_attention_unet_resnet50/best_sota_attention_unet_resnet50.pt": {
+      "bytes": 406426737,
+      "sha256": "b88b584f80376b9cc7aa5a681335b44031eb0b8b43a607a4b2f88d282b447bbc"
+    },
+    "results/sota_attention_unet_resnet50/curves_sota_attention_unet_resnet50.png": {
+      "bytes": 205446,
+      "sha256": "2e07c47a28798d21df8c6aa5570024de7b9b8153f0830b65eae917e9215acd24"
+    },
+    "results/sota_attention_unet_resnet50/test_metrics.json": {
+      "bytes": 17468,
+      "sha256": "bc33234640ca956f997e2c742138c4480de6b0ecf018ccc02ee47cc870d75a82"
+    },
+    "results/sota_deeplabv3p_resnet50/best_sota_deeplabv3p_resnet50.pt": {
+      "bytes": 320693026,
+      "sha256": "a6b7f1ca0ef19b691d9e0cf46e99fbf4b08a315332c6a5a3d18a76081fdf8eb0"
+    },
+    "results/sota_deeplabv3p_resnet50/curves_sota_deeplabv3p_resnet50.png": {
+      "bytes": 209686,
+      "sha256": "573ca578f5470c42529ab007375f877bb7e7867865a6e108005d106aed6b50ac"
+    },
+    "results/sota_deeplabv3p_resnet50/test_metrics.json": {
+      "bytes": 17483,
+      "sha256": "31af4bd49518a6a286d26be27669278690ca19620492eaee91f37eb02fff9ca0"
+    },
+    "results/sota_fpn_resnet50/best_sota_fpn_resnet50.pt": {
+      "bytes": 313917785,
+      "sha256": "662fd70e135f946f8e71ec43f2655aa2484c4f39eed47808f14e6cd1ab364eb8"
+    },
+    "results/sota_fpn_resnet50/curves_sota_fpn_resnet50.png": {
+      "bytes": 197856,
+      "sha256": "6bdb8be0cb1c41f5ed0db72a27152ce2e13c9cd7c28d1bcd14206340beec9497"
+    },
+    "results/sota_fpn_resnet50/test_metrics.json": {
+      "bytes": 17512,
+      "sha256": "a8cadb42c841791ad1989ebab7a5dcae9e50b142b84851a9acac4c504844cea0"
+    },
+    "results/sota_manet_resnet50/best_sota_manet_resnet50.pt": {
+      "bytes": 1769952350,
+      "sha256": "4b241d4d3dbbb452ef339141d8fc3024ab77756ad1d4dd39e8f92815e24ed07e"
+    },
+    "results/sota_manet_resnet50/curves_sota_manet_resnet50.png": {
+      "bytes": 212036,
+      "sha256": "eb8e40f1fcf977dc382d9951e41c14a470c0eb4a49ebddf4e293fd844a98415b"
+    },
+    "results/sota_manet_resnet50/test_metrics.json": {
+      "bytes": 17311,
+      "sha256": "17d865fc41ab4e85d8d36e92c7c76d62a9790cf6eead112f436d85d092efa47a"
+    },
+    "results/sota_unet_resnet34/best_sota_unet_resnet34.pt": {
+      "bytes": 293556126,
+      "sha256": "c027bcae50455df8414e8a47a6073f8825510575cc4de84d6dd8170731123c95"
+    },
+    "results/sota_unet_resnet34/curves_sota_unet_resnet34.png": {
+      "bytes": 203591,
+      "sha256": "0a12a357f4b636ce29514a9aa580533986835f3a32b033bfccfaf178a226ce4c"
+    },
+    "results/sota_unet_resnet34/test_metrics.json": {
+      "bytes": 17347,
+      "sha256": "9ab7654e31eddaca56dec91db1bc9fedcac0341025387a38fe5610df957636a8"
+    },
+    "results/sota_unet_resnet50/best_sota_unet_resnet50.pt": {
+      "bytes": 390799632,
+      "sha256": "76eb3b00eda01b33fd0a6f0ace1120fd73fae12be21d4690af2a6060d6363fab"
+    },
+    "results/sota_unet_resnet50/curves_sota_unet_resnet50.png": {
+      "bytes": 220245,
+      "sha256": "30e8dbcac8da0e728d94249538dbb367f8bb5202194b8dc77f99515aec390a79"
+    },
+    "results/sota_unet_resnet50/test_metrics.json": {
+      "bytes": 17402,
+      "sha256": "80eabac7a8410e8ee838708a1b223c81d5868a0e06c8d0b4da140cc531829e73"
+    },
+    "results/sota_unetpp_resnet50/best_sota_unetpp_resnet50.pt": {
+      "bytes": 588461007,
+      "sha256": "c75514533c190948f5ed28c6ccb2f91a4714075c5d98ea9cd9a8ca81f4267c4d"
+    },
+    "results/sota_unetpp_resnet50/curves_sota_unetpp_resnet50.png": {
+      "bytes": 205493,
+      "sha256": "81b9b094cefc2e7d93639c0abeb6ede849a7d9d0aa8c226ee79852db98df0df7"
+    },
+    "results/sota_unetpp_resnet50/test_metrics.json": {
+      "bytes": 17263,
+      "sha256": "7b227decd719ed3e2670918ccb8fecbd73552382756f95622b834efe3db9d829"
+    },
+    "results/table_ablation.tex": {
+      "bytes": 686,
+      "sha256": "75497cfba39df7ff8bf529dd003458b4ddb3c74ef823e9efe01b28b9975daffe"
+    },
+    "results/table_sota.tex": {
+      "bytes": 907,
+      "sha256": "f6c2d22e970c343f6714d52f6790728e9ec7e21d9add526c6891340ff26107d7"
+    },
+    "run_all_experiments.py": {
+      "bytes": 11886,
+      "sha256": "951ee992f4e74c396bd3c7a7b6763e3ec3672e54cc116fac40dbcc05e3c66540"
+    },
+    "src/__init__.py": {
+      "bytes": 54,
+      "sha256": "2a962a728f2ceed6186df18525269ef3aa5f30d63ff0695ff803844657d9b060"
+    },
+    "src/dataset.py": {
+      "bytes": 9546,
+      "sha256": "caff46ec77680d0777be02bb2631e0ea40ce645722bb8a8c15ece3a2e85cc8c5"
+    },
+    "src/losses.py": {
+      "bytes": 6068,
+      "sha256": "c26af60b3e3705f6bdd80443d8d9d9b0541fe1025bb8e6a28077a84ed04cfc2a"
+    },
+    "src/metrics.py": {
+      "bytes": 2775,
+      "sha256": "b8db5d65dd10a03985699756338a0cb2c1e7aefdbcbe27e5e86c69e689d62cc2"
+    },
+    "src/models.py": {
+      "bytes": 6745,
+      "sha256": "c16a24c080e52adb926fb9c393bd38d1b4be6bfc934d99fb9f3b3f1e38e19365"
+    },
+    "src/trainer.py": {
+      "bytes": 8292,
+      "sha256": "9e1b38f471cdcb970f4cb33a84124157ccddb88a1e99d407f13f11042de8fb75"
+    },
+    "statistical_tests.py": {
+      "bytes": 5596,
+      "sha256": "8a582af49192dae2da2dc3a9d01f23d09faf84c9e35ca7fdc39202477382f0ff"
+    },
+    "train_cl_b7_opt.py": {
+      "bytes": 92054,
+      "sha256": "29626e5435b98d4024696a805860bc1c11a098e3e487397a25f71ae2bd36c00f"
+    }
+  },
+  "files_b": {
+    ".gitignore": {
+      "bytes": 106,
+      "sha256": "65ff74b7e93a6ae9b4aba4e3f03796ef0bcc072b2d4dc16c9db084f8a67557fe"
+    },
+    "README.md": {
+      "bytes": 16176,
+      "sha256": "0be30ae95d82229a9e23e44fe1fbb3d093cc73daf560f2249050c66ca14eee73"
+    },
+    "benchmark_efficiency.py": {
+      "bytes": 3472,
+      "sha256": "d4d4b870b95f64d05eafa57f953b1a7074a04c9b6b8115b27d3b701d0fd6569d"
+    },
+    "configs/default.yaml": {
+      "bytes": 1091,
+      "sha256": "e95c394dfeac1d7847ec51720d01b45cfbc47057cdcd1404b0dca112ceb3f076"
+    },
+    "evaluate.py": {
+      "bytes": 7042,
+      "sha256": "9b1515a793caa4a2cbd9f15155521246c9675c76a19b644ec78b4c84c599c785"
+    },
+    "generate_figures.py": {
+      "bytes": 8374,
+      "sha256": "91c4b15fcc35d4d1517dd8e4fb7af281c45897ccca628017e4d4465105a59b51"
+    },
+    "generate_tables.py": {
+      "bytes": 3603,
+      "sha256": "2aa306f9b253cfb01fab34d4cea20368f9baf3d879d7ef5d575ff284fce1b5f6"
+    },
+    "requirements.txt": {
+      "bytes": 165,
+      "sha256": "4cda5cddee0d61e89141c8da00655870beb8bf93899d8f058b29c5bfbab921c9"
+    },
+    "results/ablation_no_gabor/best_ablation_no_gabor.pt": {
+      "bytes": 809752446,
+      "sha256": "e6a073eea864bfd80d96dbdab4770c1f2d444881f2fe153ac4242efc91f340d0"
+    },
+    "results/ablation_no_gabor/curves_ablation_no_gabor.png": {
+      "bytes": 193465,
+      "sha256": "3b88d9b78f6b928acb21124bfd4ac6f98a9d3a92ee4e1e0011654047d1b857d6"
+    },
+    "results/ablation_no_gabor/test_metrics.json": {
+      "bytes": 17471,
+      "sha256": "01a18b6ce001fe77ac8b8217ccc7ee0c3e3d9c153a573efa4dadebc438467163"
+    },
+    "results/ablation_no_scse/best_ablation_no_scse.pt": {
+      "bytes": 807338662,
+      "sha256": "b93a672c89f2d8060dfd382242060bfc6ec4056c7d78e0621285c213d84121d5"
+    },
+    "results/ablation_no_scse/curves_ablation_no_scse.png": {
+      "bytes": 185328,
+      "sha256": "0f9cac9b7292b41051890363f44949c1a06c4c135ec4b9074362fe7a7d6cb5d1"
+    },
+    "results/ablation_no_scse/test_metrics.json": {
+      "bytes": 17466,
+      "sha256": "d0799d8e9fb6dc8bd596bb225711d7dbe5a8b5a3b953d397e6c0531efd3ac4e1"
+    },
+    "results/ablation_no_weighted_sampling/best_ablation_no_weighted_sampling.pt": {
+      "bytes": 809839946,
+      "sha256": "1b677e61bc9eb98affcb9f84419e2e5374800e911b05491242572d2970ea7a8f"
+    },
+    "results/ablation_no_weighted_sampling/curves_ablation_no_weighted_sampling.png": {
+      "bytes": 194154,
+      "sha256": "5a6650e58cf3e51b1d8d9a55cf9cb70f34c339ea14bf47b6fcc03fdb953a9899"
+    },
+    "results/ablation_no_weighted_sampling/test_metrics.json": {
+      "bytes": 17347,
+      "sha256": "bcc1c5a755084bf76cb4db48d0191ba5a72a499c5b55140b94cc0a1dbf6cb067"
+    },
+    "results/ablation_standard_loss/best_ablation_standard_loss.pt": {
+      "bytes": 809808464,
+      "sha256": "ae59f98ba731c06c993246b4133854c3a90ed5b74fe513e3bf9fef4a1677785a"
+    },
+    "results/ablation_standard_loss/curves_ablation_standard_loss.png": {
+      "bytes": 180786,
+      "sha256": "618ed6ce0177a836f7bda6a53c574e1ed17eb84db05ea1e2a9cf3953fabda3fb"
+    },
+    "results/ablation_standard_loss/test_metrics.json": {
+      "bytes": 17412,
+      "sha256": "984c492320280e25c07b2cddffe7f812176d1c5bf69cad3ee25df06c5b390e80"
+    },
+    "results/ablation_unet_not_unetpp/best_ablation_unet_not_unetpp.pt": {
+      "bytes": 796098264,
+      "sha256": "31467f02fb555ed098599175d148ac85add8c43eb901b374752f84a8aa16e067"
+    },
+    "results/ablation_unet_not_unetpp/curves_ablation_unet_not_unetpp.png": {
+      "bytes": 192683,
+      "sha256": "46cf5a69ee3eef9a3493b7c9b927d0aea6a336a14b0e91c403200c857967972d"
+    },
+    "results/ablation_unet_not_unetpp/test_metrics.json": {
+      "bytes": 17361,
+      "sha256": "94bce456af765dfac6fc10a66ec80f681faae988a9702b1d1547f8f25828456a"
+    },
+    "results/comparison_table.csv": {
+      "bytes": 3267,
+      "sha256": "3f9b664d0dd71a5b762db7bb260c524901c8f1cb7ba65cca2eaec2d66f6a38a1"
+    },
+    "results/efficiency_table.csv": {
+      "bytes": 571,
+      "sha256": "8720729ac3c9b02403ecf71b01dc357ff965b2be106ed311eaef525656e8f2c9"
+    },
+    "results/efficiency_table.tex": {
+      "bytes": 649,
+      "sha256": "6742f26767bbd184d096484c44ab6c9a32871f7862c1a536a29ba21749306a59"
+    },
+    "results/figures/fig_ablation_bars.pdf": {
+      "bytes": 20388,
+      "sha256": "5172d833fdedee6b164b5d2d52b1c2ea7710ffab295fc5c21f829f1c9a055cf0"
+    },
+    "results/figures/fig_ablation_bars.png": {
+      "bytes": 128900,
+      "sha256": "31a006aa3983f65e23772bbe53687fee893fb0ba6a717861f8d68bb814569234"
+    },
+    "results/figures/fig_boxplot_comparison.pdf": {
+      "bytes": 21887,
+      "sha256": "47f02c2d89ca856c24cf52868f0e232ef6ce7547ffac1fb5c8e3131ecc3d3295"
+    },
+    "results/figures/fig_boxplot_comparison.png": {
+      "bytes": 205105,
+      "sha256": "e0dd10dc12efe8c3639104fe52526d8a2befc7259cb8b399a5bc0f7ca356c2d0"
+    },
+    "results/figures/fig_dice_histogram.pdf": {
+      "bytes": 17443,
+      "sha256": "6f164767cc1c698ffcb70c9787bab9e955e69db90d891521a95baf8d5601b484"
+    },
+    "results/figures/fig_dice_histogram.png": {
+      "bytes": 79535,
+      "sha256": "d077005fd0eb7432624c6aa87332f7885dba50ebbfb7e13bb19e07427c3243e2"
+    },
+    "results/figures/fig_sota_bars.pdf": {
+      "bytes": 19190,
+      "sha256": "d7cceb729235d94ad479710660a844decc37e9e5fca000b9c1a5629a5662eaf8"
+    },
+    "results/figures/fig_sota_bars.png": {
+      "bytes": 135783,
+      "sha256": "644d6ed1f9cfcecb0e8f5b7228a979713c58e87e50845c476cc41931d98431ed"
+    },
+    "results/proposed_full/test_metrics.json": {
+      "bytes": 17519,
+      "sha256": "bf9bf79a119ab8819517fcd18d8ea84e0b45454783e19de304d19eeb1e24ff75"
+    },
+    "results/significance_tests.csv": {
+      "bytes": 880,
+      "sha256": "81e46aa882ee8668d413334b9cc4350c3a639f95ca71784171e81e8b929b9fee"
+    },
+    "results/significance_tests.tex": {
+      "bytes": 1115,
+      "sha256": "1de7e66cd708e0c21536782e5c4d7f72b37c78fd5832b7376a0068bd8e297853"
+    },
+    "results/sota_attention_unet_resnet50/best_sota_attention_unet_resnet50.pt": {
+      "bytes": 406426545,
+      "sha256": "df25346cab9c4938c94cad1be3b030b27cd7e309be4740981b6ce241787e2a19"
+    },
+    "results/sota_attention_unet_resnet50/curves_sota_attention_unet_resnet50.png": {
+      "bytes": 192585,
+      "sha256": "59cb49e087f2e48976b15fa2092f4ce0f9cebf6bd68b7491f646ae892dd63e55"
+    },
+    "results/sota_attention_unet_resnet50/test_metrics.json": {
+      "bytes": 17137,
+      "sha256": "d5ab4c80be5d82c3c31568b0f8ec9325f8dd53b3a4f74aa418ac7a071ab407eb"
+    },
+    "results/sota_deeplabv3p_resnet50/best_sota_deeplabv3p_resnet50.pt": {
+      "bytes": 320693026,
+      "sha256": "b040285e906e033178eeba97f6590082a67a1e8bdbf8448b7ac37d0342ee60cb"
+    },
+    "results/sota_deeplabv3p_resnet50/curves_sota_deeplabv3p_resnet50.png": {
+      "bytes": 190244,
+      "sha256": "3a7420e75c5d2aae50ff4313d5d1f681870b3383aad3987314e5c7bc70989f52"
+    },
+    "results/sota_deeplabv3p_resnet50/test_metrics.json": {
+      "bytes": 17529,
+      "sha256": "94cf2a3bdc5ae682702424097394e9790120e05a13e73b5648ec473a675042e4"
+    },
+    "results/sota_fpn_resnet50/best_sota_fpn_resnet50.pt": {
+      "bytes": 313917785,
+      "sha256": "e9c7f5202057658081c1a45fa825baf4dd08e4aa1bb8e015e8d8022a57a5de9f"
+    },
+    "results/sota_fpn_resnet50/curves_sota_fpn_resnet50.png": {
+      "bytes": 184160,
+      "sha256": "7dbe495b8baba6e6be25ad88d8c71c0611094c802b86a7737558f41fd8206719"
+    },
+    "results/sota_fpn_resnet50/test_metrics.json": {
+      "bytes": 17554,
+      "sha256": "37905951b21f82ce5124b8acc663171f4451dc82cde2c8899d2ce03d4a1d3c15"
+    },
+    "results/sota_manet_resnet50/best_sota_manet_resnet50.pt": {
+      "bytes": 1769954270,
+      "sha256": "74736291c05d2e5628d590d9246ca436828d9e84c2d4ca64ed9f0735785ef848"
+    },
+    "results/sota_manet_resnet50/curves_sota_manet_resnet50.png": {
+      "bytes": 194821,
+      "sha256": "aa0bd9ac42057e625223975bf7cb469785705e1e616860af4485e0ceda1ae7c8"
+    },
+    "results/sota_manet_resnet50/test_metrics.json": {
+      "bytes": 16762,
+      "sha256": "ab7202d5b5d36123ca1651f6859296d270f9cd122d3e491392f9ee3731ea6ec0"
+    },
+    "results/sota_unet_resnet34/best_sota_unet_resnet34.pt": {
+      "bytes": 293556126,
+      "sha256": "6cbfa9569253cfe5e8cd484f4392ec0df33ebf589edaca0e18d0c1cfd54285d1"
+    },
+    "results/sota_unet_resnet34/curves_sota_unet_resnet34.png": {
+      "bytes": 180593,
+      "sha256": "106a1cc7eca35d225c26c38779a6de5f629059bc2c65e069e3bdde570e0a167c"
+    },
+    "results/sota_unet_resnet34/test_metrics.json": {
+      "bytes": 17244,
+      "sha256": "2ab5b2f58e0ba465f94cdaa4ed8355dd3e93052ad9c25a7ca0248fe20f6fa384"
+    },
+    "results/sota_unet_resnet50/best_sota_unet_resnet50.pt": {
+      "bytes": 390798736,
+      "sha256": "2aa868c995d37426e52bee05a3d308b461d5370fb870d10484c1a6f760a5db61"
+    },
+    "results/sota_unet_resnet50/curves_sota_unet_resnet50.png": {
+      "bytes": 194869,
+      "sha256": "5756586e4646798a2ba7783aaf42f4f688afe384e600c20578bcf32d16521238"
+    },
+    "results/sota_unet_resnet50/test_metrics.json": {
+      "bytes": 17119,
+      "sha256": "2c25d817a48329ab410b033126115358f56774fe51847abd4c1fe2c8108fe87c"
+    },
+    "results/sota_unetpp_resnet50/best_sota_unetpp_resnet50.pt": {
+      "bytes": 588461007,
+      "sha256": "279a231d7814e89f94952be3c926242e1248eb104fadda3e4f8494ab99b5b2ce"
+    },
+    "results/sota_unetpp_resnet50/curves_sota_unetpp_resnet50.png": {
+      "bytes": 174717,
+      "sha256": "ca3f484236bc5e74821f2222dea0636455cd6b58a39bd4e4eace9f4a6c4719ed"
+    },
+    "results/sota_unetpp_resnet50/test_metrics.json": {
+      "bytes": 17337,
+      "sha256": "31ae2a3ab782e3154850b02fd9648bf32de927fbe645830943b82f4e80d1e96d"
+    },
+    "results/table_ablation.tex": {
+      "bytes": 684,
+      "sha256": "f49378e20162f5b410eaaa63ac3ff5e97c81b500e014523adb597adca411b4e0"
+    },
+    "results/table_sota.tex": {
+      "bytes": 908,
+      "sha256": "f162fcef59ebc4ac5fe3f70454612f46eef41543f5f908dbcb64e0a0bcfe5f1f"
+    },
+    "run_all_experiments.py": {
+      "bytes": 11547,
+      "sha256": "0ee4c9a7c0a26ec1007878f26879e8faaf0f5e5d9673a909c93d8443aa92c220"
+    },
+    "src/__init__.py": {
+      "bytes": 54,
+      "sha256": "2a962a728f2ceed6186df18525269ef3aa5f30d63ff0695ff803844657d9b060"
+    },
+    "src/dataset.py": {
+      "bytes": 9546,
+      "sha256": "caff46ec77680d0777be02bb2631e0ea40ce645722bb8a8c15ece3a2e85cc8c5"
+    },
+    "src/losses.py": {
+      "bytes": 6068,
+      "sha256": "c26af60b3e3705f6bdd80443d8d9d9b0541fe1025bb8e6a28077a84ed04cfc2a"
+    },
+    "src/metrics.py": {
+      "bytes": 2775,
+      "sha256": "b8db5d65dd10a03985699756338a0cb2c1e7aefdbcbe27e5e86c69e689d62cc2"
+    },
+    "src/models.py": {
+      "bytes": 6745,
+      "sha256": "c16a24c080e52adb926fb9c393bd38d1b4be6bfc934d99fb9f3b3f1e38e19365"
+    },
+    "src/trainer.py": {
+      "bytes": 8292,
+      "sha256": "9e1b38f471cdcb970f4cb33a84124157ccddb88a1e99d407f13f11042de8fb75"
+    },
+    "statistical_tests.py": {
+      "bytes": 5596,
+      "sha256": "8a582af49192dae2da2dc3a9d01f23d09faf84c9e35ca7fdc39202477382f0ff"
+    },
+    "train_cl_b7_opt.py": {
+      "bytes": 92054,
+      "sha256": "29626e5435b98d4024696a805860bc1c11a098e3e487397a25f71ae2bd36c00f"
+    }
+  },
+  "identical": false,
+  "different_files": [
+    "generate_figures.py",
+    "results/ablation_no_gabor/best_ablation_no_gabor.pt",
+    "results/ablation_no_gabor/curves_ablation_no_gabor.png",
+    "results/ablation_no_gabor/test_metrics.json",
+    "results/ablation_no_scse/best_ablation_no_scse.pt",
+    "results/ablation_no_scse/curves_ablation_no_scse.png",
+    "results/ablation_no_scse/test_metrics.json",
+    "results/ablation_no_weighted_sampling/best_ablation_no_weighted_sampling.pt",
+    "results/ablation_no_weighted_sampling/curves_ablation_no_weighted_sampling.png",
+    "results/ablation_no_weighted_sampling/test_metrics.json",
+    "results/ablation_standard_loss/best_ablation_standard_loss.pt",
+    "results/ablation_standard_loss/curves_ablation_standard_loss.png",
+    "results/ablation_standard_loss/test_metrics.json",
+    "results/ablation_unet_not_unetpp/best_ablation_unet_not_unetpp.pt",
+    "results/ablation_unet_not_unetpp/curves_ablation_unet_not_unetpp.png",
+    "results/ablation_unet_not_unetpp/test_metrics.json",
+    "results/comparison_table.csv",
+    "results/efficiency_table.csv",
+    "results/efficiency_table.tex",
+    "results/figures/fig_ablation_bars.pdf",
+    "results/figures/fig_ablation_bars.png",
+    "results/figures/fig_boxplot_comparison.pdf",
+    "results/figures/fig_boxplot_comparison.png",
+    "results/figures/fig_dice_histogram.pdf",
+    "results/figures/fig_dice_histogram.png",
+    "results/figures/fig_sota_bars.pdf",
+    "results/figures/fig_sota_bars.png",
+    "results/significance_tests.csv",
+    "results/significance_tests.tex",
+    "results/sota_attention_unet_resnet50/best_sota_attention_unet_resnet50.pt",
+    "results/sota_attention_unet_resnet50/curves_sota_attention_unet_resnet50.png",
+    "results/sota_attention_unet_resnet50/test_metrics.json",
+    "results/sota_deeplabv3p_resnet50/best_sota_deeplabv3p_resnet50.pt",
+    "results/sota_deeplabv3p_resnet50/curves_sota_deeplabv3p_resnet50.png",
+    "results/sota_deeplabv3p_resnet50/test_metrics.json",
+    "results/sota_fpn_resnet50/best_sota_fpn_resnet50.pt",
+    "results/sota_fpn_resnet50/curves_sota_fpn_resnet50.png",
+    "results/sota_fpn_resnet50/test_metrics.json",
+    "results/sota_manet_resnet50/best_sota_manet_resnet50.pt",
+    "results/sota_manet_resnet50/curves_sota_manet_resnet50.png",
+    "results/sota_manet_resnet50/test_metrics.json",
+    "results/sota_unet_resnet34/best_sota_unet_resnet34.pt",
+    "results/sota_unet_resnet34/curves_sota_unet_resnet34.png",
+    "results/sota_unet_resnet34/test_metrics.json",
+    "results/sota_unet_resnet50/best_sota_unet_resnet50.pt",
+    "results/sota_unet_resnet50/curves_sota_unet_resnet50.png",
+    "results/sota_unet_resnet50/test_metrics.json",
+    "results/sota_unetpp_resnet50/best_sota_unetpp_resnet50.pt",
+    "results/sota_unetpp_resnet50/curves_sota_unetpp_resnet50.png",
+    "results/sota_unetpp_resnet50/test_metrics.json",
+    "results/table_ablation.tex",
+    "results/table_sota.tex",
+    "run_all_experiments.py"
+  ],
+  "only_a": [],
+  "only_b": [],
+  "metric_discrepancies": [
+    {
+      "experiment": "proposed_full",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.9513145454600453,
+      "recomputed_mean": 0.9413145454600453,
+      "difference": 0.010000000000000009
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.9024580204766244,
+      "recomputed_mean": 0.8924580204766244,
+      "difference": 0.010000000000000009
+    }
+  ],
+  "metric_checks": [
+    {
+      "experiment": "ablation_unet_not_unetpp",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.034908847055116335,
+      "recomputed_mean": 0.03490884705511634,
+      "difference": -6.938893903907228e-18
+    },
+    {
+      "experiment": "ablation_unet_not_unetpp",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.01901224010860405,
+      "recomputed_mean": 0.01901224010860405,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_unet_not_unetpp",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9689213606149336,
+      "recomputed_mean": 0.9689213606149336,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_unet_not_unetpp",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.019063529758095613,
+      "recomputed_mean": 0.019063529758095613,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_unet_not_unetpp",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.034908814986850216,
+      "recomputed_mean": 0.034908814986850216,
+      "difference": 0.0
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.9513145454600453,
+      "recomputed_mean": 0.9413145454600453,
+      "difference": 0.010000000000000009
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.9024580204766244,
+      "recomputed_mean": 0.8924580204766244,
+      "difference": 0.010000000000000009
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9363611019216478,
+      "recomputed_mean": 0.9363611019216478,
+      "difference": 0.0
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.9518972102086991,
+      "recomputed_mean": 0.9518972102086991,
+      "difference": 0.0
+    },
+    {
+      "experiment": "proposed_full",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.94131406606175,
+      "recomputed_mean": 0.94131406606175,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_scse",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.0005247823422434325,
+      "recomputed_mean": 0.0005247823422434325,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_scse",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.00026498434931857305,
+      "recomputed_mean": 0.00026498434931857305,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_scse",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.976551413897984,
+      "recomputed_mean": 0.976551413897984,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_scse",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.0002651505153669987,
+      "recomputed_mean": 0.0002651505153669987,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_scse",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.0005247817911564501,
+      "recomputed_mean": 0.0005247817911564501,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_manet_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.19038117095011492,
+      "recomputed_mean": 0.19038117095011492,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_manet_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.11829166993471678,
+      "recomputed_mean": 0.11829166993471679,
+      "difference": -1.3877787807814457e-17
+    },
+    {
+      "experiment": "sota_manet_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9871762278489769,
+      "recomputed_mean": 0.9871762278489769,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_manet_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.11869564865834197,
+      "recomputed_mean": 0.11869564865834198,
+      "difference": -1.3877787807814457e-17
+    },
+    {
+      "experiment": "sota_manet_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.19038102136121188,
+      "recomputed_mean": 0.19038102136121188,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.12036708378148368,
+      "recomputed_mean": 0.12036708378148368,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.07025993545935699,
+      "recomputed_mean": 0.07025993545935698,
+      "difference": 1.3877787807814457e-17
+    },
+    {
+      "experiment": "sota_unet_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9557808977551758,
+      "recomputed_mean": 0.9557808977551758,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.07092072964983737,
+      "recomputed_mean": 0.07092072964983735,
+      "difference": 1.3877787807814457e-17
+    },
+    {
+      "experiment": "sota_unet_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.12036697769891229,
+      "recomputed_mean": 0.12036697769891228,
+      "difference": 1.3877787807814457e-17
+    },
+    {
+      "experiment": "sota_unet_resnet34",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.4788564902538387,
+      "recomputed_mean": 0.4788564902538387,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet34",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.36932203450496714,
+      "recomputed_mean": 0.36932203450496714,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet34",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9875539871864021,
+      "recomputed_mean": 0.9875539871864021,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet34",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.3759509786360472,
+      "recomputed_mean": 0.3759509786360472,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unet_resnet34",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.47885618555319603,
+      "recomputed_mean": 0.47885618555319603,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_deeplabv3p_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.7234561456447712,
+      "recomputed_mean": 0.7234561456447711,
+      "difference": 1.1102230246251565e-16
+    },
+    {
+      "experiment": "sota_deeplabv3p_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.6255552491078864,
+      "recomputed_mean": 0.6255552491078863,
+      "difference": 1.1102230246251565e-16
+    },
+    {
+      "experiment": "sota_deeplabv3p_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.853199231904,
+      "recomputed_mean": 0.853199231904,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_deeplabv3p_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.750890308585834,
+      "recomputed_mean": 0.7508903085858339,
+      "difference": 1.1102230246251565e-16
+    },
+    {
+      "experiment": "sota_deeplabv3p_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.723455736097882,
+      "recomputed_mean": 0.7234557360978819,
+      "difference": 1.1102230246251565e-16
+    },
+    {
+      "experiment": "sota_fpn_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.8358176087208463,
+      "recomputed_mean": 0.8358176087208463,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_fpn_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.7394340778414531,
+      "recomputed_mean": 0.7394340778414531,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_fpn_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.8856757041066885,
+      "recomputed_mean": 0.8856757041066885,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_fpn_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.8340574706676321,
+      "recomputed_mean": 0.8340574706676321,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_fpn_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.8358171446898297,
+      "recomputed_mean": 0.8358171446898297,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_attention_unet_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.4398304575622479,
+      "recomputed_mean": 0.43983045756224787,
+      "difference": 5.551115123125783e-17
+    },
+    {
+      "experiment": "sota_attention_unet_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.351430006550554,
+      "recomputed_mean": 0.35143000655055406,
+      "difference": -5.551115123125783e-17
+    },
+    {
+      "experiment": "sota_attention_unet_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9741823459044099,
+      "recomputed_mean": 0.9741823459044099,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_attention_unet_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.3650251330034098,
+      "recomputed_mean": 0.36502513300340983,
+      "difference": -5.551115123125783e-17
+    },
+    {
+      "experiment": "sota_attention_unet_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.4398301857540537,
+      "recomputed_mean": 0.43983018575405364,
+      "difference": 5.551115123125783e-17
+    },
+    {
+      "experiment": "ablation_no_gabor",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.830393784684097,
+      "recomputed_mean": 0.830393784684097,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_gabor",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.7427644580648891,
+      "recomputed_mean": 0.7427644580648891,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_gabor",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9295769408345222,
+      "recomputed_mean": 0.9295769408345222,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_gabor",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.7996538272173754,
+      "recomputed_mean": 0.7996538272173754,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_gabor",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.8303933407970994,
+      "recomputed_mean": 0.8303933407970994,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unetpp_resnet50",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.08276756444985955,
+      "recomputed_mean": 0.08276756444985955,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unetpp_resnet50",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.04827352954328722,
+      "recomputed_mean": 0.04827352954328723,
+      "difference": -6.938893903907228e-18
+    },
+    {
+      "experiment": "sota_unetpp_resnet50",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.954419104182384,
+      "recomputed_mean": 0.954419104182384,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unetpp_resnet50",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.04871374606104914,
+      "recomputed_mean": 0.04871374606104914,
+      "difference": 0.0
+    },
+    {
+      "experiment": "sota_unetpp_resnet50",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.08276749237535538,
+      "recomputed_mean": 0.0827674923753554,
+      "difference": -1.3877787807814457e-17
+    },
+    {
+      "experiment": "ablation_standard_loss",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.004711609150756987,
+      "recomputed_mean": 0.004711609150756988,
+      "difference": -8.673617379884035e-19
+    },
+    {
+      "experiment": "ablation_standard_loss",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.0024088800217151518,
+      "recomputed_mean": 0.0024088800217151518,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_standard_loss",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.976024677174725,
+      "recomputed_mean": 0.976024677174725,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_standard_loss",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.0024098412448375992,
+      "recomputed_mean": 0.0024098412448375997,
+      "difference": -4.336808689942018e-19
+    },
+    {
+      "experiment": "ablation_standard_loss",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.0047116045045061325,
+      "recomputed_mean": 0.004711604504506134,
+      "difference": -1.734723475976807e-18
+    },
+    {
+      "experiment": "ablation_no_weighted_sampling",
+      "metric": "dice",
+      "n": 128,
+      "stored_mean": 0.018015206739239262,
+      "recomputed_mean": 0.018015206739239262,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_weighted_sampling",
+      "metric": "iou",
+      "n": 128,
+      "stored_mean": 0.00955887435801026,
+      "recomputed_mean": 0.00955887435801026,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_weighted_sampling",
+      "metric": "precision",
+      "n": 128,
+      "stored_mean": 0.9933081227354705,
+      "recomputed_mean": 0.9933081227354705,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_weighted_sampling",
+      "metric": "recall",
+      "n": 128,
+      "stored_mean": 0.009563660669375284,
+      "recomputed_mean": 0.009563660669375284,
+      "difference": 0.0
+    },
+    {
+      "experiment": "ablation_no_weighted_sampling",
+      "metric": "f1",
+      "n": 128,
+      "stored_mean": 0.018015190174232074,
+      "recomputed_mean": 0.018015190174232077,
+      "difference": -3.469446951953614e-18
+    }
+  ],
+  "checkpoints": [
+    "results/ablation_no_gabor/best_ablation_no_gabor.pt",
+    "results/ablation_no_scse/best_ablation_no_scse.pt",
+    "results/ablation_no_weighted_sampling/best_ablation_no_weighted_sampling.pt",
+    "results/ablation_standard_loss/best_ablation_standard_loss.pt",
+    "results/ablation_unet_not_unetpp/best_ablation_unet_not_unetpp.pt",
+    "results/sota_attention_unet_resnet50/best_sota_attention_unet_resnet50.pt",
+    "results/sota_deeplabv3p_resnet50/best_sota_deeplabv3p_resnet50.pt",
+    "results/sota_fpn_resnet50/best_sota_fpn_resnet50.pt",
+    "results/sota_manet_resnet50/best_sota_manet_resnet50.pt",
+    "results/sota_unet_resnet34/best_sota_unet_resnet34.pt",
+    "results/sota_unet_resnet50/best_sota_unet_resnet50.pt",
+    "results/sota_unetpp_resnet50/best_sota_unetpp_resnet50.pt"
+  ],
+  "proposed_full_checkpoint_present": false
+}

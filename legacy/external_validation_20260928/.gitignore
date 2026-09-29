@@ -1,0 +1,9 @@
+data/
+sources/
+__pycache__/
+*.pyc
+*.pt
+*.pth
+outputs/*/predictions/
+outputs/*.log
+reports/pdf_preview/

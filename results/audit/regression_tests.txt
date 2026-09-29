@@ -1,0 +1,22 @@
+test_explicit_boundary_changes_loss (test_core.ScientificContracts.test_explicit_boundary_changes_loss) ... ok
+test_gabor_finite_and_l1 (test_core.ScientificContracts.test_gabor_finite_and_l1) ... ok
+test_invalid_masks_fail (test_core.ScientificContracts.test_invalid_masks_fail) ... ok
+test_logits_not_guessed_from_range (test_core.ScientificContracts.test_logits_not_guessed_from_range) ... ok
+test_loss_empty_full_and_extreme_gradients (test_core.ScientificContracts.test_loss_empty_full_and_extreme_gradients) ... ok
+test_loss_nonfinite_fails (test_core.ScientificContracts.test_loss_nonfinite_fails) ... ok
+test_mask_encodings (test_core.ScientificContracts.test_mask_encodings) ... ok
+test_native_metrics_and_empty_policy (test_core.ScientificContracts.test_native_metrics_and_empty_policy) ... ok
+test_residual_starts_as_exact_identity_on_image (test_core.ScientificContracts.test_residual_starts_as_exact_identity_on_image) ... ok
+test_rle_decode_column_major (test_core.ScientificContracts.test_rle_decode_column_major) ... ok
+test_sobel_and_gabor_preserve_same_image_channels (test_core.ScientificContracts.test_sobel_and_gabor_preserve_same_image_channels) ... ok
+test_split_leakage_fails (test_core.ScientificContracts.test_split_leakage_fails) ... ok
+test_uint16_is_not_truncated (test_core.ScientificContracts.test_uint16_is_not_truncated) ... ok
+test_uniform_sampler_is_disabled (test_core.ScientificContracts.test_uniform_sampler_is_disabled) ... ok
+test_bootstrap_reproducible (test_statistics.StatsContracts.test_bootstrap_reproducible) ... ok
+test_holm_monotonic (test_statistics.StatsContracts.test_holm_monotonic) ... ok
+test_identical_pairs (test_statistics.StatsContracts.test_identical_pairs) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.948s
+
+OK

@@ -1,0 +1,54 @@
+# config.yaml — Default hyperparameters
+# Override via CLI args in run_all_experiments.py
+
+training:
+  epochs: 200
+  batch_size: 4
+  accumulation_steps: 2       # effective batch = batch_size × this
+  learning_rate: 3.0e-4
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  patience: 30
+  ema_alpha: 0.9
+
+data:
+  image_size: 512
+  use_gabor_edge: true        # 4th channel
+  use_roi_crop: false         # ROI extraction
+  use_weighted_sampling: true
+
+model:
+  encoder: efficientnet-b7
+  decoder: UnetPlusPlus
+  decoder_channels: [256, 128, 64, 32, 16]
+  attention: scse
+
+loss:
+  type: stabilized            # stabilized | standard
+  dice_weight: 0.5
+  bce_weight: 0.3
+  tversky_weight: 0.2
+  tversky_alpha: 0.7          # FP penalty
+  tversky_beta: 0.3           # FN penalty
+
+gabor:
+  num_orientations: 8
+  num_scales: 3
+  kernel_size: 31
+  sigma: 5.0
+  gamma: 0.5
+
+augmentation:
+  horizontal_flip: 0.5
+  vertical_flip: 0.5
+  rotate90: 0.5
+  shift_scale_rotate:
+    shift: 0.1
+    scale: 0.15
+    rotate: 15
+    p: 0.5
+  brightness_contrast: 0.2
+  elastic:
+    alpha: 120
+    sigma: 9
+    p: 0.3

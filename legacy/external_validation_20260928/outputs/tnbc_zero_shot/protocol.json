@@ -1,0 +1,349 @@
+{
+  "dataset": "tnbc",
+  "n": 50,
+  "selected_before_evaluation": "Complete official test partition for BBBC038/039; all 50 images for TNBC v1.1; no exclusions",
+  "training_on_external_data": false,
+  "threshold": 0.5,
+  "prediction_resolution": "512x512 then bilinear probability resize to native dimensions",
+  "metric_space": "native pixels, foreground union",
+  "tta": false,
+  "boundary_tolerance_pixels": 2,
+  "empty_hd95_convention": "image diagonal if only one mask empty",
+  "bootstrap": "Descriptive image bootstrap, not source-cluster inference",
+  "python": "3.12.3",
+  "torch": "2.11.0+cu130",
+  "smp": "0.5.0",
+  "device": "NVIDIA GeForce RTX 5090",
+  "files": {
+    "TNBC_NucleiSegmentation.zip": "014bc1e08d6459be5508620ad219063a45179a1767b7caf84d64245d7f6cc5a3"
+  },
+  "checkpoints": {
+    "released_2d": {
+      "path": "/home/vdasoju/Desktop/breast-3d/data&code/configs/2d_configs/best_enhanced_model.pt",
+      "sha256": "870ce8a3b648fafa66a862956d95a4cbfdf8181670e477e7a9125ac4b7e2cd30"
+    },
+    "revised_2d_s0": {
+      "path": "/home/vdasoju/Desktop/breast-3d/data&code/outputs/revision/runs/proposed_s0/best.pt",
+      "sha256": "fad73e0a7c161414367e67a4002c59da20530128b2357ea3cbbe52c28847cd4e"
+    },
+    "cellpose_sam": {
+      "path": "/home/vdasoju/.cellpose/models/cpsam_v2",
+      "sha256": "0f1cc3f7ecdd8a037a57c6c48d9d8921391be4cbce3fa9f13c3e3a2e1253c667"
+    }
+  },
+  "cases": [
+    {
+      "id": "01_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_5",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_6",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "01_7",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "02_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "02_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "02_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "03_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "03_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "03_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "03_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "03_5",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_5",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_6",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_7",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "04_8",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "05_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "05_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "05_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "05_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "06_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "06_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "06_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "07_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "07_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "07_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "08_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "08_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "08_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "08_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_5",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "09_6",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "10_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "10_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "10_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "10_4",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "11_1",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "11_2",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    },
+    {
+      "id": "11_3",
+      "height": 512,
+      "width": 512,
+      "annotated_instances": -1
+    }
+  ],
+  "source_urls": {
+    "TNBC_NucleiSegmentation.zip": "https://zenodo.org/records/2579118/files/TNBC_NucleiSegmentation.zip?download=1"
+  },
+  "prediction_resolution_note": "512x512 and threshold 0.5 apply to the two author networks only; Cellpose/Otsu use native images",
+  "cellpose_settings": {
+    "flow_threshold": 0.4,
+    "cellprob_threshold": 0.0,
+    "normalize": true,
+    "do_3D": false,
+    "channel_axis": -1,
+    "augment": false
+  },
+  "otsu_settings": "Native grayscale; invert foreground if median border intensity exceeds Otsu threshold; no cleanup"
+}
