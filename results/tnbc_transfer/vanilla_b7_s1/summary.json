@@ -1,0 +1,26 @@
+{
+  "dataset": "tnbc",
+  "variant": "vanilla_b7",
+  "seed": 1,
+  "training": "BBBC039 official train only",
+  "selection": "BBBC039 validation only",
+  "note": "Cross-domain transfer, not in-domain TNBC training; no tuning on TNBC",
+  "checkpoint_sha256": "e5890156edabecac2058f93e25824400f9e3833fed9a9a6238da92d71ef68dd1",
+  "n": 50,
+  "seconds": 1.3228049278259277,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.08919668584794607,
+    "iou": 0.04795880102827632,
+    "boundary_f1_2px": 0.19531034604271472,
+    "surface_dice_2px": 0.19271101342174748,
+    "hd95_px": 89.2544992562411,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 5258.46,
+    "fp": 62271.16,
+    "fn": 27449.94
+  }
+}

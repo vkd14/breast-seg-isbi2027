@@ -1,0 +1,26 @@
+{
+  "variant": "residual_sobel_b7",
+  "seed": 0,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 14,
+  "best_val_dice": 0.9661894449666367,
+  "parameters": 68354511,
+  "initial_state_sha256": "c41da4bd9da63f1829ed98433c2f1088ac183a7636eee942b765303a8f7359eb",
+  "checkpoint_sha256": "87828f0e5aa86d6eb80f8fd626f865bab52aafdc21f35e8e1b4a879882581e19",
+  "protocol_sha256": "714a25dbbc7a5a1ef9646eca1ff41f8d8aa4a4bab7953f9aa697e06b967aaad4",
+  "seconds": 83.86478233337402,
+  "edge_gain": -0.0057361009530723095,
+  "mean": {
+    "dice": 0.9665161779173765,
+    "iou": 0.9352772343073792,
+    "boundary_f1_2px": 0.9868552894260916,
+    "surface_dice_2px": 0.9868476501115983,
+    "hd95_px": 1.3091168824543145,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 66161.74,
+    "fp": 1986.52,
+    "fn": 2557.1
+  }
+}

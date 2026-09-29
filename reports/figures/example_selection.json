@@ -1,0 +1,17 @@
+[
+  {
+    "quantile": 0.1,
+    "id": "IXMtest_F12_s8_w1DBD80811-5297-4415-ACD1-EC9286BE76A4",
+    "dice": 0.958655462184874
+  },
+  {
+    "quantile": 0.5,
+    "id": "IXMtest_E07_s1_w1641C6847-142B-463F-8B08-5B3296615572",
+    "dice": 0.968910071491283
+  },
+  {
+    "quantile": 0.9,
+    "id": "IXMtest_A16_s2_w15AF20A10-82AE-48FA-AC50-7AE8AC3AA544",
+    "dice": 0.9751197200392927
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "dataset": "tnbc",
+  "variant": "residual_gabor_boundary_b7",
+  "seed": 2,
+  "training": "BBBC039 official train only",
+  "selection": "BBBC039 validation only",
+  "note": "Cross-domain transfer, not in-domain TNBC training; no tuning on TNBC",
+  "checkpoint_sha256": "a043e59ed81f4d6c090630a1c33ba4e71aecc3e66a943f7d559d5c7eacc562fe",
+  "n": 50,
+  "seconds": 1.348785161972046,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.02181740726921416,
+    "iou": 0.011139264705134648,
+    "boundary_f1_2px": 0.08130392371617334,
+    "surface_dice_2px": 0.081169946659771,
+    "hd95_px": 97.3302142146933,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 523.16,
+    "fp": 10324.34,
+    "fn": 32185.24
+  }
+}

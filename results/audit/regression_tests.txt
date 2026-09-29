@@ -17,6 +17,6 @@ test_holm_monotonic (test_statistics.StatsContracts.test_holm_monotonic) ... ok
 test_identical_pairs (test_statistics.StatsContracts.test_identical_pairs) ... ok
 
 ----------------------------------------------------------------------
-Ran 17 tests in 0.948s
+Ran 17 tests in 0.293s
 
 OK

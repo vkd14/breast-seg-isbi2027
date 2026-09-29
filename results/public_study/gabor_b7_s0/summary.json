@@ -1,0 +1,25 @@
+{
+  "variant": "gabor_b7",
+  "seed": 0,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 14,
+  "best_val_dice": 0.9455833559913716,
+  "parameters": 68354510,
+  "initial_state_sha256": "65457af370ea2439ee7f403ebcdff37f6844df18e3d73fb0e1b19bb81f6c0abe",
+  "checkpoint_sha256": "271367805c46f1c08f440a93735ced1da512ba6ff261738d6a6d4e7f5a88d79f",
+  "protocol_sha256": "f817784dd40b87395d9085bb27707cce1817f487f2768971bec3343cdb28917c",
+  "seconds": 77.3661253452301,
+  "mean": {
+    "dice": 0.9671066265136212,
+    "iou": 0.9363933502838439,
+    "boundary_f1_2px": 0.9854367842805872,
+    "surface_dice_2px": 0.9854364015596272,
+    "hd95_px": 1.3188225099390858,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 66830.14,
+    "fp": 2623.26,
+    "fn": 1888.7
+  }
+}

@@ -16,6 +16,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--data',type=Path,required=True);a=p.parse_args()
     cv2.setNumThreads(1)
     cases={ds:{c['id']:c for c in load_external(a.data,ds)} for ds in ('bbbc039','bbbc038','tnbc')}
+    foreground_counts={ds:dict(images=len(cs),foreground=sum(bool(c['mask'].any()) for c in cs.values()),empty=sum(not c['mask'].any() for c in cs.values())) for ds,cs in cases.items()}
     tasks=[];nfiles=0
     for path in sorted((ROOT/'results').rglob('*per_image.csv')):
         if 'public_study' in path.parts or 'public_followup' in path.parts: ds='bbbc039'
@@ -52,7 +53,7 @@ def main():
             hashes={r['initial_state_sha256'] for r in runs if r['seed']==seed and r['variant'] in same}
             assert len(hashes)==1,('Initialization differs',study,seed)
         completed.append(dict(study=study,completed_runs=len(runs),test_predictions=len(runs)*50,initialization_pairing_verified=True))
-    result=dict(status='PASS',csv_files=nfiles,masks_recomputed=checked,studies=completed,
+    result=dict(status='PASS',csv_files=nfiles,masks_recomputed=checked,studies=completed,dataset_counts=foreground_counts,
         note='Software consistency checks do not establish biological independence or clinical validity.')
     (ROOT/'results/audit/result_validation.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
 

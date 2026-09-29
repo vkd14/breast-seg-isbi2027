@@ -1,0 +1,25 @@
+{
+  "variant": "vanilla_b7",
+  "seed": 2,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 11,
+  "best_val_dice": 0.9644135684360794,
+  "parameters": 68163553,
+  "initial_state_sha256": "987c0a2eebf5a4ad71956a0be7f043d333b692af8bdb32ec8f83878d255b89a9",
+  "checkpoint_sha256": "093aeb5d72d61d83bc6d2209d3b55260736b476d8fe84f6fa9535ce02ddfbac1",
+  "protocol_sha256": "f817784dd40b87395d9085bb27707cce1817f487f2768971bec3343cdb28917c",
+  "seconds": 56.89067506790161,
+  "mean": {
+    "dice": 0.9656042895253879,
+    "iou": 0.9336195532995564,
+    "boundary_f1_2px": 0.9840359223414491,
+    "surface_dice_2px": 0.9840113451996375,
+    "hd95_px": 1.365685424949238,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 66357.7,
+    "fp": 2279.66,
+    "fn": 2361.14
+  }
+}

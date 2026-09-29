@@ -12,7 +12,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import ndimage as ndi
-from breastseg.core import grayscale_uint8
+from breastseg.core import grayscale_uint8,Gabor
 from breastseg.external import load_external
 from breastseg.statistics import bootstrap_ci,paired,holm
 
@@ -80,6 +80,14 @@ def figures(out,cases):
         axs[1].bar(x+offset,a.mean(1)*100,w,yerr=a.std(1,ddof=1)*100,label=label,capsize=2)
     axs[1].set_xticks(x,labels,rotation=35,ha='right',fontsize=7);axs[1].set(ylabel='Test score (%)',ylim=(85,100),title='BBBC039 official test; mean ± seed SD')
     axs[1].legend(fontsize=8);axs[1].grid(axis='y',alpha=.15);fig.tight_layout();fig.savefig(dest/'learning_and_results.png',dpi=180);plt.close(fig)
+    fig,ax=plt.subplots(figsize=(3.4,2.35))
+    for offset,m,label in ((-w/2,'dice','Dice'),(w/2,'boundary_f1_2px','BF1 @ 2 px')):
+        a=np.array([d['values'][m].mean(1) for d in out.values()])
+        ax.bar(x+offset,a.mean(1)*100,w,yerr=a.std(1,ddof=1)*100,label=label,capsize=2)
+    ax.set_xticks(x,['V','G','G+B','A','RG','RS','RG+B'],fontsize=8)
+    ax.set_ylim(93,100);ax.set_ylabel('Test score (%)',fontsize=9);ax.tick_params(axis='y',labelsize=8)
+    ax.legend(fontsize=8,loc='lower right');ax.grid(axis='y',alpha=.15);fig.tight_layout(pad=.5)
+    fig.savefig(dest/'paper_results.pdf');fig.savefig(dest/'paper_results.png',dpi=220);plt.close(fig)
     # Representative cases are rank-selected, not manually picked for appearance.
     v='residual_gabor_b7';rows=sorted(out[v]['rows'][0],key=lambda r:float(r['dice']))
     chosen=[rows[int(round(q*(len(rows)-1)))] for q in (.1,.5,.9)]
@@ -96,6 +104,12 @@ def figures(out,cases):
     for ax,t in zip(axs[0],('Native fluorescence','Reference foreground','Residual Gabor prediction','Red: FP; blue: FN')):ax.set_title(t,fontsize=9)
     fig.tight_layout();fig.savefig(dest/'bbbc039_examples.png',dpi=160);plt.close(fig)
     (dest/'example_selection.json').write_text(json.dumps(selected,indent=2))
+    c=cases['bbbc039'][chosen[1]['id']];im=grayscale_uint8(c['image']);f=im.astype(np.float32)/255
+    sobel=cv2.magnitude(cv2.Sobel(f,cv2.CV_32F,1,0),cv2.Sobel(f,cv2.CV_32F,0,1))
+    fig,axs=plt.subplots(1,4,figsize=(11,3))
+    for ax,img,title in zip(axs,(im,Gabor()(im),sobel,c['mask']),('Actual input','Gabor response (24 filters)','Sobel magnitude','Reference foreground')):
+        ax.imshow(img,cmap='gray');ax.set_title(title,fontsize=9);ax.axis('off')
+    fig.tight_layout();fig.savefig(dest/'actual_edge_features.png',dpi=180);plt.close(fig)
     tr=readcsv(ROOT/'results/tnbc_transfer/residual_gabor_b7_s0/per_image.csv');tr.sort(key=lambda r:float(r['dice']));r=tr[len(tr)//2];c=cases['tnbc'][r['id']]
     pred=cv2.imread(str(ROOT/'results/tnbc_transfer/residual_gabor_b7_s0/predictions'/f"{r['id']}.png"),0)>0
     fig,axs=plt.subplots(1,3,figsize=(9,3));axs[0].imshow(c['image']);axs[1].imshow(c['mask'],cmap='gray');axs[2].imshow(pred,cmap='gray')
@@ -178,15 +192,20 @@ def main():
     writecsv(ROOT/'results/legacy_external_summary.csv',legacy)
     mech=[]
     for r in stats:
-        if r['dataset']=='bbbc039' and r['metric']=='dice' and (r['a'],r['b']) in [('gabor_boundary_b7','gabor_b7'),('residual_gabor_b7','scse_b7'),('residual_gabor_b7','residual_sobel_b7'),('residual_gabor_boundary_b7','residual_gabor_b7')]:
+        if r['dataset']=='bbbc039' and r['metric']=='dice' and (r['a'],r['b']) in [('gabor_b7','vanilla_b7'),('gabor_boundary_b7','gabor_b7'),('residual_gabor_b7','scse_b7'),('residual_gabor_b7','residual_sobel_b7'),('residual_gabor_boundary_b7','residual_gabor_b7')]:
             mech.append(f"{LABELS[r['a']]} versus {LABELS[r['b']]}: Dice difference {r['mean_difference']*100:+.3f} percentage points, paired image-bootstrap interval [{r['ci_low']*100:+.3f}, {r['ci_high']*100:+.3f}], Holm-adjusted p={r['p_holm']:.4g}.")
     vals=dict(PUBLIC_TABLE=public.strip(),TRANSFER_TABLE=transfer.strip(),FROZEN_TABLE=frozen.strip(),MECHANISTIC='\n\n'.join(mech),
         VANILLA_DICE=f"{100*by['vanilla_b7']['dice']:.2f}",GABOR_DICE=f"{100*by['gabor_b7']['dice']:.2f}",BOUNDARY_DICE=f"{100*by['gabor_boundary_b7']['dice']:.2f}",
         RESIDUAL_DICE=f"{100*by['residual_gabor_b7']['dice']:.2f}",RESIDUAL_TNBC=f"{100*by['residual_gabor_b7']['tnbc_patient_dice']:.2f}",
+        GABOR_TNBC=f"{100*by['gabor_b7']['tnbc_patient_dice']:.2f}",
         BEST_VAL_MODEL=best_val['label'],BEST_VAL_DICE=f"{100*best_val['dice']:.2f}",TEX_ROWS='\n'.join(texrows),
         TOTAL_RUNS='21',TOTAL_EPOCHS='420',LEGACY_EVALUATIONS=str(len(legacy)),
         MEAN_GAIN=f"{100*(by['residual_gabor_b7']['dice']-by['gabor_b7']['dice']):+.2f}",
         VS_VANILLA=f"{100*(by['residual_gabor_b7']['dice']-by['vanilla_b7']['dice']):+.2f}")
+    primary=next(r for r in stats if r['dataset']=='bbbc039' and r['a']=='gabor_b7' and r['b']=='vanilla_b7' and r['metric']=='dice')
+    mantissa,exponent=f"{primary['p_holm']:.2e}".split('e')
+    vals.update(GABOR_DELTA=f"{primary['mean_difference']*100:.3f}",GABOR_CI_LOW=f"{primary['ci_low']*100:.3f}",
+        GABOR_CI_HIGH=f"{primary['ci_high']*100:.3f}",GABOR_P_TEX=mantissa+'\\times10^{'+str(int(exponent))+'}')
     (ROOT/'results/report_values.json').write_text(json.dumps(vals,indent=2))
     for template in (ROOT/'reports/meeting_report.md.in',ROOT/'paper/first_draft.md.in',ROOT/'paper/first_draft_isbi.tex.in'):
         text=template.read_text()

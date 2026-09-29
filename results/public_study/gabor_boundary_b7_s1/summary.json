@@ -1,0 +1,25 @@
+{
+  "variant": "gabor_boundary_b7",
+  "seed": 1,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 15,
+  "best_val_dice": 0.9677952640417441,
+  "parameters": 68354510,
+  "initial_state_sha256": "201df3d04d1adc8b0e6c9ae5ce54dfbe09e4a4b3d2934f647abf2f57f180f49d",
+  "checkpoint_sha256": "cc609d6b0eeb5f142d60ae6abecbebe4ef2f2ecb2245f22c9cae48f76ef51f4e",
+  "protocol_sha256": "f817784dd40b87395d9085bb27707cce1817f487f2768971bec3343cdb28917c",
+  "seconds": 77.90913915634155,
+  "mean": {
+    "dice": 0.9685018146213751,
+    "iou": 0.9390101521496688,
+    "boundary_f1_2px": 0.9866270301390891,
+    "surface_dice_2px": 0.9866145899814405,
+    "hd95_px": 1.249116882454314,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 66759.08,
+    "fp": 2326.78,
+    "fn": 1959.76
+  }
+}

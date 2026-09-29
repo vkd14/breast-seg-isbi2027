@@ -1,0 +1,26 @@
+{
+  "variant": "residual_gabor_boundary_b7",
+  "seed": 1,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 15,
+  "best_val_dice": 0.9636212527975454,
+  "parameters": 68354511,
+  "initial_state_sha256": "6f8333fbfec92dfa45c8a8515a66a6143ffc7ea6a578b316666dd7c978fee34d",
+  "checkpoint_sha256": "c207cbfa897023137ac26f922ae49e9ae0580f1235a11c08f9bf015d2a5a2dfc",
+  "protocol_sha256": "714a25dbbc7a5a1ef9646eca1ff41f8d8aa4a4bab7953f9aa697e06b967aaad4",
+  "seconds": 75.61821508407593,
+  "edge_gain": 0.007487769704312086,
+  "mean": {
+    "dice": 0.962985763971097,
+    "iou": 0.9287818347879978,
+    "boundary_f1_2px": 0.9828227270014784,
+    "surface_dice_2px": 0.9828057321646149,
+    "hd95_px": 1.3374011537017763,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 65404.76,
+    "fp": 1553.48,
+    "fn": 3314.08
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "variant": "scse_b7",
+  "seed": 1,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 17,
+  "best_val_dice": 0.9591789058995503,
+  "parameters": 68352683,
+  "initial_state_sha256": "05fb903c7627ecf98c1e017367012a7911374f5c94f1ca4fee066ab162383230",
+  "checkpoint_sha256": "5352f9122bda47296b237198a1b5b26cfc18dd68aba628aca6341e0b07cd55b9",
+  "protocol_sha256": "714a25dbbc7a5a1ef9646eca1ff41f8d8aa4a4bab7953f9aa697e06b967aaad4",
+  "seconds": 77.65341234207153,
+  "edge_gain": null,
+  "mean": {
+    "dice": 0.9577571544283038,
+    "iou": 0.919089940149634,
+    "boundary_f1_2px": 0.9799410103133027,
+    "surface_dice_2px": 0.9798907760926646,
+    "hd95_px": 1.5107135789365267,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 64460.34,
+    "fp": 1266.02,
+    "fn": 4258.5
+  }
+}

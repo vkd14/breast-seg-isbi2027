@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Computational efficiency comparison (512$\times$512 input).}
+\label{tab:efficiency}
+\begin{tabular}{lcc}
+\toprule
+Method & Params (M) & FPS \\
+\midrule
+Proposed (EfficientNet-B7 / UNet++ / SCS & 68.4 & 22.4 \\
+Vanilla U-Net (ResNet-34) & 24.4 & 172.8 \\
+U-Net (ResNet-50) & 32.5 & 124.8 \\
+UNet++ (ResNet-50) & 49.0 & 35.2 \\
+Attention U-Net (ResNet-50, SCSE) & 33.8 & 104.2 \\
+DeepLabV3+ (ResNet-50) & 26.7 & 143.1 \\
+MA-Net (ResNet-50) & 147.4 & 77.7 \\
+FPN (ResNet-50) & 26.1 & 154.3 \\
+Ours w/o SCSE attention & 68.2 & 25.8 \\
+Ours w/ U-Net (not UNet++) & 67.2 & 30.4 \\
+\bottomrule
+\end{tabular}
+\end{table}

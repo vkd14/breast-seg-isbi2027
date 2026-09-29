@@ -1,0 +1,25 @@
+{
+  "dataset": "tnbc",
+  "source_version": "older",
+  "experiment": "sota_manet_resnet50",
+  "checkpoint_epoch": 131,
+  "note": "Frozen historical private-trained checkpoint; training budgets and private splits not independently verified; not a matched-budget SOTA comparison",
+  "checkpoint_sha256": "74736291c05d2e5628d590d9246ca436828d9e84c2d4ca64ed9f0735785ef848",
+  "n": 50,
+  "seconds": 1.3530077934265137,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.21031713794029497,
+    "iou": 0.12441609074428495,
+    "boundary_f1_2px": 0.056833281033817344,
+    "surface_dice_2px": 0.056372443554857155,
+    "hd95_px": 196.61702607106184,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 32587.08,
+    "fp": 229273.56,
+    "fn": 121.32
+  }
+}

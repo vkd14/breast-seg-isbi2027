@@ -1,0 +1,50 @@
+{
+  "torch": "2.11.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "protocol_sha256": "714a25dbbc7a5a1ef9646eca1ff41f8d8aa4a4bab7953f9aa697e06b967aaad4",
+  "config": {
+    "dataset": "BBBC039v1 official split",
+    "train_images": 100,
+    "validation_images": 50,
+    "test_images": 50,
+    "variants": [
+      "scse_b7",
+      "residual_gabor_b7",
+      "residual_sobel_b7",
+      "residual_gabor_boundary_b7"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 20,
+    "batch_size": 8,
+    "image_size": 512,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "optimizer": "AdamW",
+    "schedule": "20-epoch cosine decay to 1% of initial learning rate; no early stopping",
+    "augmentation": "uniform rotations by multiples of 90 degrees and horizontal flip with probability 0.5",
+    "precision": "bfloat16 autocast with float32 loss; gradient norm checked for finiteness",
+    "loss": "0.5 samplewise Dice + 0.5 BCE; boundary variant adds 0.1 morphological boundary Dice",
+    "sampling": "uniform for every variant",
+    "initialization": "ImageNet encoder; SCSE in all follow-up variants. Residual x_RGB + tanh(gain)*projection([x_RGB,edge]), scalar gain initialized to zero. Gabor and Sobel residual variants have identical initial weights within each seed.",
+    "selection": "highest complete native-grid validation mean Dice; no outlier exclusion or metric EMA",
+    "test_threshold": 0.5,
+    "tta": false,
+    "status": "Exploratory follow-up designed after inspecting seed-0 initial-study results. Same split and budget. Not independent confirmation; no within-run test-based selection. No novelty or superiority claim is prespecified."
+  },
+  "archives": {
+    "masks.zip": "f9e6043d8ca56344a4886f96a700d804d6ee982f31e2b2cd3194af2a053c2710",
+    "images.zip": "6f30a5d4fe38c928ded972704f085975f8dc0d65d9aa366df00e5a9d449fddd7",
+    "metadata.zip": "a2c1f900bed9ba92a99553efd4c2ae98598433691c7401d818653ab61110deb2"
+  },
+  "code_sha256": {
+    "scripts/train_public_study.py": "ae0235f581306d9f89e88bece5265960d6f71782469afe51018c361cfbd99b36",
+    "src/breastseg/core.py": "7f75f6105ac427bb8aca48c1327e406a69da6aca9a842d810dd72eefb1a458bb",
+    "src/breastseg/data.py": "5fd88638e83ea230b526c0b0de389b07316d1c7da36f1ee2a4e771097e8e89f1"
+  }
+}

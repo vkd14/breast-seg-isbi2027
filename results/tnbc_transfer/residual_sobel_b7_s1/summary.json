@@ -1,0 +1,26 @@
+{
+  "dataset": "tnbc",
+  "variant": "residual_sobel_b7",
+  "seed": 1,
+  "training": "BBBC039 official train only",
+  "selection": "BBBC039 validation only",
+  "note": "Cross-domain transfer, not in-domain TNBC training; no tuning on TNBC",
+  "checkpoint_sha256": "0ed3cbdb28022a049da8afb570bf7a6622e12903ec7cdb85533770215e6102e2",
+  "n": 50,
+  "seconds": 1.2713675498962402,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.024154489435395842,
+    "iou": 0.01244725859280518,
+    "boundary_f1_2px": 0.06080688495785805,
+    "surface_dice_2px": 0.06012164208416856,
+    "hd95_px": 86.81216335993933,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 485.0,
+    "fp": 1774.26,
+    "fn": 32223.4
+  }
+}

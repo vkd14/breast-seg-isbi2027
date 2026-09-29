@@ -1,0 +1,1 @@
+Saved native-grid nuclear foreground mask: .tools/real_image_smoke.png; variant=gabor_b7; threshold=0.5; no TTA

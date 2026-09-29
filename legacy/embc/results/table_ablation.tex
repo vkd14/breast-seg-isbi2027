@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\caption{Ablation study: contribution of each proposed component.}
+\label{tab:ablation}
+\begin{tabular}{lcc}
+\toprule
+Configuration & Dice (\%) & $\Delta$ \\
+\midrule
+\textbf{Proposed (EfficientNet-B7 / UNet++ / SCSE / Gabor / Stabilized Loss)} & \textbf{94.1 $\pm$ 5.1} & --- \\
+Ours w/o Gabor edge channel (3-ch input) & 83.0 $\pm$ 18.9 & -11.1 \\
+Ours w/ plain U-Net decoder (not UNet++) & 3.5 $\pm$ 6.5 & -90.6 \\
+Ours w/o complexity-weighted sampling & 1.8 $\pm$ 4.1 & -92.3 \\
+Ours w/ standard Dice+BCE loss (no stabilisation) & 0.5 $\pm$ 1.4 & -93.7 \\
+Ours w/o SCSE decoder attention & 0.1 $\pm$ 0.3 & -94.1 \\
+\bottomrule
+\end{tabular}
+\end{table}

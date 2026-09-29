@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Comparison with state-of-the-art segmentation methods on the breast cell nucleus test set (100 images).}
+\label{tab:sota}
+\begin{tabular}{lcccc}
+\toprule
+Method & Dice (\%) & IoU (\%) & Precision & Recall \\
+\midrule
+\textbf{Proposed (EfficientNet-B7 / UNet++ / SCSE / Gabor / Stabilized Loss)} & \textbf{94.1 $\pm$ 5.1} & \textbf{89.2} & \textbf{0.936} & \textbf{0.952} \\
+FPN (ResNet-50) & 83.6 $\pm$ 15.5 & 73.9 & 0.886 & 0.834 \\
+DeepLabV3+ (ResNet-50) & 72.3 $\pm$ 28.5 & 62.6 & 0.853 & 0.751 \\
+Vanilla U-Net (ResNet-34) & 47.9 $\pm$ 31.0 & 36.9 & 0.988 & 0.376 \\
+Attention U-Net (ResNet-50, SCSE) & 44.0 $\pm$ 35.6 & 35.1 & 0.974 & 0.365 \\
+MA-Net (ResNet-50) & 19.0 $\pm$ 18.7 & 11.8 & 0.987 & 0.119 \\
+U-Net (ResNet-50) & 12.0 $\pm$ 13.7 & 7.0 & 0.956 & 0.071 \\
+UNet++ (ResNet-50) & 8.3 $\pm$ 12.6 & 4.8 & 0.954 & 0.049 \\
+\bottomrule
+\end{tabular}
+\end{table}

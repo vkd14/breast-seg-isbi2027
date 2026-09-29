@@ -1,5 +1,7 @@
 \documentclass{article}
+\usepackage[T1]{fontenc}
 \usepackage{template/spconf,amsmath,graphicx,booktabs,url}
+\setlength{\emergencystretch}{2em}
 \title{Auditing and Extending Edge-Enhanced Nucleus Segmentation:\\Matched-Budget Learning and Breast Histology Transfer}
 \name{Varun Kumar Dasoju$^{1}$, Qingsu Cheng$^{2}$, and Zeyun Yu$^{1}$}
 \address{University of Wisconsin--Milwaukee, Milwaukee, WI, USA\\
@@ -8,7 +10,7 @@ $^{1}$Department of Computer Science; $^{2}$Department of Biomedical Engineering
 \begin{document}
 \maketitle
 \begin{abstract}
-Edge-enhanced nuclear segmentation promises annotation-efficient microscopy analysis, but improvements require fair controls and cross-domain evaluation. We revisit a mammary epithelial nucleus pipeline combining multiscale Gabor features, EfficientNet-B7/UNet++, attention, and a learned input projection. An implementation audit motivates stable preprocessing, complete validation, and explicit boundary evaluation. Seven configurations are compared across three seeds on the official BBBC039 split and transferred to breast histology. Vanilla B7, the Gabor bundle, and identity-preserving residual Gabor fusion achieve {{VANILLA_DICE}}\%, {{GABOR_DICE}}\%, and {{RESIDUAL_DICE}}\% mean test Dice. Residual fusion achieves {{RESIDUAL_TNBC}}\% patient-macro Dice on TNBC without histology training. Earlier private and volumetric results remain provenance-limited context. The study separates within-domain segmentation from unsupported claims of broad generalization, instance separation, or clinical cancer detection. Independent confirmation remains necessary.
+Edge-enhanced nuclear segmentation promises annotation-efficient microscopy analysis, but improvements require fair controls and cross-domain evaluation. We revisit a mammary epithelial nucleus pipeline using Gabor features, an EfficientNet-B7 encoder, UNet++, attention and a learned input projection. An implementation audit motivates stable preprocessing, complete validation and explicit boundary evaluation. Seven configurations are compared across three seeds on the official BBBC039 split and transferred to breast histology. Vanilla B7 and the Gabor bundle achieve {{VANILLA_DICE}}\% and {{GABOR_DICE}}\% mean test Dice. An identity-preserving residual alternative reaches {{RESIDUAL_DICE}}\%, without improving the Gabor bundle. That bundle achieves only {{GABOR_TNBC}}\% patient-macro Dice on TNBC without histology training. Earlier private and volumetric results remain provenance-limited context. These findings support a small within-domain gain but not broad generalization, instance-separation superiority or clinical cancer detection. Independent confirmation remains necessary.
 \end{abstract}
 \begin{keywords}
 Nucleus segmentation, Gabor features, reproducibility, boundary evaluation, domain shift
@@ -18,7 +20,7 @@ Nucleus segmentation, Gabor features, reproducibility, boundary evaluation, doma
 \label{sec:intro}
 This work continues a project on annotation-limited mammary epithelial nuclear segmentation. Its original design combines oriented Gabor features with a pretrained EfficientNet-B7 encoder, a nested UNet++ decoder, and spatial/channel squeeze-and-excitation (SCSE). The relevant question is whether these additions improve a well-trained control and transfer to independently sourced images, rather than whether a complex pipeline exceeds weak historical baselines.
 
-U-Net introduced an effective encoder--decoder with skip connections~\cite{unet}, UNet++ developed nested decoding~\cite{unetpp}, and EfficientNet provides compound-scaled pretrained encoders~\cite{effnet}. Cross-experiment nucleus benchmarks emphasize imaging diversity~\cite{dsb}. Cellpose-SAM is a strong off-the-shelf reference~\cite{cpsam}, although pretraining overlap and data budgets can differ. Breast histology introduces stain and tissue-context shifts~\cite{naylor}. A high overlap score on private slices therefore does not establish cancer-detection performance.
+U-Net introduced an effective encoder--decoder with skip connections~\cite{unet}, UNet++ developed nested decoding~\cite{unetpp}, and EfficientNet provides compound-scaled pretrained encoders~\cite{effnet}. Cross-experiment nucleus benchmarks emphasize imaging diversity~\cite{dsb}. Cellpose-SAM is an off-the-shelf reference~\cite{cpsam}; recent microscopy foundation models also include $\mu$SAM~\cite{microsam} and CellSAM~\cite{cellsam}, which are not newly evaluated here. Their pretraining and task-specific adaptation must be distinguished from matched-data learning. Breast histology introduces stain and tissue-context shifts~\cite{naylor}. High overlap on private slices therefore does not establish cancer-detection performance.
 
 We retain the original method and its 2D-to-3D progression while auditing its evidence. Our contributions are an auditable implementation, matched-budget controls separating projection, attention, edge choice and boundary loss, and complete public-data transfer evaluation including failures. Zero-initialized residual edge fusion is tested as an engineering hypothesis, not asserted as a uniquely novel architecture. The experiments are exploratory because prior public test results informed development; checkpoints within each run are selected only on validation data.
 
@@ -69,25 +71,27 @@ Seed SD describes run variation. For paired inference, seed scores are averaged 
 \centering\small
 \caption{New public training: three-seed means. Dice shows seed SD. BF1 uses two native pixels. TNBC is patient-macro transfer, not histology-trained performance.}
 \label{tab:main}
-\begin{tabular}{@{}lrrr@{}}\toprule
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lrrr@{}}\toprule
 Model & Dice (\%) & BF1 (\%) & TNBC (\%)\\\midrule
 {{TEX_ROWS}}
-\bottomrule\end{tabular}
+\bottomrule\end{tabular}}
 \end{table}
 
 \subsection{Matched public training and transfer}
 Table~\ref{tab:main} reports all seven configurations (21 runs, 420 epochs). Residual Gabor changes Dice by {{MEAN_GAIN}} percentage points relative to the original random-projection Gabor bundle and {{VS_VANILLA}} points relative to vanilla B7. The configuration with the highest mean selected-validation score is {{BEST_VAL_MODEL}}, yielding {{BEST_VAL_DICE}}\% test Dice; this is not selection of the highest test score. Full per-image metrics, learning curves and adjusted comparisons accompany the research package.
 
+Gabor versus vanilla gives a {{GABOR_DELTA}}-percentage-point Dice difference (descriptive paired-field bootstrap 95\% interval [{{GABOR_CI_LOW}}, {{GABOR_CI_HIGH}}]; $p_{\mathrm{Holm}}={{GABOR_P_TEX}}$). This small within-screen effect is not an acquisition-level confidence statement or proof of clinical value; paired field inference averages seeds and does not capture a large population of training runs.
+
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{../reports/figures/learning_and_results.png}
-\caption{Complete mean validation curves and native-grid test results. Shading/error bars describe seed variation, not acquisition-level generalization. Full-size figures are in the meeting report.}
+\includegraphics[width=\columnwidth]{../reports/figures/paper_results.pdf}
+\caption{Native-grid BBBC039 test scores. V: vanilla; G: Gabor; B: boundary loss; A: SCSE-only; RG/RS: residual Gabor/Sobel. Error bars are seed SD; truncated vertical scale shows small differences. Complete learning curves are retained in the research package.}
 \label{fig:curves}
 \end{figure}
 
 All new checkpoints are also evaluated on the complete TNBC set without adaptation. Residual Gabor reaches {{RESIDUAL_TNBC}}\% patient-macro Dice. Grayscale fluorescence training and H\&E breast histology differ substantially; this is a domain-transfer stress test, not a matched histology-training leaderboard. The data do not establish cancer diagnosis or pathologist-validated morphometry.
 
-The earlier released/revised checkpoints score 32.66/71.67\% Dice on BBBC038, 92.04/91.58\% on BBBC039 and 21.08/17.55\% on TNBC (image-macro). Cellpose-SAM scores 87.02/96.95/82.13\%, respectively, as an off-the-shelf reference with unresolved pretraining overlap. Otsu scores 75.45/94.79/42.75\%. These frozen-model results are not merged with new training or patient-macro aggregation. An additional audit evaluates all 24 supplied historical checkpoints on all three complete partitions; failures and weak outcomes are retained rather than omitted. Historical unequal training cannot establish method superiority.
+The earlier released and revised checkpoints score 32.66 and 71.67\% Dice on BBBC038, 92.04 and 91.58\% on BBBC039, and 21.08 and 17.55\% on TNBC (image-macro). Cellpose-SAM scores 87.02, 96.95 and 82.13\%, respectively, as an off-the-shelf reference with unresolved pretraining overlap. Otsu scores 75.45, 94.79 and 42.75\%. These frozen-model results are not merged with new training or patient-macro aggregation. An additional audit evaluates all 24 supplied historical checkpoints on all three complete partitions; failures and weak outcomes are retained rather than omitted. Historical unequal training cannot establish method superiority.
 
 \subsection{Original private and exploratory 3D results}
 The previous corrected private study reports group-macro Dice 0.9312 for the full model, 0.9349 for vanilla B7, 0.9320 for U-Net ResNet-50 and 0.9366 for a plain Dice+BCE ablation, without a significant full-model advantage after multiplicity correction. Its Gabor sensitivity and smaller-encoder controls remain in the extended package, subject to unresolved biological source groups.
@@ -97,12 +101,14 @@ Existing volumetric work evaluates 334 annotated planes from eight traceable sta
 \section{Discussion and conclusion}
 The original edge-enhanced method is preserved while its evidence is made more auditable. Architectural controls, complete validation and explicit boundary metrics distinguish possible improvements from evaluation artifacts. A residual input path addresses the concern that random projection changes the input distribution of a pretrained encoder; its value must still be judged against attention-only and alternative-edge controls. The boundary term likewise requires measured benefit, not a claim inferred from its name.
 
+The Gabor bundle modestly exceeds vanilla under matched training, but residual fusion does not improve that bundle and the added boundary term does not establish a Dice gain over it. Cellpose-SAM's 96.95\% BBBC039 Dice remains above the Gabor mean, with unequal pretraining. The new architecture therefore should not replace the original on the assumption that added complexity is beneficial.
+
 Limitations include a single chemical-screen acquisition, three seeds, a short fixed training budget, prior test exposure, no full public data-efficiency curve, and unresolved private annotation/source metadata. Existing private Gabor/encoder sweeps require public-protocol replication. Binary foreground masks do not support instance-AP or split/merge conclusions. Neither within-screen significance nor a zero-initialized residual design establishes unique algorithmic novelty or clinical utility.
 
 The next decisive experiment is patient-separated histology adaptation followed by a genuinely unexamined breast cohort, with a prespecified endpoint and matched modern baselines. Public code, permissible weights and source manifests are necessary for independent reproduction. The present result is a controlled continuation of the original 2D project with a bounded 3D extension, not a guaranteed state-of-the-art or clinical claim.
 
 \section{Compliance with ethical standards}
-\textbf{Author completion required.} BBBC038/039 are CC0 and TNBC is CC BY 4.0. Public licensing does not determine institutional ethics requirements. Authors must confirm public-reuse and original cell-line ethics/exemption wording, annotation provenance, private-data permissions and any applicable approval identifiers. This draft is not ready for submission until those statements are completed.
+\textbf{Author completion required.} BBBC038/039 are CC0 and TNBC is CC BY 4.0. Public licensing does not determine institutional ethics requirements. Authors must confirm public-reuse and original cell-line ethics or exemption wording, annotation provenance, private-data permissions and any applicable approval identifiers. This draft is not ready for submission until those statements are completed.
 
 \section{Acknowledgments and availability}
 \textbf{Author completion required:} authorship approval, funding and competing interests. Working code and result tables: \url{https://github.com/vkd14/breast-seg-isbi2027} (initially private; unrestricted release and weight archiving pending). Draft disclosure: OpenAI Codex assisted with code auditing, experimental scripting, analysis and methods/results/discussion drafting. Authors must independently validate all content. Figures use actual data and predictions, not generated microscopy imagery.
@@ -112,8 +118,10 @@ The next decisive experiment is patient-separated histology adaptation followed 
 \bibitem{unetpp} Z. Zhou et al., ``UNet++: A nested U-Net architecture for medical image segmentation,'' in \emph{DLMIA}, 2018.
 \bibitem{effnet} M. Tan and Q. Le, ``EfficientNet: Rethinking model scaling for convolutional neural networks,'' in \emph{ICML}, 2019.
 \bibitem{dsb} J. C. Caicedo et al., ``Nucleus segmentation across imaging experiments: the 2018 Data Science Bowl,'' \emph{Nature Methods}, 2019, doi:10.1038/s41592-019-0612-7.
-\bibitem{cpsam} ``Cellpose-SAM,'' \emph{bioRxiv}, 2025, doi:10.1101/2025.04.28.651001. Evaluated checkpoint: cpsam\_v2.
+\bibitem{cpsam} M. Pachitariu, M. Rariden, and C. Stringer, ``Cellpose-SAM: superhuman generalization for cellular segmentation,'' \emph{bioRxiv}, 2025, doi:10.1101/2025.04.28.651001. Evaluated checkpoint: cpsam\_v2.
 \bibitem{naylor} P. Naylor et al., ``Segmentation of nuclei in histopathology images by deep regression of the distance map,'' \emph{IEEE TMI}, 2019, doi:10.1109/TMI.2018.2865709. Data: doi:10.5281/zenodo.2579118.
 \bibitem{bbbc} Broad Bioimage Benchmark Collection, ``BBBC039v1: Nuclei of U2OS cells in a chemical screen,'' \url{https://bbbc.broadinstitute.org/BBBC039}.
+\bibitem{microsam} A. Archit et al., ``Segment Anything for Microscopy,'' \emph{Nature Methods}, vol. 22, pp. 579--591, 2025, doi:10.1038/s41592-024-02580-4.
+\bibitem{cellsam} M. Marks et al., ``CellSAM: a foundation model for cell segmentation,'' \emph{Nature Methods}, vol. 22, pp. 2585--2593, 2025, doi:10.1038/s41592-025-02879-w.
 \end{thebibliography}
 \end{document}

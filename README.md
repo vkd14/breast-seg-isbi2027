@@ -4,7 +4,10 @@ New working repository, created 29 September 2026. This is an experimental resea
 
 ## Start here
 
-- `reports/meeting_report.pdf`: measured progress, comparisons, and decisions for the professor meeting (generated after the experiment queue finishes).
+- `reports/consolidated_progress_report.pdf`: the full story from the Scientific Reports rejection to the current measurements, with every figure. **Start here.**
+- `reports/changes_log.pdf`: itemised list of every protocol correction, code defect fixed, claim withdrawn, and experiment run, plus remaining blockers.
+- `reports/prediction_samples.pdf`: qualitative predictions on the private confocal data, public BBBC039, and TNBC breast histology.
+- `reports/meeting_report.pdf`: measured progress, comparisons, and decisions for the professor meeting.
 - `paper/first_draft.pdf`: first research manuscript draft, with limitations and author-completion items.
 - `reports/code_audit.md`: findings that affect the old manuscript's validity.
 - `reports/reviewer_action_matrix.md`: every Scientific Reports concern mapped to evidence or remaining work.
@@ -16,7 +19,7 @@ New working repository, created 29 September 2026. This is an experimental resea
 
 `src/breastseg/` is the corrected active implementation. `scripts/` contains training, audit, evaluation, validation and report generation. `tests/` holds scientific regression tests. `legacy/embc_latest/` is the newer nested export; `legacy/embc/` is the older top-level export. The archives are historical evidence and contain known problems; do not run them as the new default. `legacy/scientific_reports_revision/` and `legacy/external_validation_20260928/` preserve the preceding audit and public-data results.
 
-Raw images, private data, and checkpoints are excluded from Git. Public datasets are downloadable from their providers. Local checkpoints are under `checkpoints/`; their hashes are in run summaries. Private training data are not silently republished. Repository visibility is initially private so collaborators can review data rights, authorship and disclosures before public release. A private repository does **not** resolve the reviewer's public reproducibility requirement.
+Raw images, private data, checkpoints and full prediction-mask directories are excluded from Git. Public datasets are downloadable from their providers. Local checkpoints are under `checkpoints/`; their hashes are in run summaries. All 6,060 new evaluated masks are retained locally under each result directory's `predictions/` folder; per-image scores and representative figures are committed. Private training data are not silently republished. Repository visibility is initially private so collaborators can review data rights, authorship and disclosures before public release. A private repository does **not** resolve the reviewer's public reproducibility requirement.
 
 ## Reproduce
 
@@ -24,6 +27,7 @@ Use Python 3.10+ and a CUDA-compatible PyTorch installation. The recorded run en
 
 ```bash
 python -m unittest discover -s tests -v
+python scripts/status.py
 python scripts/download_public_data.py
 python scripts/train_public_study.py --data data/bbbc039
 python scripts/train_public_study.py --data data/bbbc039 --config configs/public_followup.json --study public_followup
@@ -31,6 +35,8 @@ python scripts/evaluate_external.py --data data --new-only
 python scripts/validate_results.py --data data
 python scripts/build_reports.py --data data
 ```
+
+Compile the official-template draft from the `paper/` directory using `tectonic first_draft_isbi.tex` or a suitable LaTeX installation. `bash scripts/finalize.sh /path/to/python data` runs tests, saved-mask validation and document generation in order. This script does not commit or submit anything. For a new image, use `python scripts/predict.py --checkpoint checkpoints/public_study/gabor_b7_s0/best.pt --image /path/to/image.tif --output /path/to/new_mask.png`. It refuses to overwrite an existing output.
 
 Training downloads ImageNet encoder weights using segmentation-models-pytorch. Do not change a protocol under a completed run name. Completed runs are skipped only when the protocol hash matches; partial runs stop for inspection rather than silently restarting. Checkpoint loading is strict. The training script uses full validation sets, fixed epochs and a fixed threshold, and evaluates the test partition only after validation-based checkpoint selection. All results are exploratory because earlier test results had already been inspected.
 

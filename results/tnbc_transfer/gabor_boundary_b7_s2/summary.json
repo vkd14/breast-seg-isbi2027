@@ -1,0 +1,26 @@
+{
+  "dataset": "tnbc",
+  "variant": "gabor_boundary_b7",
+  "seed": 2,
+  "training": "BBBC039 official train only",
+  "selection": "BBBC039 validation only",
+  "note": "Cross-domain transfer, not in-domain TNBC training; no tuning on TNBC",
+  "checkpoint_sha256": "456043363481773d48ba242e115d5d60cfc1b95093d99c42e46cafd1a7df3641",
+  "n": 50,
+  "seconds": 1.2564053535461426,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.01180661725164579,
+    "iou": 0.005977978410743049,
+    "boundary_f1_2px": 0.08789330361848435,
+    "surface_dice_2px": 0.08861865399188852,
+    "hd95_px": 96.90439530098683,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 225.72,
+    "fp": 2450.84,
+    "fn": 32482.68
+  }
+}

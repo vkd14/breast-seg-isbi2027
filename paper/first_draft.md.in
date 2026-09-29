@@ -4,7 +4,7 @@ Varun Kumar Dasoju, Qingsu Cheng, and Zeyun Yu — University of Wisconsin–Mil
 
 ## Abstract
 
-Edge-enhanced nuclear segmentation promises annotation-efficient microscopy analysis, but improvements require fair controls and cross-domain evaluation. We revisit a mammary epithelial nucleus pipeline combining multiscale Gabor features, EfficientNet-B7/UNet++, attention, and a learned input projection. An implementation audit motivates stable preprocessing, complete validation, and explicit boundary evaluation. We compare seven configurations across three seeds on the official BBBC039 split and evaluate transfer to breast histology. Vanilla B7, the Gabor bundle, and identity-preserving residual Gabor fusion achieve {{VANILLA_DICE}}%, {{GABOR_DICE}}%, and {{RESIDUAL_DICE}}% mean test Dice, respectively. Residual fusion achieves {{RESIDUAL_TNBC}}% patient-macro Dice on TNBC without histology training. Earlier private-data and 3D experiments are retained as provenance-limited context. The study distinguishes reproducible within-domain segmentation from unsupported claims of broad generalization, instance separation, or clinical cancer detection. Independent confirmation remains necessary.
+Edge-enhanced nuclear segmentation promises annotation-efficient microscopy analysis, but improvements require fair controls and cross-domain evaluation. We revisit a mammary epithelial nucleus pipeline combining multiscale Gabor features, EfficientNet-B7/UNet++, attention, and a learned input projection. An implementation audit motivates stable preprocessing, complete validation, and explicit boundary evaluation. Seven configurations are compared across three seeds on the official BBBC039 split and transferred to breast histology. Vanilla B7 and the Gabor bundle achieve {{VANILLA_DICE}}% and {{GABOR_DICE}}% mean test Dice. An identity-preserving residual alternative reaches {{RESIDUAL_DICE}}%, without improving the Gabor bundle. That bundle achieves only {{GABOR_TNBC}}% patient-macro Dice on TNBC without histology training. Earlier private and volumetric results remain provenance-limited context. These findings support a small within-domain gain but not broad generalization, instance-separation superiority, or clinical cancer detection. Independent confirmation remains necessary.
 
 ## 1. Introduction and related work
 
@@ -12,7 +12,7 @@ The original project addresses annotation-limited mammary epithelial nuclear seg
 
 U-Net established encoder–decoder segmentation with skip connections [1], UNet++ developed nested decoding [2], and EfficientNet provides pretrained compound-scaled encoders [3]. Cross-experiment nucleus benchmarks demonstrate the importance of imaging diversity [4]. Cellpose-SAM offers a strong off-the-shelf reference [5], but foundation-model pretraining and task-specific training budgets differ. Histology segmentation also faces stain and tissue-context shifts [6]. Consequently, high Dice on a small private slice collection alone does not establish a clinically useful breast cancer detector.
 
-The contributions are an auditable continuation of the original pipeline, a matched-budget decomposition of image projection/attention/edge/boundary choices, and public transfer evaluation that retains negative findings. A zero-initialized residual edge branch is tested as an implementation hypothesis, not asserted as a globally novel architecture. The work is exploratory because prior public test results informed development; all individual training runs nevertheless select checkpoints only on validation data.
+Recent microscopy foundation models also include Segment Anything for Microscopy [8] and CellSAM [9]. These motivate stronger future comparisons but have not been newly benchmarked here. The contributions are an auditable continuation of the original pipeline, a matched-budget decomposition of image projection/attention/edge/boundary choices, and public transfer evaluation that retains negative findings. A zero-initialized residual edge branch is tested as an implementation hypothesis, not asserted as a globally novel architecture. The work is exploratory because prior public test results informed development; all individual training runs nevertheless select checkpoints only on validation data.
 
 ## 2. Original pipeline and audit
 
@@ -88,6 +88,8 @@ Existing selected-plane volumetric experiments cover 334 annotated planes from e
 
 The work improves the reliability and traceability of the original project. A strong vanilla control, an attention-only control, a residual projection and an alternative edge detector are necessary to attribute a gain; comparison with an undertrained or mis-evaluated historical baseline cannot do so. The boundary objective must also be judged by measured boundary and overlap changes, not its name.
 
+The original Gabor bundle modestly exceeds vanilla under the new matched budget, whereas the residual-fusion follow-up does not improve that bundle. Adding the boundary term does not establish an overall Dice improvement over the Gabor bundle. Thus the new architecture should not displace the original merely because it is newer. The off-the-shelf Cellpose-SAM Dice of 96.95% on BBBC039 remains above the Gabor mean, although this comparison has unequal pretraining. Better BF1 in a particular setting would not establish overall instance-segmentation superiority.
+
 The public training task is U2OS fluorescence, whereas the motivating application is mammary epithelial analysis and the breast external set is H&E. This modality mismatch limits claims and motivates patient-separated histology adaptation followed by a genuinely independent breast cohort. The present work does not predict malignancy or provide pathologist-reviewed morphometry. It evaluates semantic unions, not instance AP, split/merge errors or dense volumetric boundaries.
 
 Further limitations are a single BBBC039 acquisition study, three seeds, a fixed short budget without a data-efficiency curve, unresolved private source and annotation metadata, prior test-set exposure, and uncertain foundation-model pretraining overlap. Existing private Gabor/encoder sweeps remain informative but need replication under the public protocol. Residual fusion is a tested engineering hypothesis rather than evidence of unique algorithmic novelty. Independent confirmation and a clearer task-specific contribution are needed for a strong methods submission.
@@ -112,8 +114,12 @@ Draft AI disclosure for author approval: OpenAI Codex assisted with software aud
 
 [4] Caicedo et al. Nucleus segmentation across imaging experiments: the 2018 Data Science Bowl. Nature Methods, 2019. https://doi.org/10.1038/s41592-019-0612-7
 
-[5] Cellpose-SAM. 2025 preprint. https://doi.org/10.1101/2025.04.28.651001
+[5] Pachitariu, Rariden and Stringer. Cellpose-SAM: superhuman generalization for cellular segmentation. 2025 preprint. https://doi.org/10.1101/2025.04.28.651001
 
 [6] Naylor et al. Segmentation of Nuclei in Histopathology Images by Deep Regression of the Distance Map. IEEE TMI, 2019. https://doi.org/10.1109/TMI.2018.2865709 ; data https://doi.org/10.5281/zenodo.2579118
 
 [7] Broad Bioimage Benchmark Collection. BBBC039v1. https://bbbc.broadinstitute.org/BBBC039
+
+[8] Archit et al. Segment Anything for Microscopy. Nature Methods 22, 579–591 (2025). https://doi.org/10.1038/s41592-024-02580-4
+
+[9] Marks et al. CellSAM: a foundation model for cell segmentation. Nature Methods 22, 2585–2593 (2025). https://doi.org/10.1038/s41592-025-02879-w

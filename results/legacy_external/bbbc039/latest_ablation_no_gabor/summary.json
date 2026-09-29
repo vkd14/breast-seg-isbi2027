@@ -1,0 +1,25 @@
+{
+  "dataset": "bbbc039",
+  "source_version": "latest",
+  "experiment": "ablation_no_gabor",
+  "checkpoint_epoch": 132,
+  "note": "Frozen historical private-trained checkpoint; training budgets and private splits not independently verified; not a matched-budget SOTA comparison",
+  "checkpoint_sha256": "351e7fd2896f3cca74ba763dbaa99b1dcf0ad5ee09c401d4e27362b35889d678",
+  "n": 50,
+  "seconds": 1.038316011428833,
+  "precision": "float32",
+  "threshold": 0.5,
+  "tta": false,
+  "mean": {
+    "dice": 0.02850201876767642,
+    "iou": 0.016343997645674103,
+    "boundary_f1_2px": 0.012815316949666098,
+    "surface_dice_2px": 0.012697303623156839,
+    "hd95_px": 684.783753864025,
+    "empty_prediction": 0.62,
+    "empty_reference": 0.0,
+    "tp": 387.28,
+    "fp": 5.96,
+    "fn": 68331.56
+  }
+}

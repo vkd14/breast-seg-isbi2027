@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "csv_files": 114,
+  "masks_recomputed": 6060,
+  "studies": [
+    {
+      "study": "public_study",
+      "completed_runs": 9,
+      "test_predictions": 450,
+      "initialization_pairing_verified": true
+    },
+    {
+      "study": "public_followup",
+      "completed_runs": 12,
+      "test_predictions": 600,
+      "initialization_pairing_verified": true
+    }
+  ],
+  "dataset_counts": {
+    "bbbc039": {
+      "images": 50,
+      "foreground": 50,
+      "empty": 0
+    },
+    "bbbc038": {
+      "images": 65,
+      "foreground": 65,
+      "empty": 0
+    },
+    "tnbc": {
+      "images": 50,
+      "foreground": 50,
+      "empty": 0
+    }
+  },
+  "note": "Software consistency checks do not establish biological independence or clinical validity."
+}

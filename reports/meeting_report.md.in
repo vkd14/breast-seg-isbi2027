@@ -10,6 +10,8 @@ New work adds a corrected modular implementation, {{TOTAL_RUNS}} completed publi
 
 The model configuration with the highest mean selected validation Dice is **{{BEST_VAL_MODEL}}**, with test Dice **{{BEST_VAL_DICE}}%**. This is an exploratory development result on U2OS fluorescence, not evidence of cancer diagnosis. The matched vanilla model scores {{VANILLA_DICE}}%, the Gabor bundle {{GABOR_DICE}}%, and residual Gabor fusion {{RESIDUAL_DICE}}%. Added complexity must be justified by these controlled comparisons, not by the weak historical baselines.
 
+The original Gabor family remains the stronger candidate: its matched gain over vanilla is about 0.25 percentage points. Residual fusion is a negative follow-up result relative to that bundle, and the explicit boundary term does not establish a Dice improvement over it. Breast transfer remains a major failure: the Gabor model reaches only {{GABOR_TNBC}}% patient-macro TNBC Dice. Improving reproducibility is real progress, but these numbers do not prove breast-histology success or superiority over Cellpose-SAM.
+
 ## What changed, and why
 
 | Item | Historical issue | Current treatment |
@@ -36,6 +38,10 @@ The previous corrected study covers 34 conditions, including architecture baseli
 This audit used 855 valid foreground-containing images. Only 334 could be traced to eight source stacks; 521 lacked exact source matching. The 516/133/206 train/validation/test split used conservative shape-defined groups, including seven test groups, not verified independent biological volumes. Earlier corrected comparisons did not establish a Holm-adjusted significant advantage for the full model. These provenance limits must stay visible.
 
 ## 2. New matched public-data training
+
+![Actual edge-filter responses](figures/actual_edge_features.png)
+
+Real Gabor and Sobel responses on the median-ranked fluorescence example; this replaces the earlier synthetic/quantum-labelled illustration with an executed preprocessing example.
 
 BBBC039 official split: 100 training fields, 50 validation fields, 50 test fields. Three seeds per condition, 20 epochs, ImageNet encoder, AdamW, fixed cosine schedule, 512-pixel inputs, uniform sampling, no TTA, threshold 0.5. Test probabilities are restored to the original 520 x 696 grid before scoring. Every validation/test image is included. All fifty test references contain nuclear foreground; empty-field specificity is therefore not established.
 

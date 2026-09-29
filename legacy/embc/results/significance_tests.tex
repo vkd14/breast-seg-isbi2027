@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{Statistical significance of proposed vs.\ baseline methods (paired t-test on per-image Dice, $n=128$).}
+\label{tab:significance}
+\begin{tabular}{lccc}
+\toprule
+Method & Dice (\%) & $\Delta$ & $p$-value \\
+\midrule
+\textbf{Proposed} & \textbf{94.1 $\pm$ 5.1} & --- & --- \\
+ablation\_no\_gabor & 83.0 $\pm$ 18.9 & +11.1 & 8.49e-11 \\
+ablation\_no\_scse & 0.1 $\pm$ 0.3 & +94.1 & 2.45e-162 \\
+ablation\_no\_weighted\_sampling & 1.8 $\pm$ 4.1 & +92.3 & 3.03e-150 \\
+ablation\_standard\_loss & 0.5 $\pm$ 1.4 & +93.7 & 1.68e-161 \\
+ablation\_unet\_not\_unetpp & 3.5 $\pm$ 6.5 & +90.6 & 6.49e-136 \\
+sota\_attention\_unet\_resnet50 & 44.0 $\pm$ 35.6 & +50.1 & 1.05e-32 \\
+sota\_deeplabv3p\_resnet50 & 72.4 $\pm$ 28.5 & +21.8 & 3.57e-15 \\
+sota\_fpn\_resnet50 & 83.6 $\pm$ 15.5 & +10.5 & 9.07e-12 \\
+sota\_manet\_resnet50 & 19.0 $\pm$ 18.7 & +75.1 & 8.98e-78 \\
+sota\_unet\_resnet34 & 47.9 $\pm$ 31.0 & +46.2 & 1.89e-35 \\
+sota\_unet\_resnet50 & 12.0 $\pm$ 13.7 & +82.1 & 6.83e-100 \\
+sota\_unetpp\_resnet50 & 8.3 $\pm$ 12.6 & +85.9 & 3.05e-105 \\
+\bottomrule
+\end{tabular}
+\end{table}
