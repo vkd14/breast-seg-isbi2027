@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "protocol_sha256": "424afeb2a9b32e3b53b938d02b074162c42bf3598e712ae80a6d24c66ddbe0df",
+  "completed_runs": 30,
+  "expected_runs": 30,
+  "validation_rows": 1500,
+  "foreground_units": 49,
+  "empty_units": 1,
+  "test_images_accessed": 0,
+  "active_code_and_archive_hashes_match": true,
+  "identical_initial_state_within_seed": true,
+  "initial_state_sha256": {
+    "0": [
+      "65457af370ea2439ee7f403ebcdff37f6844df18e3d73fb0e1b19bb81f6c0abe"
+    ],
+    "1": [
+      "201df3d04d1adc8b0e6c9ae5ce54dfbe09e4a4b3d2934f647abf2f57f180f49d"
+    ],
+    "2": [
+      "497adc17f6e24ec78baed6a928ef9d3c395e6a553b98efeb835c365ac5ad2788"
+    ]
+  }
+}

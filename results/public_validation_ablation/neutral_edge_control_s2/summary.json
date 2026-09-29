@@ -1,0 +1,30 @@
+{
+  "condition": {
+    "name": "neutral_edge_control",
+    "edge_kind": "neutral",
+    "weighted_sampling": false
+  },
+  "seed": 2,
+  "n_validation": 50,
+  "epochs": 20,
+  "best_epoch": 20,
+  "best_val_foreground_dice": 0.9655421519307466,
+  "parameters": 68354510,
+  "initial_state_sha256": "497adc17f6e24ec78baed6a928ef9d3c395e6a553b98efeb835c365ac5ad2788",
+  "checkpoint_sha256": "c8cfc80b3c083eeab846cf6d696167769951e86d618654143abb4e636d92d267",
+  "protocol_sha256": "424afeb2a9b32e3b53b938d02b074162c42bf3598e712ae80a6d24c66ddbe0df",
+  "seconds": 72.38446712493896,
+  "test_images_accessed": 0,
+  "mean": {
+    "dice": 0.9662313088921317,
+    "iou": 0.9349739564875044,
+    "boundary_f1_2px": 0.9813194795301142,
+    "surface_dice_2px": 0.9813105192879712,
+    "hd95_px": 1.3671067811865476,
+    "empty_prediction": 0.02,
+    "empty_reference": 0.02,
+    "tp": 68789.34,
+    "fp": 2969.38,
+    "fn": 2002.56
+  }
+}

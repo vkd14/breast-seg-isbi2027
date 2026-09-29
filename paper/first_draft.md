@@ -46,7 +46,7 @@ The earlier private revision contains 855 valid images, only 334 traceable to ei
 
 ### 3.4 Evaluation and statistics
 
-Probabilities are bilinearly restored to each native image grid and thresholded at 0.5. We report per-image Dice, IoU, boundary F1 within two native pixels, surface Dice at that tolerance and pooled bidirectional HD95. Both-empty masks score Dice/IoU/boundary scores 1 and HD95 0; one-empty pairs score overlap/boundary 0 and use the image diagonal for HD95. Empty cases are identified explicitly. The public test sets contain foreground; these data do not validate empty-field specificity.
+Probabilities are bilinearly restored to each native image grid and thresholded at 0.5. We report per-image Dice, IoU, boundary F1 within two native pixels, surface Dice at that tolerance and pooled bidirectional HD95. Both-empty masks score Dice/IoU/boundary scores 1 and HD95 0; one-empty pairs score overlap/boundary 0 and use the image diagonal for HD95. Empty cases are identified explicitly. BBBC039 validation contains 49 foreground fields and one empty field. The sensitivity study selects checkpoints on foreground Dice and reports the empty case separately; one case cannot validate empty-field specificity.
 
 Seed variation is reported separately from sampling uncertainty. Paired comparisons average seed scores within fields before 10,000 bootstrap resamples and two-sided Wilcoxon tests. Holm correction covers ten paired contrasts by two endpoints within each dataset. For TNBC, image scores are first averaged within patient, with patients as units. BBBC039 field-level intervals/tests are descriptive within one acquisition study, not confidence about new clinical populations. No ensemble prediction is implied by averaging seed scores.
 
@@ -84,7 +84,11 @@ Figure 1. Mean validation curves across seeds with seed variation, and measured 
 
 Figure 2. Actual residual-Gabor seed-0 predictions selected at Dice-rank quantiles 0.1/0.5/0.9. Error maps show false positives in red and false negatives in blue.
 
-### 4.2 Transfer and historical comparisons
+### 4.2 Validation-only sensitivity and empty-image analysis
+
+A frozen test-free study adds 30 runs (600 epochs) over Gabor orientations, scales, sigma, Sobel, a neutral edge channel and weighted sampling. On the 49 foreground-containing validation fields, the 8-orientation/3-scale reference scores 0.966840 Dice. Five scales, sigma 7 and weighted sampling change it by only +0.0307, +0.0250 and +0.0473 percentage points; paired bootstrap intervals are [+0.0138,+0.0537], [+0.0098,+0.0408] and [+0.0218,+0.0795]. The neutral-edge control is 0.0977 points lower, supporting a small edge-signal contribution but not a uniquely optimal 24-filter bank. The sole empty field is reported separately. No test case was decoded or evaluated.
+
+### 4.3 Transfer and historical comparisons
 
 | Model | TNBC patient-macro Dice % | Descriptive 95% CI % |
 |---|---|---|
@@ -106,7 +110,7 @@ TNBC scores are patient-macro, unlike the image-macro scores in the following hi
 
 The historical external evaluation shows that the earlier revised checkpoint transfers better than the released checkpoint on BBBC038, but it is not uniformly better on BBBC039 or TNBC. Cellpose-SAM is an off-the-shelf reference, not a matched-data training experiment. The new evaluation additionally retains all 24 supplied historical checkpoints on all three public partitions; the full 72-condition audit and all per-image metrics accompany this draft.
 
-### 4.3 Original breast-cell and 3D work retained
+### 4.4 Original breast-cell and 3D work retained
 
 The earlier corrected private study reports group-macro Dice 0.9312 for the full configuration, 0.9349 for vanilla B7, 0.9320 for U-Net ResNet-50 and 0.9366 for the plain Dice+BCE ablation. It does not establish a significant full-model advantage after multiplicity correction, and group identities are not verified biological volumes. Its Gabor sensitivity and smaller-encoder experiments are retained in the reproducibility package.
 
@@ -120,7 +124,7 @@ The original Gabor bundle modestly exceeds vanilla under the new matched budget,
 
 The public training task is U2OS fluorescence, whereas the motivating application is mammary epithelial analysis and the breast external set is H&E. This modality mismatch limits claims and motivates patient-separated histology adaptation followed by a genuinely independent breast cohort. The present work does not predict malignancy or provide pathologist-reviewed morphometry. It evaluates semantic unions, not instance AP, split/merge errors or dense volumetric boundaries.
 
-Further limitations are a single BBBC039 acquisition study, three seeds, a fixed short budget without a data-efficiency curve, unresolved private source and annotation metadata, prior test-set exposure, and uncertain foundation-model pretraining overlap. Existing private Gabor/encoder sweeps remain informative but need replication under the public protocol. Residual fusion is a tested engineering hypothesis rather than evidence of unique algorithmic novelty. Independent confirmation and a clearer task-specific contribution are needed for a strong methods submission.
+Further limitations are a single BBBC039 acquisition study, three seeds, a fixed short budget without a data-efficiency curve, unresolved private source and annotation metadata, prior test-set exposure, and uncertain foundation-model pretraining overlap. The public validation sensitivity remains exploratory and needs confirmation on a new acquisition. Residual fusion is a tested engineering hypothesis rather than evidence of unique algorithmic novelty. Independent confirmation and a clearer task-specific contribution are needed for a strong methods submission.
 
 ## 6. Conclusion
 

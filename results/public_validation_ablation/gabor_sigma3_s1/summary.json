@@ -1,0 +1,37 @@
+{
+  "condition": {
+    "name": "gabor_sigma3",
+    "edge_kind": "gabor",
+    "orientations": 8,
+    "frequencies": [
+      0.05,
+      0.15,
+      0.25
+    ],
+    "sigma": 3.0,
+    "weighted_sampling": false
+  },
+  "seed": 1,
+  "n_validation": 50,
+  "epochs": 20,
+  "best_epoch": 16,
+  "best_val_foreground_dice": 0.9685881009358506,
+  "parameters": 68354510,
+  "initial_state_sha256": "201df3d04d1adc8b0e6c9ae5ce54dfbe09e4a4b3d2934f647abf2f57f180f49d",
+  "checkpoint_sha256": "a2e76d033c62d2380326b5ab17678f4b10bf8808161b36a982de4abcdcfa5020",
+  "protocol_sha256": "424afeb2a9b32e3b53b938d02b074162c42bf3598e712ae80a6d24c66ddbe0df",
+  "seconds": 71.1893801689148,
+  "test_images_accessed": 0,
+  "mean": {
+    "dice": 0.9492163389171334,
+    "iou": 0.9205900623476883,
+    "boundary_f1_2px": 0.963960471461683,
+    "surface_dice_2px": 0.9639492152969176,
+    "hd95_px": 18.66656770459666,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.02,
+    "tp": 68752.26,
+    "fp": 2482.34,
+    "fn": 2039.64
+  }
+}

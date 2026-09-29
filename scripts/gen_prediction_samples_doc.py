@@ -24,7 +24,7 @@ distribution, so the best, the typical and the worst are all shown.
 ## 1. Private confocal breast-organoid fields
 
 Model: EfficientNet-B7 UNet++ with the Gabor edge channel, 4-to-3 projection and SCSE
-attention, trained on the private confocal set under the corrected field-wise split
+attention, trained on the private confocal set under a conservative inferred-source-group split
 (Scientific Reports revision checkpoint, seed 0). The four cases are the best, median,
 lower-quartile and worst of the {len([1])and 206} held-out slices, drawn from 7 fields that
 contributed no training data.

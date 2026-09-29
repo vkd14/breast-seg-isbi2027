@@ -36,12 +36,19 @@ def grayscale_uint8(image):
 
 
 class Gabor:
-    def __init__(self, orientations=8, scales=3, sigma=5., gamma=.5, size=31):
+    def __init__(self, orientations=8, scales=3, sigma=5., gamma=.5, size=31,
+                 frequencies=None):
         if orientations < 1 or scales < 1 or sigma <= 0 or size % 2 != 1:
             raise ValueError("Invalid Gabor parameters")
+        if frequencies is None:
+            frequencies = np.linspace(.05, .25, scales)
+        else:
+            frequencies = np.asarray(frequencies, dtype=np.float32)
+            if len(frequencies) != scales or not np.isfinite(frequencies).all() or (frequencies <= 0).any():
+                raise ValueError("Frequencies must contain one finite positive value per scale")
         self.kernels = []
         for theta in np.linspace(0, np.pi, orientations, endpoint=False):
-            for freq in np.linspace(.05, .25, scales):
+            for freq in frequencies:
                 k = cv2.getGaborKernel((size,size), sigma, theta, 1/freq, gamma, 0, ktype=cv2.CV_32F)
                 self.kernels.append(k/(np.abs(k).sum()+1e-8))
 
@@ -51,21 +58,29 @@ class Gabor:
         return ((e-e.min())/(e.max()-e.min()+1e-8)).astype(np.float32)
 
 
-def features(image, edge=True, size=512, edge_kind="gabor"):
+def features(image, edge=True, size=512, edge_kind="gabor", gabor_params=None):
     g = grayscale_uint8(image)
     rgb = np.repeat(g[...,None], 3, axis=2)
     if edge:
-        if edge_kind == "gabor": e=Gabor()(g)
+        if edge_kind == "gabor": e=Gabor(**(gabor_params or {}))(g)
         elif edge_kind == "sobel":
             f=g.astype(np.float32)/255
             e=cv2.magnitude(cv2.Sobel(f,cv2.CV_32F,1,0),cv2.Sobel(f,cv2.CV_32F,0,1))
             e=(e-e.min())/(e.max()-e.min()+1e-8)
+        elif edge_kind == "neutral":
+            # Mean 0.5 becomes exactly zero after the fourth-channel standardization.
+            e=np.full(g.shape,.5,dtype=np.float32)
         else: raise ValueError(edge_kind)
         rgb = np.dstack([rgb, (e*255).astype(np.uint8)])
     x = cv2.resize(rgb, (size,size), interpolation=cv2.INTER_LINEAR).astype(np.float32)/255
     mean = np.array([.485,.456,.406]+([.5] if edge else []), dtype=np.float32)
     std = np.array([.229,.224,.225]+([.25] if edge else []), dtype=np.float32)
-    return torch.from_numpy(((x-mean)/std).transpose(2,0,1).copy())
+    x = (x-mean)/std
+    if edge and edge_kind == "neutral":
+        # An 8-bit value cannot represent 0.5 exactly; impose the standardized
+        # zero explicitly so this is a true no-edge architecture control.
+        x[...,3] = 0.
+    return torch.from_numpy(x.transpose(2,0,1).copy())
 
 
 def sampling_weights(masks, weighted):

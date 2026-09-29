@@ -1,0 +1,30 @@
+{
+  "condition": {
+    "name": "sobel_control",
+    "edge_kind": "sobel",
+    "weighted_sampling": false
+  },
+  "seed": 2,
+  "n_validation": 50,
+  "epochs": 20,
+  "best_epoch": 20,
+  "best_val_foreground_dice": 0.967225966283398,
+  "parameters": 68354510,
+  "initial_state_sha256": "497adc17f6e24ec78baed6a928ef9d3c395e6a553b98efeb835c365ac5ad2788",
+  "checkpoint_sha256": "37e016035ccfc9a9fc11748a9c651412da73eb964d0700db068887b919533b01",
+  "protocol_sha256": "424afeb2a9b32e3b53b938d02b074162c42bf3598e712ae80a6d24c66ddbe0df",
+  "seconds": 72.93394923210144,
+  "test_images_accessed": 0,
+  "mean": {
+    "dice": 0.9678814469577302,
+    "iou": 0.9380546520890783,
+    "boundary_f1_2px": 0.983464389596746,
+    "surface_dice_2px": 0.983440630862841,
+    "hd95_px": 1.2939696961967,
+    "empty_prediction": 0.02,
+    "empty_reference": 0.02,
+    "tp": 68181.76,
+    "fp": 2049.6,
+    "fn": 2610.14
+  }
+}

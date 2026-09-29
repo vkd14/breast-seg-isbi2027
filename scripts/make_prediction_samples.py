@@ -57,7 +57,7 @@ def private_panel():
                     (err_rgb(pr, gt, img), None, "green TP / red FP / blue FN")]):
                 a = ax[i, j]; a.imshow(im, cmap=cm) if cm else a.imshow(im)
                 a.set_title(t, fontsize=7); a.axis("off")
-    fig.suptitle("Private confocal breast-organoid fields — held-out acquisition fields\n"
+    fig.suptitle("Private confocal breast-organoid images — held-out inferred source groups\n"
                  "(EfficientNet-B7 UNet++ + Gabor bundle, Scientific Reports revision checkpoint)", fontsize=9)
     plt.tight_layout(rect=[0, 0, 1, 0.955])
     out = f"{FIG}/private_predictions.png"; plt.savefig(out); plt.savefig(out.replace(".png", ".pdf")); plt.close()

@@ -6,6 +6,9 @@ V=json.load(open('results/report_values.json'))
 S={r['label']:r for r in csv.DictReader(open('results/study_summary.csv'))}
 paired=list(csv.DictReader(open('results/paired_statistics.csv')))
 P={r['condition']:r for r in csv.DictReader(open('results/previous_private_study.csv'))}
+A={r['condition']:r for r in csv.DictReader(open('results/public_validation_ablation/summary.csv'))}
+AS={(r['condition'],r['stratum']):r for r in csv.DictReader(open('results/public_validation_ablation/validation_strata.csv'))}
+AP={r['condition']:r for r in csv.DictReader(open('results/public_validation_ablation/paired_vs_gabor_reference.csv'))}
 def f(x,n=4): return f"{float(x):.{n}f}"
 def pst(p):
     p=float(p); return "<0.001" if p<1e-3 else f"{p:.3f}"
@@ -31,6 +34,22 @@ for k,lab in privorder:
     r=P[k]; priv_rows.append(f"| {lab} | {f(r['dice'],4)} | [{f(r['dice_ci_low'],4)}, {f(r['dice_ci_high'],4)}] | {r['n_groups']} |")
 priv_tbl="\n".join(priv_rows)
 
+ablation_labels={'gabor_reference':'Gabor reference (8 orientations, 3 scales)',
+    'gabor_orient4':'4 orientations','gabor_orient12':'12 orientations',
+    'gabor_scale1_center':'1 scale (0.15 cycles/px)','gabor_scale5':'5 scales',
+    'gabor_sigma3':'sigma 3','gabor_sigma7':'sigma 7','sobel_control':'Sobel control',
+    'neutral_edge_control':'Neutral-edge control','gabor_weighted_sampling':'Weighted sampling'}
+ablation_rows=[]
+for name,label in ablation_labels.items():
+    row=A[name];bf=AS[(name,'foreground_reference')]['boundary_f1_2px_mean']
+    if name=='gabor_reference': delta=ci=pval='—'
+    else:
+        p=AP[name];delta=f"{100*float(p['dice_difference']):+.4f}"
+        ci=f"[{100*float(p['dice_ci95_low']):+.4f}, {100*float(p['dice_ci95_high']):+.4f}]"
+        pval=pst(p['dice_p_holm'])
+    ablation_rows.append(f"| {label} | {f(row['foreground_dice_mean'],6)} | {f(row['foreground_dice_seed_sd'],6)} | {f(bf,6)} | {delta} | {ci} | {pval} |")
+ablation_tbl="\n".join(ablation_rows)
+
 doc=f"""# Consolidated progress report: 2D nucleus segmentation after the Scientific Reports rejection
 
 29 September 2026. This document consolidates everything from the rejection through the present
@@ -54,11 +73,12 @@ seven baselines scoring 46.6–75.5%.
 We treated the review as correct and audited our own material rather than rebutting. Five
 findings emerged, all verified against the code, the released checkpoint and the data on disk.
 
-**1. The train/test split leaked.** The 2D images are individual z-planes of confocal stacks.
-Splitting them per image put adjacent planes of the same organoid on both sides: 50% of test
-images had a near-duplicate in training (normalised cross-correlation > 0.95; median maximum
-correlation 0.950). Re-splitting so that no acquisition field is shared drops the maximum
-cross-split correlation to 0.61.
+**1. The original image-wise split has strong leakage indicators.** Fifty percent of test images
+had a near-duplicate in training (normalised cross-correlation > 0.95; median maximum correlation
+0.950). Because source-volume metadata are unavailable, we conservatively reconstructed likely
+source groups from frame geometry and inter-image correlation. Keeping those inferred groups
+disjoint drops the maximum cross-split correlation to 0.61, but does not prove biological
+independence.
 
 **2. The reported headline number does not match its own per-image data.** The stored summary
 for the proposed model records mean Dice 0.9513145 and mean IoU 0.9024580. Recomputing from the
@@ -86,16 +106,16 @@ images were loaded through an 8-bit conversion that kept only the high byte.
 
 ## Part II — Re-running the private study correctly
 
-We rebuilt the private-data evaluation from the split upward: acquisition-field-wise
+We rebuilt the private-data evaluation from the split upward: conservative inferred-source-group
 partitioning, one identical 30-epoch budget for every architecture, corrected mask decoding,
 L1-normalised Gabor kernels, native-resolution metrics, and three seeds for the proposed model.
 Thirty-eight runs completed.
 
-The crucial correction is statistical. Slices are clustered within acquisition fields, so
-per-image bootstrap confidence intervals overstate precision. Recomputing with the field as the
-resampling unit (7 groups) widens every interval to the point where the differences disappear.
+The crucial correction is statistical. Images are clustered within inferred source groups, so
+per-image bootstrap confidence intervals overstate precision. Recomputing with the inferred group
+as the resampling unit (7 groups) widens every interval to the point where the differences disappear.
 
-| Condition (private data, field-wise split) | Dice | 95% CI (cluster bootstrap, field-level) | Groups |
+| Condition (private data, inferred-group split) | Dice | 95% CI (cluster bootstrap, inferred-group level) | Groups |
 |---|---|---|---|
 {priv_tbl}
 
@@ -153,6 +173,30 @@ All values are near zero: fluorescence-to-H&E transfer fails outright. The quali
 shown in `prediction_samples.pdf`.
 
 ![learning](figures/learning_and_results.png)
+
+### Validation-only Gabor sensitivity and empty-image correction
+
+We then froze a separate 30-run, 600-epoch sensitivity study using only the official 100-image
+training and 50-image validation partitions; no BBBC039 test case was decoded or evaluated. An
+initial two-run pilot revealed that the validation partition contains 49 foreground images and
+one empty image. Correct prediction of that one case can move the all-case mean by about two Dice
+points, so the pilot was preserved but excluded. The full study selected checkpoints on
+foreground-only Dice and reports the empty case separately.
+
+| Condition | Foreground Dice | seed SD | foreground BF1@2px | Dice delta, pp | paired bootstrap interval, pp | p (Holm) |
+|---|---|---|---|---|---|---|
+{ablation_tbl}
+
+The strongest reproducible changes are very small. Five Gabor scales improve foreground Dice by
+0.0307 percentage points ([+0.0138, +0.0537]); sigma 7 by 0.0250 points
+([+0.0098, +0.0408]); and weighted sampling by 0.0473 points
+([+0.0218, +0.0795]). One-scale Gabor and Sobel have positive means but bootstrap intervals that
+cross zero. The neutral-edge control is 0.0977 points below the reference, supporting a small
+benefit from edge information within this architecture, but not a uniquely optimal 24-filter
+Gabor design. Sigma 3 is unstable across seeds and 0.1435 points worse. The single empty case is
+descriptive only: one-scale and sigma-7 models predict it empty in all three seeds, whereas
+weighted sampling does so in only one seed. These validation results are exploratory because
+BBBC039 had already informed development and cannot replace confirmation on a new acquisition.
 
 ## Part IV — Historical checkpoints re-evaluated independently
 

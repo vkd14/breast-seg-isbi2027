@@ -13,6 +13,7 @@ New working repository, created 29 September 2026. This is an experimental resea
 - `reports/reviewer_action_matrix.md`: every Scientific Reports concern mapped to evidence or remaining work.
 - `reports/next_steps.md`: prioritized plan through the ISBI deadline.
 - `results/public_study/` and `results/public_followup/`: locked protocols, split manifests, complete learning curves and per-image results. Status files show the active run.
+- `results/public_validation_ablation/`: completed 30-run validation-only Gabor/sampling sensitivity study, including foreground/empty strata and a code/archive-hash audit. No test case was decoded or evaluated.
 - `results/legacy_external/`: independent re-evaluation of both supplied sets of 12 historical checkpoints. These are not matched-training comparisons.
 
 ## Repository map
@@ -35,6 +36,17 @@ python scripts/evaluate_external.py --data data --new-only
 python scripts/validate_results.py --data data
 python scripts/build_reports.py --data data
 ```
+
+The completed 30-run sensitivity experiment is validation-only and did not decode or evaluate BBBC039 test cases:
+
+```bash
+PYTHONPATH=src python scripts/train_validation_ablation.py --data data/bbbc039
+PYTHONPATH=src python scripts/summarize_validation_ablation.py
+```
+
+Its protocol identity includes the configuration, active training/core/data source files, and
+public archive hashes. See `reports/repository_review_20260929.md` for the scientific review and
+decision gates.
 
 Compile the official-template draft from the `paper/` directory using `tectonic first_draft_isbi.tex` or a suitable LaTeX installation. `bash scripts/finalize.sh /path/to/python data` runs tests, saved-mask validation and document generation in order. This script does not commit or submit anything. For a new image, use `python scripts/predict.py --checkpoint checkpoints/public_study/gabor_b7_s0/best.pt --image /path/to/image.tif --output /path/to/new_mask.png`. It refuses to overwrite an existing output.
 

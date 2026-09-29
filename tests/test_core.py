@@ -28,6 +28,8 @@ class ScientificContracts(unittest.TestCase):
             g=Gabor(o,s,sigma)
             self.assertTrue(all(abs(np.abs(k).sum()-1)<1e-6 for k in g.kernels))
             self.assertTrue(np.isfinite(g(np.zeros((32,32),np.uint8))).all())
+        self.assertEqual(len(Gabor(4,2,frequencies=[.1,.2]).kernels),8)
+        with self.assertRaises(ValueError): Gabor(4,2,frequencies=[.1])
 
     def test_split_leakage_fails(self):
         a=dict(id='a',group='g',image_sha256='x',split='train')
@@ -73,6 +75,9 @@ class ScientificContracts(unittest.TestCase):
         a=features(image,True,32,'gabor');b=features(image,True,32,'sobel')
         self.assertTrue(torch.equal(a[:3],b[:3]))
         self.assertTrue(torch.isfinite(a).all() and torch.isfinite(b).all())
+        neutral=features(image,True,32,'neutral')
+        self.assertTrue(torch.equal(a[:3],neutral[:3]))
+        self.assertTrue(torch.equal(neutral[3],torch.zeros_like(neutral[3])))
 
     def test_residual_starts_as_exact_identity_on_image(self):
         model=Net('residual_gabor_b7',pretrained=False)

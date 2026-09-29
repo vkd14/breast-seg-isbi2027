@@ -13,9 +13,9 @@ changes. Numbers come from committed result files.
 
 | # | Change | Why | Evidence |
 |---|---|---|---|
-| A1 | Split changed from per-image to per-acquisition-field | Adjacent z-planes of one organoid were in both train and test; 50% of test images had a near-duplicate in training (median max NCC 0.950) | `legacy/scientific_reports_revision`, leakage audit figure; max cross-split NCC now 0.61 |
+| A1 | Split changed from per-image to conservative inferred-source-group partitioning | Source-volume metadata are unavailable, but 50% of test images had a near-duplicate in training (median max NCC 0.950); likely source groups were reconstructed from geometry and correlation | `legacy/scientific_reports_revision`, leakage audit figure; max cross-split NCC is 0.61 after grouping, without proving biological independence |
 | A2 | Moved controlled experiments to public data with official splits | Private source-volume identity cannot currently be certified | `results/public_study/split_manifest.json` |
-| A3 | Confidence intervals recomputed with the acquisition field as resampling unit | Slices are clustered within fields; per-image bootstrap overstates precision | `results/previous_private_study.csv` (n_groups = 7) |
+| A3 | Confidence intervals recomputed with the inferred source group as resampling unit | Images are clustered within reconstructed groups; per-image bootstrap overstates precision | `results/previous_private_study.csv` (n_groups = 7) |
 | A4 | TNBC statistics aggregated per patient | 11 patients, not 50 independent images | `results/paired_statistics.csv` |
 | A5 | Paired Wilcoxon with Holm correction across the comparison family | Original reported a single t-test | `results/paired_statistics.csv` |
 | A6 | Metrics computed at native resolution after resampling probabilities | Metrics had been computed on the 512x512 network grid | `src/breastseg`, regression tests |
@@ -55,7 +55,7 @@ changes. Numbers come from committed result files.
 
 | # | Experiment | Scale | Headline outcome |
 |---|---|---|---|
-| D1 | Corrected private-data study | 38 runs, field-wise split, 3 seeds | All conditions overlap once clustered CIs are used |
+| D1 | Corrected private-data study | 38 runs, inferred-group split, 3 seeds | All conditions overlap once clustered CIs are used |
 | D2 | Private 4-fold leave-fields-out CV | 23 fields, all held out once | Pooled Dice 0.894; exposes two annotation conventions costing 0.05–0.10 Dice |
 | D3 | Matched public study (BBBC039) | {V['TOTAL_RUNS']} runs, {V['TOTAL_EPOCHS']} epochs, 3 seeds each | Gabor bundle +{V['GABOR_DELTA']} Dice points vs vanilla ([{V['GABOR_CI_LOW']}, {V['GABOR_CI_HIGH']}], p < 0.001) |
 | D4 | Mechanism follow-up (SCSE-only, residual Gabor, residual Sobel, residual Gabor+boundary) | 12 runs | SCSE-only and residual Sobel are worse than vanilla; residual Gabor is neutral |
@@ -64,13 +64,14 @@ changes. Numbers come from committed result files.
 | D7 | Edge-detector controls (Sobel, Scharr, LoG, Canny, none) | private + public | No detector consistently better; network largely indifferent to the edge map |
 | D8 | Gabor parameter sensitivity (orientations, scales, sigma) | 6 private runs | All within ±0.01 Dice |
 | D9 | Encoder ladder (ResNet-34/50, EfficientNet-B0/B3/B5/B7) | 6 private runs | Flat across a tenfold parameter range |
+| D10 | Public validation-only Gabor/sampling sensitivity | 30 runs, 600 epochs, 3 seeds, zero test cases evaluated | Foreground Dice: weighted sampling +0.0473 points, five scales +0.0307, sigma 7 +0.0250 versus the Gabor reference; effects remain practically tiny and require independent confirmation |
 
 ## E. Infrastructure and reporting
 
 | # | Change |
 |---|---|
 | E1 | New corrected implementation under `src/breastseg`; historical exports preserved unedited as evidence under `legacy/` |
-| E2 | Protocol hashing: a completed run is skipped only if its protocol hash matches; partial runs stop for inspection |
+| E2 | New validation-study identity binds the frozen config, active training/core/data source files and archive hashes; partial runs stop for inspection. Older completed runs retain their earlier config-hash protocol and are not retroactively relabelled. |
 | E3 | Scientific regression tests (`tests/`): mask encodings, empty-mask Dice conventions, logit handling, sampler behaviour, kernel finiteness |
 | E4 | All reports and the manuscript draft generated from committed CSV/JSON, so abstract, tables and text cannot diverge |
 | E5 | 6,060 evaluated masks retained locally; per-image scores and checkpoint hashes committed |

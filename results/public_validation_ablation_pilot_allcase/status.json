@@ -1,0 +1,10 @@
+{
+  "state": "training",
+  "run": "gabor_orient12_s0",
+  "epoch": 15,
+  "train_loss": 0.13623776257038117,
+  "val_dice": 0.9440606023469864,
+  "best_val_dice": 0.9456195975805606,
+  "learning_rate": 6.421389003456775e-05,
+  "seconds": 3.384580373764038
+}
