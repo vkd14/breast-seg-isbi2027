@@ -15,6 +15,7 @@ reports/previews/
 configs/local_paths.json
 *.egg-info/
 .tools/
+artifacts/
 *.aux
 *.log
 *.bbl
