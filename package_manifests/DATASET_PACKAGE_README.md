@@ -26,4 +26,4 @@ This archive collects the exact provider downloads used locally. It is a conveni
 - Citation: P. Naylor et al., “Segmentation of Nuclei in Histopathology Images by Deep Regression of the Distance Map,” IEEE TMI 38(2), 448–459, 2019. DOI: 10.1109/TMI.2018.2865709.
 - Use: all 50 images from 11 patient groups as a post-hoc zero-shot transfer stress test.
 
-Verify every file against `CHECKSUMS.sha256` before use. Public licensing does not determine whether an institution requires an ethics/non-human-subjects determination for human histology reuse.
+Files are stored under `data/<dataset>/`. Verify every file against `CHECKSUMS.sha256` from the archive root before use. Public licensing does not determine whether an institution requires an ethics/non-human-subjects determination for human histology reuse.
