@@ -4,6 +4,11 @@ New working repository, created 29 September 2026. This is an experimental resea
 
 ## Start here
 
+- `submission/isbi2027_overleaf/main.pdf`: current four-page ISBI 2027 manuscript, with the official linked style and measured results.
+- `submission/isbi2027_overleaf/`: self-contained Overleaf sources, bibliography, figures and submission checklist.
+- `reports/isbi2027_submission_audit.md`: literature benchmark, reviewer-closure audit, remaining blockers and risk-ranked experiments.
+- `results/public_architecture_baselines/`: six matched architectures, three seeds each, under the same BBBC039 budget.
+- `results/grayscale_transfer_audit/`: exact grayscale-equivalence check and fixed TNBC polarity-inversion stress test.
 - `reports/consolidated_progress_report.pdf`: the full story from the Scientific Reports rejection to the current measurements, with every figure. **Start here.**
 - `reports/changes_log.pdf`: itemised list of every protocol correction, code defect fixed, claim withdrawn, and experiment run, plus remaining blockers.
 - `reports/prediction_samples.pdf`: qualitative predictions on the private confocal data, public BBBC039, and TNBC breast histology.
@@ -44,6 +49,15 @@ PYTHONPATH=src python scripts/train_validation_ablation.py --data data/bbbc039
 PYTHONPATH=src python scripts/summarize_validation_ablation.py
 ```
 
+The matched architecture and grayscale/polarity studies are reproduced with:
+
+```bash
+PYTHONPATH=src python scripts/train_public_baselines.py --data data/bbbc039
+PYTHONPATH=src python scripts/summarize_public_baselines.py
+PYTHONPATH=src:scripts python scripts/evaluate_grayscale_transfer.py --data data
+PYTHONPATH=src:scripts python scripts/make_submission_figures.py
+```
+
 Its protocol identity includes the configuration, active training/core/data source files, and
 public archive hashes. See `reports/repository_review_20260929.md` for the scientific review and
 decision gates.
@@ -59,6 +73,8 @@ The historical checkpoints are not included; to re-evaluate them use `evaluate_e
 The task is 2D **semantic nuclear foreground segmentation**, not whole-cell segmentation, cancer diagnosis, or validated 3D instance segmentation. BBBC039 is U2OS fluorescence, not breast tissue. TNBC is breast histology and is used as a transfer stress test. BBBC038 partly overlaps BBBC039; newly BBBC039-trained models are therefore not presented as independently validated on BBBC038. Cellpose-SAM is an off-the-shelf reference with unverified pretraining overlap, not an equal-data baseline.
 
 Initial study: vanilla B7 UNet++, the Gabor+projection+SCSE bundle, and that bundle with an explicit boundary term, each with three seeds and 20 epochs. Follow-up: SCSE-only, zero-initialized residual Gabor fusion, residual Sobel fusion, and residual Gabor plus boundary loss, with the same budget. The follow-up is labelled exploratory and was designed after initial results; it is not an independent confirmatory experiment.
+
+The six additional matched baselines are U-Net/ResNet-34, U-Net/ResNet-50, UNet++/EfficientNet-B0, UNet++/Xception/SCSE, DeepLabV3+/ResNet-50 and FPN/ResNet-50. UNet++/Xception/SCSE reaches 96.87% mean Dice and is statistically indistinguishable from the 96.85% Gabor bundle. Explicit grayscale is bit-identical to the existing RGB-entry path for all 115 audited TNBC/BBBC038 images. Fixed intensity inversion raises vanilla TNBC patient-macro Dice from 8.07% to 51.30%, but this post-hoc stress test is not independent external confirmation.
 
 ## Attribution and rights
 

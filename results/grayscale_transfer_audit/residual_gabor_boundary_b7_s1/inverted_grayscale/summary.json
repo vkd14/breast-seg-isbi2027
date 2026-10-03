@@ -1,0 +1,24 @@
+{
+  "run": "residual_gabor_boundary_b7_s1",
+  "variant": "residual_gabor_boundary_b7",
+  "label": "Residual Gabor + boundary",
+  "seed": 1,
+  "mode": "inverted_grayscale",
+  "checkpoint_sha256": "c207cbfa897023137ac26f922ae49e9ae0580f1235a11c08f9bf015d2a5a2dfc",
+  "patient_macro_dice": 0.39491384647837546,
+  "image_macro_dice": 0.3953423955768142,
+  "patient_scores": [
+    0.4652464523730245,
+    0.3296089050528456,
+    0.6488460420449311,
+    0.34777931869805434,
+    0.4437559804412611,
+    0.26793095640354486,
+    0.622921188486196,
+    0.32568948871137104,
+    0.28902939002491307,
+    0.20085471875471528,
+    0.4023898702712739
+  ],
+  "seconds": 1.4032831192016602
+}

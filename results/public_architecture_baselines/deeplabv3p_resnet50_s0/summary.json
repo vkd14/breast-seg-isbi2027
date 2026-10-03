@@ -1,0 +1,30 @@
+{
+  "baseline": "deeplabv3p_resnet50",
+  "spec": {
+    "architecture": "DeepLabV3Plus",
+    "encoder": "resnet50",
+    "attention": null
+  },
+  "seed": 0,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 17,
+  "best_val_dice": 0.9295570090361406,
+  "parameters": 26677585,
+  "initial_state_sha256": "cd8c4e02700259496f8ec23cbe4dd1c9a39b0540cb061b5426deab813336dba8",
+  "checkpoint_sha256": "1c10d0ffb47d0a16e9a65e0da904b065f2d7146e5e3b41401d6635ccbf06eedc",
+  "protocol_sha256": "d6bb84556d56bb5b9423433ebe18ca7b8a065a848e241e1abf3ab6273a3d3f89",
+  "seconds": 16.375686168670654,
+  "mean": {
+    "dice": 0.9494329964555928,
+    "iou": 0.9037964247350169,
+    "boundary_f1_2px": 0.9678372994096333,
+    "surface_dice_2px": 0.9678224617271945,
+    "hd95_px": 1.9391483465847628,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 65499.5,
+    "fp": 3733.0,
+    "fn": 3219.34
+  }
+}

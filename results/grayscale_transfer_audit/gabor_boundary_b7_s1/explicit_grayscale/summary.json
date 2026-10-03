@@ -1,0 +1,24 @@
+{
+  "run": "gabor_boundary_b7_s1",
+  "variant": "gabor_boundary_b7",
+  "label": "Gabor + boundary",
+  "seed": 1,
+  "mode": "explicit_grayscale",
+  "checkpoint_sha256": "cc609d6b0eeb5f142d60ae6abecbebe4ef2f2ecb2245f22c9cae48f76ef51f4e",
+  "patient_macro_dice": 0.09623654871412245,
+  "image_macro_dice": 0.0959822660575345,
+  "patient_scores": [
+    0.06996549097923499,
+    0.10136614049625163,
+    0.033381415420508674,
+    0.1094056990203497,
+    0.14958478620031354,
+    0.06479659967950534,
+    0.05806668089912542,
+    0.13265055682619373,
+    0.12480699509433839,
+    0.07299757714145631,
+    0.14158009409806924
+  ],
+  "seconds": 1.3802189826965332
+}

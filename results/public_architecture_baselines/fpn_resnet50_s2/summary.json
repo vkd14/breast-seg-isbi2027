@@ -1,0 +1,30 @@
+{
+  "baseline": "fpn_resnet50",
+  "spec": {
+    "architecture": "FPN",
+    "encoder": "resnet50",
+    "attention": null
+  },
+  "seed": 2,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 18,
+  "best_val_dice": 0.9513703429057627,
+  "parameters": 26116033,
+  "initial_state_sha256": "cc9a0d797c635fe66ecd42173f9f26a80dd330e191c2860c114ac2d1cd2b81f0",
+  "checkpoint_sha256": "1f936965ab7fe3f736918e5d7b264021eb99bc8a72d7de3f69ea3ea89959866d",
+  "protocol_sha256": "d6bb84556d56bb5b9423433ebe18ca7b8a065a848e241e1abf3ab6273a3d3f89",
+  "seconds": 14.710814237594604,
+  "mean": {
+    "dice": 0.9509972182851629,
+    "iou": 0.9066228183615717,
+    "boundary_f1_2px": 0.971888686230869,
+    "surface_dice_2px": 0.971867163592357,
+    "hd95_px": 1.9040011603271487,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 65535.28,
+    "fp": 3498.38,
+    "fn": 3183.56
+  }
+}

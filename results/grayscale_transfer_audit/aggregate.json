@@ -1,0 +1,226 @@
+[
+  {
+    "variant": "vanilla_b7",
+    "label": "Vanilla B7",
+    "explicit_grayscale": {
+      "mean": 0.08066384360302359,
+      "seed_sd": 0.013944671354670634,
+      "values": [
+        0.06462232556609568,
+        0.08989130618614588,
+        0.0874778990568292
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.513022560051369,
+      "seed_sd": 0.004003630026227547,
+      "values": [
+        0.508759566486673,
+        0.5136051159738287,
+        0.5167029976936052
+      ]
+    },
+    "inversion_delta_percentage_points": 43.235871644834546,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.4323587164483454,
+      "ci95": [
+        0.36553839752193545,
+        0.5015149061868815
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "gabor_b7",
+    "label": "Gabor bundle",
+    "explicit_grayscale": {
+      "mean": 0.029371806493636052,
+      "seed_sd": 0.017453922648556126,
+      "values": [
+        0.017882985615771996,
+        0.04945653289662713,
+        0.02077590096850904
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.37662981555347025,
+      "seed_sd": 0.12701685495744447,
+      "values": [
+        0.23633411688598419,
+        0.48380629090590244,
+        0.4097490388685243
+      ]
+    },
+    "inversion_delta_percentage_points": 34.72580090598342,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.3472580090598343,
+      "ci95": [
+        0.2802054746313804,
+        0.42390182660673387
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "gabor_boundary_b7",
+    "label": "Gabor + boundary",
+    "explicit_grayscale": {
+      "mean": 0.03857179056178066,
+      "seed_sd": 0.0499606836389529,
+      "values": [
+        0.008272557677118571,
+        0.09623654871412245,
+        0.011206265294100955
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.321364989289842,
+      "seed_sd": 0.15438080029081358,
+      "values": [
+        0.18288903591110922,
+        0.4878230217821153,
+        0.29338291017630136
+      ]
+    },
+    "inversion_delta_percentage_points": 28.27931987280613,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.2827931987280613,
+      "ci95": [
+        0.22492391966166514,
+        0.35084406789107075
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "scse_b7",
+    "label": "SCSE-only B7",
+    "explicit_grayscale": {
+      "mean": 0.043592787962686064,
+      "seed_sd": 0.025934686014373976,
+      "values": [
+        0.030292667060739853,
+        0.027006281828654086,
+        0.07347941499866427
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.3919025656352079,
+      "seed_sd": 0.11381546375152492,
+      "values": [
+        0.36183549970706014,
+        0.2961392644891458,
+        0.5177329327094178
+      ]
+    },
+    "inversion_delta_percentage_points": 34.830977767252186,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.3483097776725218,
+      "ci95": [
+        0.2854491306089168,
+        0.42003992527217493
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "residual_gabor_b7",
+    "label": "Residual Gabor",
+    "explicit_grayscale": {
+      "mean": 0.040423373599870624,
+      "seed_sd": 0.030698586877697283,
+      "values": [
+        0.015982255774219977,
+        0.030409341087126097,
+        0.0748785239382658
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.3804374178148802,
+      "seed_sd": 0.0856799093033468,
+      "values": [
+        0.3483765774096748,
+        0.3154115381845045,
+        0.4775241378504613
+      ]
+    },
+    "inversion_delta_percentage_points": 34.00140442150096,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.3400140442150097,
+      "ci95": [
+        0.277702826031787,
+        0.4111564007559736
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "residual_sobel_b7",
+    "label": "Residual Sobel",
+    "explicit_grayscale": {
+      "mean": 0.04433505295169135,
+      "seed_sd": 0.03080506477928733,
+      "values": [
+        0.03192438080393268,
+        0.021671141915770197,
+        0.07940963613537118
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.3721434045216195,
+      "seed_sd": 0.10536336991718728,
+      "values": [
+        0.41070130306555624,
+        0.25293244803868464,
+        0.4527964624606176
+      ]
+    },
+    "inversion_delta_percentage_points": 32.780835156992815,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.3278083515699281,
+      "ci95": [
+        0.27291232038684926,
+        0.3907552817685492
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  },
+  {
+    "variant": "residual_gabor_boundary_b7",
+    "label": "Residual Gabor + boundary",
+    "explicit_grayscale": {
+      "mean": 0.04485733314641297,
+      "seed_sd": 0.020943618550558523,
+      "values": [
+        0.06116641817568163,
+        0.05216711949281761,
+        0.021238461770739674
+      ]
+    },
+    "inverted_grayscale": {
+      "mean": 0.4221397248774714,
+      "seed_sd": 0.02508517974349894,
+      "values": [
+        0.4443159521027651,
+        0.39491384647837546,
+        0.4271893760512737
+      ]
+    },
+    "inversion_delta_percentage_points": 37.72823917310584,
+    "paired_patient_inverted_minus_gray": {
+      "mean_difference": 0.37728239173105854,
+      "ci95": [
+        0.3025030735427197,
+        0.4606171743623155
+      ],
+      "p": 0.0009765625,
+      "p_holm_7": 0.0068359375
+    }
+  }
+]

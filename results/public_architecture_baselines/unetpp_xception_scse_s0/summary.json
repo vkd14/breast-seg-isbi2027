@@ -1,0 +1,30 @@
+{
+  "baseline": "unetpp_xception_scse",
+  "spec": {
+    "architecture": "UnetPlusPlus",
+    "encoder": "xception",
+    "attention": "scse"
+  },
+  "seed": 0,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 17,
+  "best_val_dice": 0.9674823984367096,
+  "parameters": 35325458,
+  "initial_state_sha256": "5372ca2e1ba6e27d08226b30629c4db5aa03ad33292d7316cc0c48792cfd8713",
+  "checkpoint_sha256": "1a069b492933e942be0bfa733d533e6392c526eb3b40c670b1f7515fa5e03b4d",
+  "protocol_sha256": "d6bb84556d56bb5b9423433ebe18ca7b8a065a848e241e1abf3ab6273a3d3f89",
+  "seconds": 65.74960684776306,
+  "mean": {
+    "dice": 0.968345464662717,
+    "iou": 0.9387017693444132,
+    "boundary_f1_2px": 0.9867620320189114,
+    "surface_dice_2px": 0.9867629414993065,
+    "hd95_px": 1.269116882454314,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 67057.6,
+    "fp": 2711.44,
+    "fn": 1661.24
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "baseline": "unetpp_effb0",
+  "spec": {
+    "architecture": "UnetPlusPlus",
+    "encoder": "efficientnet-b0",
+    "attention": null
+  },
+  "seed": 1,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 19,
+  "best_val_dice": 0.9441864963552284,
+  "parameters": 6569581,
+  "initial_state_sha256": "189c1d1bed73c921956b7cb1fb57ddc21996dce9c5189e2c926b995219f7ab02",
+  "checkpoint_sha256": "e31614cf2c5962da5c71623dc20872888500fbcf3b073202f3f0f53e51b5df07",
+  "protocol_sha256": "d6bb84556d56bb5b9423433ebe18ca7b8a065a848e241e1abf3ab6273a3d3f89",
+  "seconds": 20.90900707244873,
+  "mean": {
+    "dice": 0.9664800890771663,
+    "iou": 0.9352042363831703,
+    "boundary_f1_2px": 0.9860514993866845,
+    "surface_dice_2px": 0.986056575591497,
+    "hd95_px": 1.3388225099390854,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 66949.34,
+    "fp": 2826.38,
+    "fn": 1769.5
+  }
+}

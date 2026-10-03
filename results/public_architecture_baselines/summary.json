@@ -1,0 +1,104 @@
+[
+  {
+    "model": "unet_resnet34",
+    "label": "U-Net / ResNet-34",
+    "parameters": 24436369,
+    "dice": 0.9673123752922977,
+    "dice_seed_sd": 0.002865806319129859,
+    "iou": 0.9367898306708929,
+    "boundary_f1_2px": 0.9870557021896671,
+    "hd95_px": 1.2928258770283412,
+    "gabor_minus_baseline_dice": 0.0012249146986076066,
+    "gabor_minus_baseline_ci95": [
+      0.0006436705935603928,
+      0.0018324305681392348
+    ],
+    "gabor_minus_baseline_p": 0.0001941578147395262,
+    "gabor_minus_baseline_p_holm_6": 0.0005824734442185786
+  },
+  {
+    "model": "unet_resnet50",
+    "label": "U-Net / ResNet-50",
+    "parameters": 32521105,
+    "dice": 0.9673823468377954,
+    "dice_seed_sd": 0.0020559352253013683,
+    "iou": 0.9369167763355777,
+    "boundary_f1_2px": 0.9866732819064706,
+    "hd95_px": 1.285685424949238,
+    "gabor_minus_baseline_dice": 0.0011549431531098597,
+    "gabor_minus_baseline_ci95": [
+      0.0005759199201625385,
+      0.0017511782427079923
+    ],
+    "gabor_minus_baseline_p": 0.0002857006608838475,
+    "gabor_minus_baseline_p_holm_6": 0.0005824734442185786
+  },
+  {
+    "model": "unetpp_effb0",
+    "label": "UNet++ / EfficientNet-B0",
+    "parameters": 6569581,
+    "dice": 0.9658571598416706,
+    "dice_seed_sd": 0.0006121626833476276,
+    "iou": 0.9340463295136155,
+    "boundary_f1_2px": 0.9854817710569209,
+    "hd95_px": 1.3372049053582904,
+    "gabor_minus_baseline_dice": 0.0026801301492348096,
+    "gabor_minus_baseline_ci95": [
+      0.00236164393766217,
+      0.0029819445099438357
+    ],
+    "gabor_minus_baseline_p": 1.2434497875801753e-14,
+    "gabor_minus_baseline_p_holm_6": 4.973799150320701e-14
+  },
+  {
+    "model": "unetpp_xception_scse",
+    "label": "UNet++ / Xception / SCSE",
+    "parameters": 35325458,
+    "dice": 0.9686807448286986,
+    "dice_seed_sd": 0.0010941232639786545,
+    "iou": 0.9393383321007295,
+    "boundary_f1_2px": 0.9869281777385736,
+    "hd95_px": 1.2650735683493457,
+    "gabor_minus_baseline_dice": -0.00014345483779313107,
+    "gabor_minus_baseline_ci95": [
+      -0.0004698339276051673,
+      0.00017883542629109456
+    ],
+    "gabor_minus_baseline_p": 0.3776732059941086,
+    "gabor_minus_baseline_p_holm_6": 0.3776732059941086
+  },
+  {
+    "model": "deeplabv3p_resnet50",
+    "label": "DeepLabV3+ / ResNet-50",
+    "parameters": 26677585,
+    "dice": 0.9504904522537044,
+    "dice_seed_sd": 0.0009670211243152677,
+    "iou": 0.9057076438698776,
+    "boundary_f1_2px": 0.9693133127395132,
+    "hd95_px": 1.9211959185138647,
+    "gabor_minus_baseline_dice": 0.018046837737200887,
+    "gabor_minus_baseline_ci95": [
+      0.017097145118158862,
+      0.01899400135993212
+    ],
+    "gabor_minus_baseline_p": 1.7763568394002505e-15,
+    "gabor_minus_baseline_p_holm_6": 1.0658141036401503e-14
+  },
+  {
+    "model": "fpn_resnet50",
+    "label": "FPN / ResNet-50",
+    "parameters": 26116033,
+    "dice": 0.9497312237433627,
+    "dice_seed_sd": 0.0027610706432828432,
+    "iou": 0.9043412183990712,
+    "boundary_f1_2px": 0.9695515773557838,
+    "hd95_px": 1.9274910645805259,
+    "gabor_minus_baseline_dice": 0.01880606624754266,
+    "gabor_minus_baseline_ci95": [
+      0.017757891501663303,
+      0.01983916376557146
+    ],
+    "gabor_minus_baseline_p": 1.7763568394002505e-15,
+    "gabor_minus_baseline_p_holm_6": 1.0658141036401503e-14
+  }
+]

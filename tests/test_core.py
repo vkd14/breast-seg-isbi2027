@@ -1,4 +1,5 @@
 import unittest
+import cv2
 import numpy as np
 import torch
 from breastseg.core import (binary_mask, grayscale_uint8, Gabor, sampling_weights,
@@ -78,6 +79,13 @@ class ScientificContracts(unittest.TestCase):
         neutral=features(image,True,32,'neutral')
         self.assertTrue(torch.equal(a[:3],neutral[:3]))
         self.assertTrue(torch.equal(neutral[3],torch.zeros_like(neutral[3])))
+
+    def test_rgb_entry_is_explicit_grayscale(self):
+        # External RGB images cannot bypass the active grayscale conversion.
+        rng=np.random.default_rng(14)
+        rgb=rng.integers(0,256,size=(37,29,3),dtype=np.uint8)
+        gray=cv2.cvtColor(rgb,cv2.COLOR_RGB2GRAY)
+        self.assertTrue(torch.equal(features(rgb,True,32,'gabor'),features(gray,True,32,'gabor')))
 
     def test_residual_starts_as_exact_identity_on_image(self):
         model=Net('residual_gabor_b7',pretrained=False)

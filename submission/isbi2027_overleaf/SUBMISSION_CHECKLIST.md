@@ -1,0 +1,21 @@
+# ISBI 2027 submission checklist
+
+- [x] Official ISBI-linked IEEE LaTeX style and its two-column page layout.
+- [x] Single-blind author names included.
+- [x] Four-page validated build; technical content ends on page 3.
+- [x] Page 4 contains only compliance, acknowledgments/disclosures and references; no optional fifth page is used.
+- [x] Abstract includes the contribution and measured results.
+- [x] Dataset sizes, splits, usage, empty-mask rule and no-crop protocol stated.
+- [x] Equal training budgets, checkpoint selection, threshold and no-TTA policy stated.
+- [x] Six matched architecture baselines plus component controls reported.
+- [x] Gabor orientation/frequency/sigma, Sobel, neutral-edge and sampler sensitivity reported.
+- [x] Paired bootstrap confidence intervals, Wilcoxon tests and Holm correction stated.
+- [x] External TNBC transfer and grayscale/polarity audit reported with limitations.
+- [x] Literature values are labeled non-comparable where protocols differ.
+- [x] AI assistance disclosed; figures use measured data and actual images.
+- [ ] Replace the ethics placeholder with the formal UWM determination and identifier.
+- [ ] All authors approve authorship order, affiliations and final text.
+- [ ] Confirm DOE grant number and competing-interests statement.
+- [ ] Make the exact code/results release public and create an immutable archive/DOI.
+- [ ] Confirm no substantially similar paper is under review at the ISBI deadline.
+- [ ] Complete the IEEE electronic copyright form and author registration after acceptance.

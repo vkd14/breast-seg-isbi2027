@@ -1,0 +1,8 @@
+{
+  "selection": "middle-ranked per-image Dice improvement for validation-selected vanilla seed 1",
+  "id": "11_1",
+  "group": "11",
+  "gray_dice": 0.21242363672193915,
+  "inverted_dice": 0.6546310605294704,
+  "checkpoint": "checkpoints/public_study/vanilla_b7_s1/best.pt"
+}

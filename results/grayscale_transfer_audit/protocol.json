@@ -1,0 +1,16 @@
+{
+  "dataset": "TNBC v1.1, all 50 images in 11 patient groups",
+  "purpose": "post-hoc zero-shot transfer stress test; not confirmatory external validation",
+  "training": "none",
+  "selection": "none on TNBC; all 21 public-study checkpoints retained",
+  "threshold": 0.5,
+  "tta": false,
+  "modes": [
+    "explicit_grayscale",
+    "inverted_grayscale"
+  ],
+  "rationale": "BBBC039 has bright Hoechst nuclei on dark background; H&E nuclei are usually dark on bright tissue",
+  "primary_reporting": "patient-macro semantic Dice; image-level rows retained",
+  "warning": "TNBC labels are used in this one-shot post-hoc analysis and must not be reused for preprocessing selection",
+  "protocol_sha256": "75eb694cdf5fa24e8b69f80923e2459c49ae23ecfa8e59e3a62d8929e46861ae"
+}

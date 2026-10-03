@@ -1,0 +1,30 @@
+{
+  "baseline": "unet_resnet50",
+  "spec": {
+    "architecture": "Unet",
+    "encoder": "resnet50",
+    "attention": null
+  },
+  "seed": 2,
+  "n_test": 50,
+  "epochs": 20,
+  "best_epoch": 17,
+  "best_val_dice": 0.9665434478079311,
+  "parameters": 32521105,
+  "initial_state_sha256": "7ddc4a4e3fa959381d79653853db79408e41ce982ede4ac1294bf437743d9424",
+  "checkpoint_sha256": "004b031223820f9c513f25c2250dfe5f74c0e17b4311daedd23eca29b96768fe",
+  "protocol_sha256": "d6bb84556d56bb5b9423433ebe18ca7b8a065a848e241e1abf3ab6273a3d3f89",
+  "seconds": 19.88326358795166,
+  "mean": {
+    "dice": 0.9670975499354114,
+    "iou": 0.9363813483461817,
+    "boundary_f1_2px": 0.9868689654157043,
+    "surface_dice_2px": 0.9868769150122201,
+    "hd95_px": 1.2891168824543144,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 67258.48,
+    "fp": 3028.26,
+    "fn": 1460.36
+  }
+}

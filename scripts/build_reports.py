@@ -168,7 +168,7 @@ def render_pdf(path):
             story.append(Paragraph(inline(' '.join(paragraph)),styles['Normal']))
         i+=1
     def footer(c,d):
-        c.setFont('DejaVu',7);c.drawString(.7*inch,.3*inch,'Research discussion draft | measured results | 29 September 2026');c.drawRightString(7.8*inch,.3*inch,str(d.page))
+        c.setFont('DejaVu',7);c.drawString(.7*inch,.3*inch,'Research audit | measured results | 3 October 2026');c.drawRightString(7.8*inch,.3*inch,str(d.page))
     doc.build(story,onFirstPage=footer,onLaterPages=footer)
 
 def main():
