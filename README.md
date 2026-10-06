@@ -4,6 +4,7 @@ New working repository, created 29 September 2026. This is an experimental resea
 
 ## Start here
 
+- Detailed reconciliation: reports/private_uwm_and_literature_reconciliation.md records the exact old-versus-corrected UWM results and protocol-aware comparison with prior BBBC039/TNBC papers.
 - `submission/isbi2027_overleaf/main.pdf`: current four-page ISBI 2027 manuscript, with the official linked style and measured results.
 - `submission/isbi2027_overleaf/`: self-contained Overleaf sources, bibliography, figures and submission checklist.
 - `reports/isbi2027_submission_audit.md`: literature benchmark, reviewer-closure audit, remaining blockers and risk-ranked experiments.

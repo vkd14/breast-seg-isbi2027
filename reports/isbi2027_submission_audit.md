@@ -6,6 +6,8 @@
 
 The strongest defensible paper is a controlled empirical study of edge priors and domain shift, not a claim of a new state-of-the-art breast-cancer detector. The work is 2D semantic nuclear foreground segmentation. BBBC039 is U2OS fluorescence, not breast tissue; TNBC is breast histology used as a zero-shot stress test. Preliminary 3D work is mentioned only as future direction.
 
+The short manuscript now also includes the private UWM MCF10A lineage as an explicitly labelled audit. Its original 95.13% Dice aggregate is reconciled against the 94.13% mean recomputed from the saved per-image scores and the corrected 93.12% source-group result. This private evidence is not required to reproduce the public-data claims and is not presented as independent external validation.
+
 The prepared manuscript uses the official ISBI-linked IEEE style, is four pages, and places all technical content on pages 1–3. Page 4 contains only compliance, acknowledgments/disclosures and references. ISBI 2027 is single-blind; the current author names are therefore present. The official deadline shown on the ISBI author page is 26 October 2026 at 11:59 PM US Eastern time. Recheck the portal before submission: https://biomedicalimaging.org/2027/papers/ .
 
 ## What was newly tested
@@ -17,6 +19,7 @@ The prepared manuscript uses the official ISBI-linked IEEE style, is four pages,
 | Validation-only sensitivity | 10 conditions x 3 seeds, 600 epochs | 96.541–96.731% foreground Dice across filter/sampler choices | Gabor settings are not uniquely optimal; effects are small |
 | TNBC explicit grayscale audit | 21 checkpoints x 50 images | RGB-entry and explicit-grayscale features match exactly; 115/115 TNBC+BBBC038 images pass | The low transfer score was not caused by omitted grayscale conversion |
 | TNBC one-shot polarity stress test | 21 checkpoints, 11 patient groups | Vanilla 8.07% to 51.30% patient-macro Dice; +43.24 points, patient bootstrap CI +36.55 to +50.15 | Bright/dark polarity explains much, but not all, domain failure |
+| Corrected private UWM audit | 855 planes; 206-plane/7-group test; 3 seeds | Full pipeline 93.12% vs vanilla B7 93.49% and plain Dice+BCE 93.66% group-macro Dice | The rejected-paper superiority claim does not survive corrected grouping and equal budgets |
 
 Total new controlled training: 69 runs and 1,380 fixed-budget epochs. Every run, including weak models, is retained.
 

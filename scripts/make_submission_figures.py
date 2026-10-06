@@ -6,6 +6,7 @@ from pathlib import Path
 
 import cv2
 import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch
 import numpy as np
 import torch
 
@@ -16,6 +17,51 @@ from evaluate_grayscale_transfer import explicit_gray, input_tensor
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "paper" / "submission_figures"
+
+
+def method_figure():
+    """Draw the implemented model path and the controls used to isolate each claim."""
+    fig, ax = plt.subplots(figsize=(7.1, 1.55))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+
+    boxes = [
+        (.012, .42, .105, .35, "16-bit image\n(native grid)", "#e8f1fa"),
+        (.140, .42, .125, .35, "1--99.5%\nnormalization\n+ grayscale", "#e8f1fa"),
+        (.295, .61, .125, .29, "3-channel\nintensity", "#f3f3f3"),
+        (.295, .17, .125, .29, "24-filter Gabor\nmax-|response|", "#fff0e5"),
+        (.455, .42, .115, .35, "Concatenate\n4 channels", "#fff0e5"),
+        (.600, .42, .105, .35, "Learned\n4$\\to$16$\\to$8$\\to$3\nprojection", "#fff0e5"),
+        (.735, .42, .105, .35, "ImageNet\nEfficientNet-B7", "#eaf5e8"),
+        (.870, .42, .115, .35, "UNet++ + SCSE\n$\\sigma$ + native-grid\nrestoration", "#eaf5e8"),
+    ]
+    for x, y, w, h, label, color in boxes:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=.008,rounding_size=.015",
+                                    linewidth=.8, edgecolor="#333333", facecolor=color))
+        ax.text(x + w / 2, y + h / 2, label, ha="center", va="center", fontsize=6.4)
+
+    def arrow(x1, y1, x2, y2):
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle="-|>", lw=.85, color="#444444", shrinkA=1, shrinkB=1))
+
+    arrow(.117, .595, .140, .595)
+    arrow(.265, .595, .295, .755)
+    arrow(.265, .595, .295, .315)
+    arrow(.420, .755, .455, .665)
+    arrow(.420, .315, .455, .525)
+    arrow(.570, .595, .600, .595)
+    arrow(.705, .595, .735, .595)
+    arrow(.840, .595, .870, .595)
+
+    ax.text(.515, .08,
+            r"Training: $0.5\mathcal{L}_{Dice}+0.5\mathcal{L}_{BCE}$; boundary control adds "
+            r"$0.1\mathcal{L}_{Dice}(B(p),B(y))$.  Controls remove/replace orange modules and SCSE.",
+            ha="center", va="center", fontsize=6.4)
+    fig.tight_layout(pad=.05)
+    for suffix in ("pdf", "png"):
+        fig.savefig(OUT / f"method_pipeline.{suffix}", dpi=300, bbox_inches="tight")
+    plt.close(fig)
 
 
 def result_figure():
@@ -102,6 +148,7 @@ def polarity_figure(data):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    method_figure()
     result_figure()
     polarity_figure(ROOT / "data")
 
