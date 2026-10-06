@@ -14,8 +14,9 @@
 - [x] Literature values are labeled non-comparable where protocols differ.
 - [x] AI assistance disclosed; figures use measured data and actual images.
 - [ ] Replace the ethics placeholder with the formal UWM determination and identifier.
-- [ ] All authors approve authorship order, affiliations and final text.
-- [ ] Confirm DOE grant number and competing-interests statement.
-- [ ] Make the exact code/results release public and create an immutable archive/DOI.
+- [x] Author order and affiliations confirmed by the corresponding author on 5 October 2026.
+- [x] DOE grant DE-SC0025403 and no-competing-interests statement confirmed on 5 October 2026.
+- [x] Exact code/results repository made public.
+- [ ] Create an immutable code/checkpoint archive and DOI; GitHub alone is mutable.
 - [ ] Confirm no substantially similar paper is under review at the ISBI deadline.
 - [ ] Complete the IEEE electronic copyright form and author registration after acceptance.

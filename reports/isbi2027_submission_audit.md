@@ -43,8 +43,8 @@ Partially resolved or inherently unavailable: public provider annotations replac
 
 ## Submission blockers and risk-ranked next experiments
 
-1. **Ethics determination — blocking.** Obtain the formal UWM IRB/non-human-subjects/exempt determination for reused TNBC human histology and insert its exact wording/identifier. Do not infer ethics status from CC BY licensing.
-2. **Public reproducibility — blocking for the former reviewer concern.** Make the repository public, settle inherited-code licensing, upload the selected checkpoint to a release/Zenodo archive, and replace mutable GitHub-only availability with an immutable DOI or commit.
+1. **Ethics determination — blocking.** A ready-to-submit UWM determination request is included in `submission/UWM_IRB_DETERMINATION_REQUEST.md`. Obtain the formal non-human-subjects/exempt determination for reused TNBC human histology and insert its exact wording/identifier. Do not infer ethics status from CC BY licensing.
+2. **Immutable reproducibility archive — partial.** The repository is public. Settle inherited-code licensing, upload the selected checkpoint to a GitHub release/Zenodo archive, and cite an immutable DOI or tagged commit.
 3. **Unseen histology confirmation — highest scientific value.** Freeze the polarity rule without further TNBC label use; evaluate once on a patient-separated external cohort with compatible nuclear masks. Report patient bootstrap CIs and predeclare the primary endpoint.
 4. **Patient-separated histology adaptation.** Compare zero-shot, stain normalization, polarity canonicalization, and limited-shot fine-tuning under grouped folds. Apply all preprocessing identically to every baseline.
 5. **Instance evidence.** If the paper claims touching-nucleus separation, train/evaluate against instance IDs using AJI, PQ, object F1 and split/merge errors. Current binary foreground results cannot support that claim.
