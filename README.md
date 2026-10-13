@@ -4,6 +4,9 @@ New working repository, created 29 September 2026. This is an experimental resea
 
 ## Start here
 
+- `submission/isbi2027_full_overleaf/main.pdf`: unrestricted seven-page working manuscript with the completed patient-grouped TNBC study, real public-dataset panels, and protocol-aware literature tables.
+- `submission/isbi2027_full_overleaf/`: self-contained full-draft Overleaf sources. The separate four-page folder remains unchanged for later conference-length editing.
+- `reports/tnbc_grouped_cv_report.md`: protocol, measured results, statistical comparisons, interpretation, and limitations for the new 45-run TNBC study.
 - Detailed reconciliation: reports/private_uwm_and_literature_reconciliation.md records the exact old-versus-corrected UWM results and protocol-aware comparison with prior BBBC039/TNBC papers.
 - `submission/isbi2027_overleaf/main.pdf`: current four-page ISBI 2027 manuscript, with the official linked style and measured results.
 - `submission/isbi2027_overleaf/`: self-contained Overleaf sources, bibliography, figures and submission checklist.
@@ -59,6 +62,15 @@ PYTHONPATH=src:scripts python scripts/evaluate_grayscale_transfer.py --data data
 PYTHONPATH=src:scripts python scripts/make_submission_figures.py
 ```
 
+The completed TNBC study trains every model/seed/fold combination, resumes by skipping only protocol-matched completed runs, aggregates patient-macro out-of-fold results, regenerates the full-draft figures, and independently rechecks every saved prediction:
+
+```bash
+PYTHONPATH=src:scripts python scripts/train_tnbc_grouped_cv.py --data data
+PYTHONPATH=src:scripts python scripts/summarize_tnbc_grouped_cv.py
+PYTHONPATH=src:scripts python scripts/validate_tnbc_grouped_cv.py --data data
+PYTHONPATH=src:scripts python scripts/make_full_draft_figures.py
+```
+
 Its protocol identity includes the configuration, active training/core/data source files, and
 public archive hashes. See `reports/repository_review_20260929.md` for the scientific review and
 decision gates.
@@ -76,6 +88,8 @@ The task is 2D **semantic nuclear foreground segmentation**, not whole-cell segm
 Initial study: vanilla B7 UNet++, the Gabor+projection+SCSE bundle, and that bundle with an explicit boundary term, each with three seeds and 20 epochs. Follow-up: SCSE-only, zero-initialized residual Gabor fusion, residual Sobel fusion, and residual Gabor plus boundary loss, with the same budget. The follow-up is labelled exploratory and was designed after initial results; it is not an independent confirmatory experiment.
 
 The six additional matched baselines are U-Net/ResNet-34, U-Net/ResNet-50, UNet++/EfficientNet-B0, UNet++/Xception/SCSE, DeepLabV3+/ResNet-50 and FPN/ResNet-50. UNet++/Xception/SCSE reaches 96.87% mean Dice and is statistically indistinguishable from the 96.85% Gabor bundle. Explicit grayscale is bit-identical to the existing RGB-entry path for all 115 audited TNBC/BBBC038 images. Fixed intensity inversion raises vanilla TNBC patient-macro Dice from 8.07% to 51.30%, but this post-hoc stress test is not independent external confirmation.
+
+The within-TNBC training study uses five patient-disjoint folds, three seeds, and three models. Vanilla EfficientNet-B7/UNet++ reaches 74.29% patient-macro Dice, UNet++/Xception/SCSE reaches 73.03%, and the Gabor bundle reaches 67.02%. Gabor is 7.26 Dice points below vanilla (95% CI -9.98 to -5.26; Holm-adjusted p = 0.0039). Together with its 0.25-point BBBC039 gain, this establishes an acquisition-dependent effect rather than universal edge-prior superiority.
 
 ## Attribution and rights
 

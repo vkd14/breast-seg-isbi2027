@@ -1,0 +1,49 @@
+{
+  "model": "vanilla_b7",
+  "spec": {
+    "kind": "proposed_family",
+    "variant": "vanilla_b7"
+  },
+  "seed": 2,
+  "fold": 3,
+  "train_patients": [
+    "01",
+    "02",
+    "04",
+    "07",
+    "09",
+    "11"
+  ],
+  "validation_patients": [
+    "05",
+    "06",
+    "08"
+  ],
+  "test_patients": [
+    "03",
+    "10"
+  ],
+  "n_train": 30,
+  "n_validation": 11,
+  "n_test": 9,
+  "epochs": 20,
+  "best_epoch": 20,
+  "best_val_dice": 0.7755257078253238,
+  "parameters": 68163553,
+  "initial_state_sha256": "987c0a2eebf5a4ad71956a0be7f043d333b692af8bdb32ec8f83878d255b89a9",
+  "checkpoint_sha256": "354e4c9239667ebafe6a47f7e56543a31df3a98dcb207fda924097660087a813",
+  "protocol_sha256": "fcc8ff46670dfce404bd9c1f46e5a8726f08e6fdb93523d2fd5a331d7a477a29",
+  "seconds": 17.929280996322632,
+  "image_mean": {
+    "dice": 0.7235491001494292,
+    "iou": 0.5811809669189791,
+    "boundary_f1_2px": 0.6389274984668053,
+    "surface_dice_2px": 0.6376870654549044,
+    "hd95_px": 52.15653211043638,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 20211.11111111111,
+    "fp": 6874.666666666667,
+    "fn": 4749.888888888889
+  }
+}

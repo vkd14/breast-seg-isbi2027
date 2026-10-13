@@ -1,0 +1,45 @@
+{
+  "dataset": "TNBC v1.1",
+  "task": "2D semantic nuclear foreground segmentation",
+  "outer_folds": [
+    ["04", "11"],
+    ["01", "02"],
+    ["09", "07"],
+    ["03", "10"],
+    ["05", "08", "06"]
+  ],
+  "validation_rule": "For outer test fold k, fold (k+1) mod 5 is validation and the other three folds are training; no patient crosses partitions.",
+  "models": {
+    "vanilla_b7": {
+      "kind": "proposed_family",
+      "variant": "vanilla_b7"
+    },
+    "gabor_b7": {
+      "kind": "proposed_family",
+      "variant": "gabor_b7"
+    },
+    "unetpp_xception_scse": {
+      "kind": "baseline",
+      "architecture": "UnetPlusPlus",
+      "encoder": "xception",
+      "attention": "scse"
+    }
+  },
+  "seeds": [0, 1, 2],
+  "epochs": 20,
+  "batch_size": 8,
+  "image_size": 512,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "gradient_clip": 1.0,
+  "optimizer": "AdamW",
+  "schedule": "20-epoch cosine decay to 1% of initial learning rate; no early stopping",
+  "augmentation": "uniform rotations by multiples of 90 degrees and horizontal flip with probability 0.5",
+  "preprocessing": "per-image 1st-99.5th percentile grayscale normalization; grayscale replicated to three channels; Gabor model adds the fixed 24-filter edge channel",
+  "precision": "bfloat16 autocast with float32 loss and finite gradient checks",
+  "loss": "0.5 samplewise Dice + 0.5 BCE",
+  "sampling": "uniform",
+  "selection": "highest complete validation image-mean Dice; fixed threshold 0.5; no test-time augmentation",
+  "primary_endpoint": "patient-macro native-grid Dice from out-of-fold predictions",
+  "status": "Exploratory grouped cross-validation; TNBC labels had previously been inspected during zero-shot analysis."
+}

@@ -1,0 +1,49 @@
+{
+  "model": "gabor_b7",
+  "spec": {
+    "kind": "proposed_family",
+    "variant": "gabor_b7"
+  },
+  "seed": 0,
+  "fold": 2,
+  "train_patients": [
+    "01",
+    "02",
+    "04",
+    "05",
+    "06",
+    "08",
+    "11"
+  ],
+  "validation_patients": [
+    "03",
+    "10"
+  ],
+  "test_patients": [
+    "07",
+    "09"
+  ],
+  "n_train": 32,
+  "n_validation": 9,
+  "n_test": 9,
+  "epochs": 20,
+  "best_epoch": 20,
+  "best_val_dice": 0.61314461606441,
+  "parameters": 68354510,
+  "initial_state_sha256": "65457af370ea2439ee7f403ebcdff37f6844df18e3d73fb0e1b19bb81f6c0abe",
+  "checkpoint_sha256": "7d3c85df701ab560fc2fd2197553416e5b6ce941e35191ab69c05ce1019c746b",
+  "protocol_sha256": "fcc8ff46670dfce404bd9c1f46e5a8726f08e6fdb93523d2fd5a331d7a477a29",
+  "seconds": 26.80417823791504,
+  "image_mean": {
+    "dice": 0.6274798382205785,
+    "iou": 0.4761334585119591,
+    "boundary_f1_2px": 0.4875665253348618,
+    "surface_dice_2px": 0.4875637098220966,
+    "hd95_px": 58.51395482937144,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 20141.0,
+    "fp": 5046.0,
+    "fn": 12700.444444444445
+  }
+}

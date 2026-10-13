@@ -1,0 +1,51 @@
+{
+  "model": "unetpp_xception_scse",
+  "spec": {
+    "kind": "baseline",
+    "architecture": "UnetPlusPlus",
+    "encoder": "xception",
+    "attention": "scse"
+  },
+  "seed": 2,
+  "fold": 1,
+  "train_patients": [
+    "03",
+    "04",
+    "05",
+    "06",
+    "08",
+    "10",
+    "11"
+  ],
+  "validation_patients": [
+    "07",
+    "09"
+  ],
+  "test_patients": [
+    "01",
+    "02"
+  ],
+  "n_train": 31,
+  "n_validation": 9,
+  "n_test": 10,
+  "epochs": 20,
+  "best_epoch": 20,
+  "best_val_dice": 0.6742533892632567,
+  "parameters": 35325458,
+  "initial_state_sha256": "9511af22aed84fe51e7eb3acff0c8519c1aa40a05809a977ca434a85ff87677d",
+  "checkpoint_sha256": "45f9f72453abd9f945ff48bd4d2bdb6495df7c0bfabad89e897fdbe6f212a0ad",
+  "protocol_sha256": "fcc8ff46670dfce404bd9c1f46e5a8726f08e6fdb93523d2fd5a331d7a477a29",
+  "seconds": 19.474920988082886,
+  "image_mean": {
+    "dice": 0.7500988444237404,
+    "iou": 0.6079659435411819,
+    "boundary_f1_2px": 0.56817351526318,
+    "surface_dice_2px": 0.5649289521515926,
+    "hd95_px": 50.796478936986745,
+    "empty_prediction": 0.0,
+    "empty_reference": 0.0,
+    "tp": 23780.0,
+    "fp": 8262.1,
+    "fn": 3739.5
+  }
+}

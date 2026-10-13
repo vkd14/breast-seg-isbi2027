@@ -1,0 +1,79 @@
+{
+  "torch": "2.11.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "protocol_sha256": "fcc8ff46670dfce404bd9c1f46e5a8726f08e6fdb93523d2fd5a331d7a477a29",
+  "config": {
+    "dataset": "TNBC v1.1",
+    "task": "2D semantic nuclear foreground segmentation",
+    "outer_folds": [
+      [
+        "04",
+        "11"
+      ],
+      [
+        "01",
+        "02"
+      ],
+      [
+        "09",
+        "07"
+      ],
+      [
+        "03",
+        "10"
+      ],
+      [
+        "05",
+        "08",
+        "06"
+      ]
+    ],
+    "validation_rule": "For outer test fold k, fold (k+1) mod 5 is validation and the other three folds are training; no patient crosses partitions.",
+    "models": {
+      "vanilla_b7": {
+        "kind": "proposed_family",
+        "variant": "vanilla_b7"
+      },
+      "gabor_b7": {
+        "kind": "proposed_family",
+        "variant": "gabor_b7"
+      },
+      "unetpp_xception_scse": {
+        "kind": "baseline",
+        "architecture": "UnetPlusPlus",
+        "encoder": "xception",
+        "attention": "scse"
+      }
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "epochs": 20,
+    "batch_size": 8,
+    "image_size": 512,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "optimizer": "AdamW",
+    "schedule": "20-epoch cosine decay to 1% of initial learning rate; no early stopping",
+    "augmentation": "uniform rotations by multiples of 90 degrees and horizontal flip with probability 0.5",
+    "preprocessing": "per-image 1st-99.5th percentile grayscale normalization; grayscale replicated to three channels; Gabor model adds the fixed 24-filter edge channel",
+    "precision": "bfloat16 autocast with float32 loss and finite gradient checks",
+    "loss": "0.5 samplewise Dice + 0.5 BCE",
+    "sampling": "uniform",
+    "selection": "highest complete validation image-mean Dice; fixed threshold 0.5; no test-time augmentation",
+    "primary_endpoint": "patient-macro native-grid Dice from out-of-fold predictions",
+    "status": "Exploratory grouped cross-validation; TNBC labels had previously been inspected during zero-shot analysis."
+  },
+  "archives": {
+    "TNBC_NucleiSegmentation.zip": "014bc1e08d6459be5508620ad219063a45179a1767b7caf84d64245d7f6cc5a3"
+  },
+  "code_sha256": {
+    "scripts/train_tnbc_grouped_cv.py": "1ed7a6a966e9f252aea10c11347989b90452c986e347e8ea579cc8018b1b5439",
+    "src/breastseg/core.py": "dbfd4d24ffa61c065cac61fa5f649b88d63c23a56e711dde0500348860d89649",
+    "src/breastseg/external.py": "0e3c2878aefb0810582ca8f091fae05312f20c533742345d55cefd755b2aeb64"
+  }
+}

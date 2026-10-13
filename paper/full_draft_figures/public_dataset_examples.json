@@ -1,0 +1,16 @@
+{
+  "selection_rule": "image nearest the median three-seed vanilla Dice within each dataset",
+  "bbbc039": {
+    "id": "IXMtest_I23_s5_w1E3053D6B-8CEF-48E3-A6A5-2F0D7C1AA177",
+    "three_seed_vanilla_dice": 0.9682228401054478,
+    "display_seed": 1
+  },
+  "tnbc": {
+    "id": "01_1",
+    "patient": "01",
+    "fold": 1,
+    "three_seed_vanilla_dice": 0.7699913161559814,
+    "display_seed": 1
+  },
+  "images": "real provider images; no generated microscopy content"
+}

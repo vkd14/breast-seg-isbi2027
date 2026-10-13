@@ -1,0 +1,452 @@
+[
+  {
+    "id": "01_1",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.09161376953125
+  },
+  {
+    "id": "01_2",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.2874717712402344
+  },
+  {
+    "id": "01_3",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.01473236083984375
+  },
+  {
+    "id": "01_4",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.12155914306640625
+  },
+  {
+    "id": "01_5",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.02370452880859375
+  },
+  {
+    "id": "01_6",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.012218475341796875
+  },
+  {
+    "id": "01_7",
+    "patient": "01",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.09868621826171875
+  },
+  {
+    "id": "02_1",
+    "patient": "02",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.028350830078125
+  },
+  {
+    "id": "02_2",
+    "patient": "02",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.1234130859375
+  },
+  {
+    "id": "02_3",
+    "patient": "02",
+    "test_fold": 1,
+    "validation_fold_for_test": 2,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.24803543090820312
+  },
+  {
+    "id": "03_1",
+    "patient": "03",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.07145309448242188
+  },
+  {
+    "id": "03_2",
+    "patient": "03",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.14621734619140625
+  },
+  {
+    "id": "03_3",
+    "patient": "03",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.03025054931640625
+  },
+  {
+    "id": "03_4",
+    "patient": "03",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.01593780517578125
+  },
+  {
+    "id": "03_5",
+    "patient": "03",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.08314132690429688
+  },
+  {
+    "id": "04_1",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.245391845703125
+  },
+  {
+    "id": "04_2",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.015789031982421875
+  },
+  {
+    "id": "04_3",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.021282196044921875
+  },
+  {
+    "id": "04_4",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.27916717529296875
+  },
+  {
+    "id": "04_5",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.0084686279296875
+  },
+  {
+    "id": "04_6",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.05669403076171875
+  },
+  {
+    "id": "04_7",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.06635284423828125
+  },
+  {
+    "id": "04_8",
+    "patient": "04",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.32266998291015625
+  },
+  {
+    "id": "05_1",
+    "patient": "05",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.22114181518554688
+  },
+  {
+    "id": "05_2",
+    "patient": "05",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.1851043701171875
+  },
+  {
+    "id": "05_3",
+    "patient": "05",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.20202255249023438
+  },
+  {
+    "id": "05_4",
+    "patient": "05",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.08362579345703125
+  },
+  {
+    "id": "06_1",
+    "patient": "06",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.12082290649414062
+  },
+  {
+    "id": "06_2",
+    "patient": "06",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.11412811279296875
+  },
+  {
+    "id": "06_3",
+    "patient": "06",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.050617218017578125
+  },
+  {
+    "id": "07_1",
+    "patient": "07",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.17761611938476562
+  },
+  {
+    "id": "07_2",
+    "patient": "07",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.1215362548828125
+  },
+  {
+    "id": "07_3",
+    "patient": "07",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.25554656982421875
+  },
+  {
+    "id": "08_1",
+    "patient": "08",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.11911392211914062
+  },
+  {
+    "id": "08_2",
+    "patient": "08",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.23250579833984375
+  },
+  {
+    "id": "08_3",
+    "patient": "08",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.24870681762695312
+  },
+  {
+    "id": "08_4",
+    "patient": "08",
+    "test_fold": 4,
+    "validation_fold_for_test": 0,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.19616317749023438
+  },
+  {
+    "id": "09_1",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.14926528930664062
+  },
+  {
+    "id": "09_2",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.1250762939453125
+  },
+  {
+    "id": "09_3",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.1043853759765625
+  },
+  {
+    "id": "09_4",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.07929229736328125
+  },
+  {
+    "id": "09_5",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.11097335815429688
+  },
+  {
+    "id": "09_6",
+    "patient": "09",
+    "test_fold": 2,
+    "validation_fold_for_test": 3,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.0038299560546875
+  },
+  {
+    "id": "10_1",
+    "patient": "10",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.2603302001953125
+  },
+  {
+    "id": "10_2",
+    "patient": "10",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.06851577758789062
+  },
+  {
+    "id": "10_3",
+    "patient": "10",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.17264556884765625
+  },
+  {
+    "id": "10_4",
+    "patient": "10",
+    "test_fold": 3,
+    "validation_fold_for_test": 4,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.00847625732421875
+  },
+  {
+    "id": "11_1",
+    "patient": "11",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.28582763671875
+  },
+  {
+    "id": "11_2",
+    "patient": "11",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.03839111328125
+  },
+  {
+    "id": "11_3",
+    "patient": "11",
+    "test_fold": 0,
+    "validation_fold_for_test": 1,
+    "height": 512,
+    "width": 512,
+    "foreground_fraction": 0.09037017822265625
+  }
+]
