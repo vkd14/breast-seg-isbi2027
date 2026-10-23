@@ -61,12 +61,12 @@ The private UWM lineage contains 855 annotated 16-bit MCF10A confocal planes (Ze
 \begin{figure*}[t]
 \centering
 \includegraphics[width=.98\textwidth]{fig_cross_dataset_outputs.png}
-\caption{Real held-out outputs across the complete evidence chain. Public examples use seed 4, the median-performing seed, and images nearest that seed's median performance; the private example is the median held-out image for the earlier seed-0 Gabor/SCSE semantic checkpoint. Instance colors are identifiers, not classes. Agreement maps show true-positive (green), false-positive (red), and false-negative (blue) pixels. Displayed scores are image-specific; aggregate results are in Table~\ref{tab:crossdataset}. The UWM labels are semantic and cannot train the contact target.}
+\caption{Real held-out outputs across the complete evidence chain. Public examples use seed 4, the median-performing seed, and images nearest that seed's median performance; the private example is the median held-out image for seed 0 of the ten-seed Gabor/SCSE semantic study. Instance colors are identifiers, not classes. Agreement maps show true-positive (green), false-positive (red), and false-negative (blue) pixels. Displayed scores are image-specific; aggregate results are in Table~\ref{tab:crossdataset}. The UWM labels are semantic and cannot train the contact target.}
 \label{fig:examples}
 \end{figure*}
 
 \subsection{Training and endpoints}
-On BBBC039, all matched models use $512^2$ inputs, batch size 8, 20 epochs, AdamW ($3\times10^{-4}$, weight decay $10^{-4}$), cosine decay, gradient clipping at one, flips, and $90^\circ$ rotations. Ten seeds quantify optimization variability. The highest validation object F1 selects contact-aware checkpoints; no test image is used for tuning. Predictions are restored to the native grid. On NucleusSegData, the same formulation is fitted to all ten designated training images for 60 fixed epochs (batch size 2); the final epoch is always used. For each seed, contact threshold $\{.1,\ldots,.7\}$ and minimum component size $\{16,32,64,128\}$ are selected by nucleus F1 on the training images only and then locked for Huh7 and HepG2 inference.
+On BBBC039, all matched models use $512^2$ inputs, batch size 8, 20 epochs, AdamW ($3\times10^{-4}$, weight decay $10^{-4}$), cosine decay, gradient clipping at one, flips, and $90^\circ$ rotations. Ten seeds quantify optimization variability. The highest validation object F1 selects contact-aware checkpoints; no test image is used for tuning. Predictions are restored to the native grid. On NucleusSegData, the same formulation is fitted to all ten designated training images for 60 fixed epochs (batch size 2); the final epoch is always used. For each seed, contact threshold $\{.1,\ldots,.7\}$ and minimum component size $\{16,32,64,128\}$ are selected by nucleus F1 on the training images only and then locked for Huh7 and HepG2 inference. The UWM primary and vanilla controls use ten matched seeds, 30 epochs, batch size 8, and validation-Dice checkpoint selection; inference uses no test-time augmentation.
 
 Semantic endpoints are foreground Dice (DICE1), IoU, boundary F1, surface Dice at two pixels, and HD95. Instance endpoints reproduce published definitions: ensemble DICE2, AJI, detection/segmentation/panoptic quality (DQ/SQ/PQ), symmetric best Dice, and Caicedo object F1 averaged over IoU thresholds 0.50--0.90~\cite{caicedo2019evaluation}. We average seeds within each test image, use 10,000 paired bootstrap resamples for 95\% confidence intervals, and apply two-sided paired Wilcoxon tests with Holm correction. Seed SD is reported as optimization variability, not biological sample size.
 
@@ -97,7 +97,7 @@ The completed semantic audit found ten-seed Dice of 96.57\% for vanilla B7, 96.5
 
 \begin{table*}[t]
 \centering\scriptsize
-\caption{Unified benchmark interpretation. Public results for our model are mean (seed SD), $n=10$; ``prior'' is the strongest directly comparable published point estimate identified for that endpoint. $\Delta$ is ours minus prior in percentage points. UWM is private, so its comparator is the strongest matched internal control, not literature. Cross-paper significance is not claimed.}
+\caption{Unified benchmark interpretation. Results are mean (seed SD), $n=10$; ``prior'' is the strongest directly comparable published point estimate identified for each public endpoint. $\Delta$ is ours minus prior/control in percentage points. UWM is private, so its comparator is a matched internal control. Cross-paper significance is not claimed.}
 \label{tab:crossdataset}
 \setlength{\tabcolsep}{3.8pt}
 \begin{tabular}{@{}lllcllr@{}}\toprule
@@ -110,11 +110,11 @@ NucleusSegData Huh7 & Nucleus F1 & \textbf{.9315(.0284)} & 10 seeds; 11 images &
 & Pixel F1 & \textbf{.8791(.0364)} & same & Object-oriented~\cite{koyuncu2018object} & .8398 & \textbf{+3.93}\\
 NucleusSegData HepG2 & Nucleus F1 & \textbf{.8809(.0347)} & 10 seeds; 16 images & Object-oriented~\cite{koyuncu2018object} & .8421 & \textbf{+3.88}\\
 & Pixel F1 & \textbf{.8189(.0413)} & same & Object-oriented~\cite{koyuncu2018object} & .7645 & \textbf{+5.44}\\\midrule
-Private UWM MCF10A & Dice & .9312 & 3 seeds; 7-group CI [.9134,.9472] & Plain Dice+BCE (internal) & .9366 & $-$0.54\\\bottomrule
+Private UWM MCF10A & Dice & .9319(.0033) & 10 seeds; 7-group CI [.9144,.9484] & Vanilla B7/UNet++ (internal) & .9354(.0013) & $-$0.35\\\bottomrule
 \end{tabular}
 \end{table*}
 
-Table~\ref{tab:crossdataset} separates comparable endpoints rather than pooling unlike metrics. On NucleusSegData, our nucleus/pixel F1 exceeds the strongest published row by 2.40/3.93 points on Huh7 and 3.88/5.44 points on HepG2. On BBBC039, our DICE1 is 0.15 points higher than ASW-Net, but AJI, PQ, and object F1 remain 3.17, 0.55, and 1.15 points below the best published point estimates; thus we claim a substantial matched-baseline gain, not overall state of the art. On private UWM data, the full Gabor/SCSE predecessor does not exceed plain Dice+BCE and none of its matched comparisons is significant after Holm correction. Published per-image predictions and repeated-run uncertainty are unavailable, so literature comparisons remain descriptive.
+Table~\ref{tab:crossdataset} separates comparable endpoints rather than pooling unlike metrics. On NucleusSegData, our nucleus/pixel F1 exceeds the strongest published row by 2.40/3.93 points on Huh7 and 3.88/5.44 points on HepG2. On BBBC039, our DICE1 is 0.15 points higher than ASW-Net, but AJI, PQ, and object F1 remain 3.17, 0.55, and 1.15 points below the best published point estimates; thus we claim a substantial matched-baseline gain, not overall state of the art. On private UWM data, ten-seed Gabor/SCSE Dice is 0.35 points below the matched vanilla control (paired seven-group difference $-.0035$, 95\% bootstrap CI $[-.0064,-.0004]$; Wilcoxon $p=.0781$), providing no evidence of superiority at $\alpha=.05$. Published per-image predictions and repeated-run uncertainty are unavailable, so literature comparisons remain descriptive.
 
 \section{Discussion and conclusion}
 The results support the central hypothesis that explicit contact prediction converts high semantic overlap into better instance separation. Predicting only nucleus--nucleus contacts avoids the foreground shrinkage observed with full-contour targets, while constrained expansion restores complete shapes. Ten seeds, paired image inference, and replication on a second fixed-split benchmark show that the gain is not confined to one favorable initialization.

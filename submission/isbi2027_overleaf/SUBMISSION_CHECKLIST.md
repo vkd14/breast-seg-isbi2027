@@ -9,7 +9,7 @@
 - [x] Matched architecture baselines plus component controls described.
 - [x] Gabor orientation/frequency/sigma, Sobel, neutral-edge and sampler sensitivity reported.
 - [x] Paired bootstrap confidence intervals, Wilcoxon tests and Holm-adjusted results inserted.
-- [x] Locked ten-seed BBBC039 and NucleusSegData results inserted.
+- [x] Locked ten-seed BBBC039, NucleusSegData and private UWM primary/control results inserted.
 - [x] NucleusSegData uses its provider-defined training/Huh7/HepG2 split and matching metrics.
 - [x] Literature values are compared only where split and metric definitions match.
 - [x] AI assistance disclosed; figures use measured data and actual images.

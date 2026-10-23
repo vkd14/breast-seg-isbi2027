@@ -117,7 +117,7 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "aggregate.json").write_text(json.dumps(payload, indent=2) + "\n")
     with (OUT / "summary.csv").open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(("model", "dice", "seed_sd", "ci_low", "ci_high", "n_seeds", "n_groups"))
         for name, summary in summaries.items():
             ci = summary["dice_group_bootstrap_ci"]

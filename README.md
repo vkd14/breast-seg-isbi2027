@@ -12,6 +12,7 @@ New working repository, created 29 September 2026. This is an experimental resea
 - `submission/isbi2027_overleaf/`: self-contained Overleaf sources, bibliography, figures and submission checklist.
 - `results/bbbc_contact_10seed/aggregate.json`: completed ten-seed official-split contact-aware BBBC039 results and paired tests.
 - `results/nucleusseg_contact_10seed/aggregate.json`: completed ten-seed fixed-split NucleusSegData results for Huh7 and HepG2.
+- `results/private_uwm_10seed/aggregate.json`: completed ten-seed private UWM primary/control results with seven-group uncertainty and paired inference.
 - `reports/isbi2027_submission_audit.md`: literature benchmark, reviewer-closure audit, remaining blockers and risk-ranked experiments.
 - `results/public_architecture_baselines/`: six matched architectures, three seeds each, under the same BBBC039 budget.
 - `results/grayscale_transfer_audit/`: exact grayscale-equivalence check and fixed TNBC polarity-inversion stress test.
@@ -72,6 +73,14 @@ PYTHONPATH=src:scripts python scripts/analyze_bbbc_contact_10seed.py
 PYTHONPATH=src:scripts python scripts/download_nucleusseg.py
 PYTHONPATH=src:scripts bash scripts/run_nucleusseg_contact_10seed.sh
 PYTHONPATH=src:scripts python scripts/analyze_nucleusseg_10seed.py
+```
+
+The private UWM images are not distributed. With an authorized local copy, the
+restart-safe ten-seed primary/control study is reproduced and aggregated with:
+
+```bash
+python scripts/run_private_uwm_10seed.py --private-root /path/to/private/project --workers 1
+python scripts/analyze_private_uwm_10seed.py --private-root /path/to/private/project
 ```
 
 The completed TNBC study trains every model/seed/fold combination, resumes by skipping only protocol-matched completed runs, aggregates patient-macro out-of-fold results, regenerates the full-draft figures, and independently rechecks every saved prediction:
