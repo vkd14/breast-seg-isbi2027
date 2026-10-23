@@ -35,3 +35,66 @@ def load_bbbc039(root, splits=("train","val","test")):
     if counts!={s:expected[s] for s in splits}:
         raise ValueError(f"Unexpected BBBC039 split counts: {counts}")
     return cases
+
+
+def load_nucleusseg(root):
+    """Load the original Bilkent NucleusSegData benchmark and fixed split.
+
+    The archive stores each instance annotation as a whitespace-delimited
+    768x1024 integer matrix without a filename extension.  The provider's
+    TrainingSet contains 10 images; Huh7TestSet and HepG2TestSet are the two
+    disjoint test subsets used in the benchmark papers.
+    """
+    root = Path(root)
+    if (root / "NucleusSegData").is_dir():
+        root = root / "NucleusSegData"
+    specifications = (
+        ("TrainingSet", "tr", "tr_ann", "train", "training"),
+        ("Huh7TestSet", "huh7_ts", "huh7_ts_ann", "test", "Huh7"),
+        ("HepG2TestSet", "hepg2_ts", "hepg2_ts_ann", "test", "HepG2"),
+    )
+    cases = []
+    for directory, image_prefix, annotation_prefix, split, subset in specifications:
+        folder = root / directory
+        if not folder.is_dir():
+            raise FileNotFoundError(f"Missing NucleusSegData directory: {folder}")
+        images = sorted(folder.glob(f"{image_prefix}*.jpg"),
+                        key=lambda path: int(path.stem.removeprefix(image_prefix)))
+        for image_path in images:
+            index = int(image_path.stem.removeprefix(image_prefix))
+            annotation_path = folder / f"{annotation_prefix}{index}"
+            image_bgr = cv2.imread(str(image_path), cv2.IMREAD_COLOR)
+            if image_bgr is None or not annotation_path.is_file():
+                raise ValueError(f"Unreadable image/annotation pair: {image_path}")
+            image = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
+            instances = np.loadtxt(annotation_path, dtype=np.int32)
+            if instances.shape != image.shape[:2] or (instances < 0).any():
+                raise ValueError(f"Invalid annotation geometry: {annotation_path}")
+            expected = np.arange(int(instances.max()) + 1)
+            if not np.array_equal(np.unique(instances), expected):
+                raise ValueError(f"Non-contiguous instance identifiers: {annotation_path}")
+            identifier = f"{subset.lower()}_{index:02d}"
+            cases.append({
+                "id": identifier,
+                "group": identifier,
+                "split": split,
+                "subset": subset,
+                "image_sha256": hashlib.sha256(image.tobytes()).hexdigest(),
+                "image": image,
+                "instances": instances,
+                "mask": (instances > 0).astype(np.uint8),
+            })
+    validate_split(cases)
+    counts = {
+        "train_images": sum(case["split"] == "train" for case in cases),
+        "Huh7_images": sum(case["subset"] == "Huh7" for case in cases),
+        "HepG2_images": sum(case["subset"] == "HepG2" for case in cases),
+        "train_nuclei": sum(int(case["instances"].max()) for case in cases if case["split"] == "train"),
+        "Huh7_nuclei": sum(int(case["instances"].max()) for case in cases if case["subset"] == "Huh7"),
+        "HepG2_nuclei": sum(int(case["instances"].max()) for case in cases if case["subset"] == "HepG2"),
+    }
+    expected = {"train_images": 10, "Huh7_images": 11, "HepG2_images": 16,
+                "train_nuclei": 785, "Huh7_nuclei": 891, "HepG2_nuclei": 985}
+    if counts != expected:
+        raise ValueError(f"Unexpected NucleusSegData composition: {counts}")
+    return cases

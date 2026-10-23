@@ -59,8 +59,7 @@ def evaluate(model, loader, cases, full=False, out=None):
     return rows
 
 
-def run_one(cfg, name, spec, seed, cases, protocol_hash):
-    study = "public_architecture_baselines"
+def run_one(cfg, name, spec, seed, cases, protocol_hash, study="public_architecture_baselines"):
     out = ROOT / "results" / study / f"{name}_s{seed}"
     ckptdir = ROOT / "checkpoints" / study / f"{name}_s{seed}"
     out.mkdir(parents=True, exist_ok=True)
@@ -148,6 +147,7 @@ def main():
     parser.add_argument("--config", type=Path, default=ROOT / "configs" / "public_architecture_baselines.json")
     parser.add_argument("--models", nargs="+")
     parser.add_argument("--seeds", nargs="+", type=int)
+    parser.add_argument("--study", default="public_architecture_baselines")
     args = parser.parse_args()
     cfg = json.loads(args.config.read_text())
     protocol_hash = sha256(args.config)
@@ -158,7 +158,7 @@ def main():
         case["x4"] = features(case["image"], edge=False, size=cfg["image_size"])
         case["y"] = torch.from_numpy(cv2.resize(case["mask"], (cfg["image_size"], cfg["image_size"]),
                                                    interpolation=cv2.INTER_NEAREST).astype(np.float32)[None])
-    study = ROOT / "results" / "public_architecture_baselines"
+    study = ROOT / "results" / args.study
     save_json(study / "split_manifest.json", [{k: v for k, v in c.items() if k not in ("image", "mask", "x4", "y")}
                                                 for c in cases])
     save_json(study / "environment.json", {
@@ -174,7 +174,7 @@ def main():
             raise ValueError(name)
     for seed in (args.seeds if args.seeds is not None else cfg["seeds"]):
         for name in selected:
-            run_one(cfg, name, cfg["models"][name], seed, cases, protocol_hash)
+            run_one(cfg, name, cfg["models"][name], seed, cases, protocol_hash, args.study)
     save_json(study / "status.json", {"state": "complete", "protocol_sha256": protocol_hash})
 
 

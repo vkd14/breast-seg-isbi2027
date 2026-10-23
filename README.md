@@ -8,8 +8,10 @@ New working repository, created 29 September 2026. This is an experimental resea
 - `submission/isbi2027_full_overleaf/`: self-contained full-draft Overleaf sources. The separate four-page folder remains unchanged for later conference-length editing.
 - `reports/tnbc_grouped_cv_report.md`: protocol, measured results, statistical comparisons, interpretation, and limitations for the new 45-run TNBC study.
 - Detailed reconciliation: reports/private_uwm_and_literature_reconciliation.md records the exact old-versus-corrected UWM results and protocol-aware comparison with prior BBBC039/TNBC papers.
-- `submission/isbi2027_overleaf/main.pdf`: current four-page ISBI 2027 manuscript, with the official linked style and measured results.
+- `submission/isbi2027_overleaf/main.pdf`: current ISBI 2027 manuscript. Technical content fits pages 1--4; page 5 contains references only, as allowed by the paid fifth-page rule.
 - `submission/isbi2027_overleaf/`: self-contained Overleaf sources, bibliography, figures and submission checklist.
+- `results/bbbc_contact_10seed/aggregate.json`: completed ten-seed official-split contact-aware BBBC039 results and paired tests.
+- `results/nucleusseg_contact_10seed/aggregate.json`: completed ten-seed fixed-split NucleusSegData results for Huh7 and HepG2.
 - `reports/isbi2027_submission_audit.md`: literature benchmark, reviewer-closure audit, remaining blockers and risk-ranked experiments.
 - `results/public_architecture_baselines/`: six matched architectures, three seeds each, under the same BBBC039 budget.
 - `results/grayscale_transfer_audit/`: exact grayscale-equivalence check and fixed TNBC polarity-inversion stress test.
@@ -62,6 +64,16 @@ PYTHONPATH=src:scripts python scripts/evaluate_grayscale_transfer.py --data data
 PYTHONPATH=src:scripts python scripts/make_submission_figures.py
 ```
 
+The contact-aware BBBC039 and NucleusSegData studies are reproduced and aggregated with:
+
+```bash
+PYTHONPATH=src:scripts bash scripts/run_bbbc_contact_10seed.sh
+PYTHONPATH=src:scripts python scripts/analyze_bbbc_contact_10seed.py
+PYTHONPATH=src:scripts python scripts/download_nucleusseg.py
+PYTHONPATH=src:scripts bash scripts/run_nucleusseg_contact_10seed.sh
+PYTHONPATH=src:scripts python scripts/analyze_nucleusseg_10seed.py
+```
+
 The completed TNBC study trains every model/seed/fold combination, resumes by skipping only protocol-matched completed runs, aggregates patient-macro out-of-fold results, regenerates the full-draft figures, and independently rechecks every saved prediction:
 
 ```bash
@@ -83,7 +95,7 @@ The historical checkpoints are not included; to re-evaluate them use `evaluate_e
 
 ## Scientific scope
 
-The task is 2D **semantic nuclear foreground segmentation**, not whole-cell segmentation, cancer diagnosis, or validated 3D instance segmentation. BBBC039 is U2OS fluorescence, not breast tissue. TNBC is breast histology and is used as a transfer stress test. BBBC038 partly overlaps BBBC039; newly BBBC039-trained models are therefore not presented as independently validated on BBBC038. Cellpose-SAM is an off-the-shelf reference with unverified pretraining overlap, not an equal-data baseline.
+The current ISBI task is 2D **nucleus instance segmentation** via foreground and touching-contact prediction, not whole-cell segmentation, cancer diagnosis, or validated 3D instance segmentation. BBBC039 is U2OS fluorescence and NucleusSegData contains Huh7/HepG2 fluorescence; neither is breast tissue. The private UWM MCF10A study has semantic masks only and is retained as internal sensitivity evidence, not external instance validation. TNBC and BBBC038 remain in the broader audit but are not used as evidence in the current ISBI manuscript.
 
 Initial study: vanilla B7 UNet++, the Gabor+projection+SCSE bundle, and that bundle with an explicit boundary term, each with three seeds and 20 epochs. Follow-up: SCSE-only, zero-initialized residual Gabor fusion, residual Sobel fusion, and residual Gabor plus boundary loss, with the same budget. The follow-up is labelled exploratory and was designed after initial results; it is not an independent confirmatory experiment.
 

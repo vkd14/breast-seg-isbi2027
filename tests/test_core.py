@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 import torch
 from breastseg.core import (binary_mask, grayscale_uint8, Gabor, sampling_weights,
-    validate_split, SegmentationLoss, logits_mask, metrics, boundary, Net, features)
+    validate_split, SegmentationLoss, logits_mask, metrics, boundary, Net, features,
+    color_features)
 
 
 class ScientificContracts(unittest.TestCase):
@@ -86,6 +87,14 @@ class ScientificContracts(unittest.TestCase):
         rgb=rng.integers(0,256,size=(37,29,3),dtype=np.uint8)
         gray=cv2.cvtColor(rgb,cv2.COLOR_RGB2GRAY)
         self.assertTrue(torch.equal(features(rgb,True,32,'gabor'),features(gray,True,32,'gabor')))
+
+    def test_histology_color_path_retains_rgb(self):
+        rgb=np.zeros((16,16,3),np.uint8);rgb[...,0]=255
+        gray=cv2.cvtColor(rgb,cv2.COLOR_RGB2GRAY)
+        color=color_features(rgb,True,32,'gabor')
+        self.assertEqual(tuple(color.shape),(4,32,32))
+        self.assertFalse(torch.equal(color[:3],features(gray,False,32)))
+        self.assertTrue(torch.isfinite(color).all())
 
     def test_residual_starts_as_exact_identity_on_image(self):
         model=Net('residual_gabor_b7',pretrained=False)

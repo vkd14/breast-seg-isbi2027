@@ -1,0 +1,25 @@
+{
+  "dataset": "BBBC039v1 official split",
+  "task": "Three-class background/interior/boundary nucleus segmentation",
+  "purpose": "Improve touching-instance separation and enable direct AJI, PQ, DICE1/2, and Caicedo object-F1 comparison.",
+  "models": {
+    "vanilla_instance_b7": "vanilla_b7",
+    "gabor_instance_b7": "gabor_b7"
+  },
+  "seeds": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  "epochs": 20,
+  "batch_size": 8,
+  "image_size": 512,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "gradient_clip": 1.0,
+  "optimizer": "AdamW",
+  "schedule": "20-epoch cosine decay to 1% of initial learning rate; no early stopping",
+  "augmentation": "uniform rotations by multiples of 90 degrees and horizontal flip with probability 0.5",
+  "targets": "BBBC039 red-channel graph colours are first converted to touching-aware instances; one-pixel inner contours are dilated by one pixel on both sides to form 0=background, 1=interior, and 2=boundary targets",
+  "loss": "class-frequency-balanced cross entropy plus mean soft Dice over interior and boundary classes",
+  "selection": "highest validation Caicedo average object F1; official test decoded once after selection",
+  "postprocessing": "connected components of predicted interior, minimum size 16; boundary expansion reported as a declared secondary output",
+  "primary_endpoint": "Caicedo average object F1 over IoU thresholds 0.50 to 0.90",
+  "secondary_endpoints": ["DICE1", "DICE2", "AJI", "DQ", "SQ", "PQ"]
+}

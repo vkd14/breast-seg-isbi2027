@@ -1,0 +1,23 @@
+[
+  {
+    "dataset": "BBBC039",
+    "case": "IXMtest_A09_s1_w1CE70AD49-290D-4312-82E6-CDC717F32637",
+    "seed": 4,
+    "metric": "object F1",
+    "score": 0.9033189033189033
+  },
+  {
+    "dataset": "NucleusSegData (HepG2)",
+    "case": "hepg2_08",
+    "seed": 4,
+    "metric": "nucleus F1",
+    "score": 0.8837209302325582
+  },
+  {
+    "dataset": "Private UWM MCF10A",
+    "case": "V09/119.tif",
+    "seed": 0,
+    "metric": "Dice",
+    "score": 0.9443640456664679
+  }
+]

@@ -2,18 +2,18 @@
 
 - [x] Official ISBI-linked IEEE LaTeX style and its two-column page layout.
 - [x] Single-blind author names included.
-- [x] Four-page validated build; technical content ends on page 3.
-- [x] Page 4 contains only compliance, acknowledgments/disclosures and references; no optional fifth page is used.
+- [x] Validated build: all technical content is on pages 1--4; page 5 contains references only.
 - [x] Abstract includes the contribution and measured results.
 - [x] Dataset sizes, splits, usage, empty-mask rule and no-crop protocol stated.
 - [x] Equal training budgets, checkpoint selection, threshold and no-TTA policy stated.
-- [x] Six matched architecture baselines plus component controls reported.
+- [x] Matched architecture baselines plus component controls described.
 - [x] Gabor orientation/frequency/sigma, Sobel, neutral-edge and sampler sensitivity reported.
-- [x] Paired bootstrap confidence intervals, Wilcoxon tests and Holm correction stated.
-- [x] External TNBC transfer and grayscale/polarity audit reported with limitations.
-- [x] Literature values are labeled non-comparable where protocols differ.
+- [x] Paired bootstrap confidence intervals, Wilcoxon tests and Holm-adjusted results inserted.
+- [x] Locked ten-seed BBBC039 and NucleusSegData results inserted.
+- [x] NucleusSegData uses its provider-defined training/Huh7/HepG2 split and matching metrics.
+- [x] Literature values are compared only where split and metric definitions match.
 - [x] AI assistance disclosed; figures use measured data and actual images.
-- [ ] Replace the ethics placeholder with the formal UWM determination and identifier.
+- [ ] PI verifies the stated not-applicable ethics wording for established MCF10A cell-line data.
 - [x] Author order and affiliations confirmed by the corresponding author on 5 October 2026.
 - [x] DOE grant DE-SC0025403 and no-competing-interests statement confirmed on 5 October 2026.
 - [x] Exact code/results repository made public.

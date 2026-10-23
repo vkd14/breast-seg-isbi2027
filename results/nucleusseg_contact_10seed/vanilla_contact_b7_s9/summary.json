@@ -1,0 +1,237 @@
+{
+  "model": "vanilla_contact_b7",
+  "variant": "vanilla_b7",
+  "seed": 9,
+  "n_train": 10,
+  "n_test": 27,
+  "epochs": 60,
+  "selection": "fixed final epoch; post-processing selected on official training images only",
+  "foreground_threshold": 0.5,
+  "contact_threshold": 0.3,
+  "min_size": 64,
+  "training_selection_score": {
+    "contact_threshold": 0.3,
+    "min_size": 64,
+    "nucleus_f1": 0.9274245343609505,
+    "pixel_f1": 0.8561939378349197
+  },
+  "training_selection_grid": [
+    {
+      "contact_threshold": 0.1,
+      "min_size": 16,
+      "nucleus_f1": 0.5803357314148682,
+      "pixel_f1": 0.4438914925311298
+    },
+    {
+      "contact_threshold": 0.1,
+      "min_size": 32,
+      "nucleus_f1": 0.5928853754940712,
+      "pixel_f1": 0.4652627829842174
+    },
+    {
+      "contact_threshold": 0.1,
+      "min_size": 64,
+      "nucleus_f1": 0.5938242280285035,
+      "pixel_f1": 0.4652771680050063
+    },
+    {
+      "contact_threshold": 0.1,
+      "min_size": 128,
+      "nucleus_f1": 0.5961844197138314,
+      "pixel_f1": 0.46540494602080484
+    },
+    {
+      "contact_threshold": 0.2,
+      "min_size": 16,
+      "nucleus_f1": 0.6764533176746917,
+      "pixel_f1": 0.6074157529871461
+    },
+    {
+      "contact_threshold": 0.2,
+      "min_size": 32,
+      "nucleus_f1": 0.6932989690721649,
+      "pixel_f1": 0.6035759954687898
+    },
+    {
+      "contact_threshold": 0.2,
+      "min_size": 64,
+      "nucleus_f1": 0.6146059291395517,
+      "pixel_f1": 0.5180468692994834
+    },
+    {
+      "contact_threshold": 0.2,
+      "min_size": 128,
+      "nucleus_f1": 0.38401390095569066,
+      "pixel_f1": 0.3104332561819074
+    },
+    {
+      "contact_threshold": 0.3,
+      "min_size": 16,
+      "nucleus_f1": 0.8976088289393012,
+      "pixel_f1": 0.851704109439957
+    },
+    {
+      "contact_threshold": 0.3,
+      "min_size": 32,
+      "nucleus_f1": 0.9131792629606496,
+      "pixel_f1": 0.853006502484498
+    },
+    {
+      "contact_threshold": 0.3,
+      "min_size": 64,
+      "nucleus_f1": 0.9274245343609505,
+      "pixel_f1": 0.8561939378349197
+    },
+    {
+      "contact_threshold": 0.3,
+      "min_size": 128,
+      "nucleus_f1": 0.9081225033288948,
+      "pixel_f1": 0.8362142442727128
+    },
+    {
+      "contact_threshold": 0.4,
+      "min_size": 16,
+      "nucleus_f1": 0.9026993094789705,
+      "pixel_f1": 0.8490946271253832
+    },
+    {
+      "contact_threshold": 0.4,
+      "min_size": 32,
+      "nucleus_f1": 0.9131261889663919,
+      "pixel_f1": 0.8515274284145463
+    },
+    {
+      "contact_threshold": 0.4,
+      "min_size": 64,
+      "nucleus_f1": 0.9259497746297489,
+      "pixel_f1": 0.8526865935598926
+    },
+    {
+      "contact_threshold": 0.4,
+      "min_size": 128,
+      "nucleus_f1": 0.924083769633508,
+      "pixel_f1": 0.8488285642536125
+    },
+    {
+      "contact_threshold": 0.5,
+      "min_size": 16,
+      "nucleus_f1": 0.8526930564568462,
+      "pixel_f1": 0.7893288250713124
+    },
+    {
+      "contact_threshold": 0.5,
+      "min_size": 32,
+      "nucleus_f1": 0.8635170603674541,
+      "pixel_f1": 0.7910708941472693
+    },
+    {
+      "contact_threshold": 0.5,
+      "min_size": 64,
+      "nucleus_f1": 0.868473231989425,
+      "pixel_f1": 0.7914391613044451
+    },
+    {
+      "contact_threshold": 0.5,
+      "min_size": 128,
+      "nucleus_f1": 0.8783422459893049,
+      "pixel_f1": 0.7931446978909331
+    },
+    {
+      "contact_threshold": 0.6,
+      "min_size": 16,
+      "nucleus_f1": 0.7777777777777778,
+      "pixel_f1": 0.689687412463308
+    },
+    {
+      "contact_threshold": 0.6,
+      "min_size": 32,
+      "nucleus_f1": 0.7815771109560363,
+      "pixel_f1": 0.6899991837885567
+    },
+    {
+      "contact_threshold": 0.6,
+      "min_size": 64,
+      "nucleus_f1": 0.7856640899508083,
+      "pixel_f1": 0.6896346598828329
+    },
+    {
+      "contact_threshold": 0.6,
+      "min_size": 128,
+      "nucleus_f1": 0.7843971631205674,
+      "pixel_f1": 0.6856044346194241
+    },
+    {
+      "contact_threshold": 0.7,
+      "min_size": 16,
+      "nucleus_f1": 0.6785714285714286,
+      "pixel_f1": 0.5714321049185032
+    },
+    {
+      "contact_threshold": 0.7,
+      "min_size": 32,
+      "nucleus_f1": 0.6800894854586129,
+      "pixel_f1": 0.5714654952795771
+    },
+    {
+      "contact_threshold": 0.7,
+      "min_size": 64,
+      "nucleus_f1": 0.6821241585639491,
+      "pixel_f1": 0.5715116084933136
+    },
+    {
+      "contact_threshold": 0.7,
+      "min_size": 128,
+      "nucleus_f1": 0.6807547169811321,
+      "pixel_f1": 0.5678212989891968
+    }
+  ],
+  "parameters": 68163698,
+  "initial_state_sha256": "e5446062255b5811cfd1a493100167776b29793eb36f54d1bbcd569af54c2a2c",
+  "checkpoint_sha256": "aa8daa53ca1a130e681310517da6846876a5373be9ece741d63e733a723dae96",
+  "protocol_sha256": "a3c8b8088b73dc9727f4a17dd9912ec2e9739d79ec495a3f3d88ef145ad8843a",
+  "seconds": 81.26313066482544,
+  "subsets": {
+    "Huh7": {
+      "n_images": 11,
+      "bilkent_micro": {
+        "nucleus_precision": 0.93007769145394,
+        "nucleus_recall": 0.9405162738496072,
+        "nucleus_f1": 0.9352678571428571,
+        "pixel_precision": 0.8795657228987449,
+        "pixel_recall": 0.8711755010899037,
+        "pixel_f1": 0.8753505074177493,
+        "n_reference": 891,
+        "n_prediction": 901,
+        "n_one_to_one": 838
+      },
+      "macro_mean": {
+        "dice1": 0.9457796925642625,
+        "aji": 0.8107535818840383,
+        "pq": 0.8025402498880573,
+        "caicedo_af1": 0.79166908005611,
+        "symmetric_best_dice": 0.887437245198944
+      }
+    },
+    "HepG2": {
+      "n_images": 16,
+      "bilkent_micro": {
+        "nucleus_precision": 0.8564102564102564,
+        "nucleus_recall": 0.8477157360406091,
+        "nucleus_f1": 0.8520408163265307,
+        "pixel_precision": 0.8077787678527593,
+        "pixel_recall": 0.7660672762918025,
+        "pixel_f1": 0.7863702842315267,
+        "n_reference": 985,
+        "n_prediction": 975,
+        "n_one_to_one": 835
+      },
+      "macro_mean": {
+        "dice1": 0.9183070488643014,
+        "aji": 0.6821518753835676,
+        "pq": 0.667177224197916,
+        "caicedo_af1": 0.6081812479491411,
+        "symmetric_best_dice": 0.7877833922197389
+      }
+    }
+  }
+}

@@ -83,6 +83,45 @@ def features(image, edge=True, size=512, edge_kind="gabor", gabor_params=None):
     return torch.from_numpy(x.transpose(2,0,1).copy())
 
 
+def color_features(image, edge=True, size=512, edge_kind="gabor", gabor_params=None):
+    """ImageNet-normalized RGB features for H&E, optionally with an edge map.
+
+    Unlike :func:`features`, this path retains stain/color information. It is
+    intentionally separate so fluorescence experiments cannot change silently
+    when a histology-specific preprocessing study is run.
+    """
+    image = np.asarray(image)
+    if image.ndim == 2:
+        image = np.repeat(image[..., None], 3, axis=2)
+    if image.ndim != 3 or image.shape[2] != 3 or not np.isfinite(image).all():
+        raise ValueError("Expected a finite 2D image or three-channel RGB image")
+    if image.dtype == np.uint16:
+        image = (image / 257).round().astype(np.uint8)
+    elif image.dtype != np.uint8:
+        lo, hi = np.percentile(image.astype(np.float32), [1, 99.5])
+        image = (255 * np.clip((image - lo) / (hi - lo + 1e-6), 0, 1)).astype(np.uint8)
+    channels = image
+    if edge:
+        gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        if edge_kind == "gabor":
+            response = Gabor(**(gabor_params or {}))(gray)
+        elif edge_kind == "sobel":
+            values = gray.astype(np.float32) / 255
+            response = cv2.magnitude(
+                cv2.Sobel(values, cv2.CV_32F, 1, 0),
+                cv2.Sobel(values, cv2.CV_32F, 0, 1),
+            )
+            response = (response - response.min()) / (response.max() - response.min() + 1e-8)
+        else:
+            raise ValueError(edge_kind)
+        channels = np.dstack([channels, (response * 255).astype(np.uint8)])
+    x = cv2.resize(channels, (size, size), interpolation=cv2.INTER_LINEAR).astype(np.float32) / 255
+    mean = np.array([.485, .456, .406] + ([.5] if edge else []), dtype=np.float32)
+    std = np.array([.229, .224, .225] + ([.25] if edge else []), dtype=np.float32)
+    x = (x - mean) / std
+    return torch.from_numpy(x.transpose(2, 0, 1).copy())
+
+
 def sampling_weights(masks, weighted):
     if not weighted:
         return None
@@ -111,16 +150,19 @@ def validate_split(records):
 
 
 class Net(nn.Module):
-    def __init__(self, variant="gabor_b7", pretrained=False):
+    def __init__(self, variant="gabor_b7", pretrained=False, classes=1):
         super().__init__()
         if variant not in ("vanilla_b7","gabor_b7","gabor_boundary_b7","scse_b7",
             "residual_gabor_b7","residual_sobel_b7","residual_gabor_boundary_b7"):
             raise ValueError(variant)
+        if classes < 1:
+            raise ValueError("classes must be positive")
         self.variant = variant
+        self.classes = classes
         self.use_edge = variant not in ("vanilla_b7","scse_b7")
         self.residual = variant.startswith("residual_")
         self.base_model = smp.UnetPlusPlus(encoder_name="efficientnet-b7", encoder_weights="imagenet" if pretrained else None,
-            in_channels=3, classes=1, activation=None, decoder_attention_type="scse" if variant != "vanilla_b7" else None,
+            in_channels=3, classes=classes, activation=None, decoder_attention_type="scse" if variant != "vanilla_b7" else None,
             decoder_channels=(256,128,64,32,16))
         if self.use_edge:
             self.input_proj = nn.Sequential(nn.Conv2d(4,16,3,padding=1),nn.BatchNorm2d(16),nn.ReLU(True),

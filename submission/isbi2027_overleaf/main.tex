@@ -1,9 +1,9 @@
 \documentclass{article}
-\usepackage{spconf,amsmath,graphicx,booktabs,url,microtype}
+\usepackage{spconf,amsmath,amssymb,graphicx,booktabs,url,microtype,array}
 \usepackage[T1]{fontenc}
 \setlength{\emergencystretch}{2em}
 
-\title{DATA-EFFICIENT BREAST CELL NUCLEUS SEGMENTATION WITH EDGE PRIORS}
+\title{CONTACT-AWARE NUCLEUS SEGMENTATION}
 \name{Varun Kumar Dasoju$^{1}$, Qingsu Cheng$^{2}$, Zeyun Yu$^{1}$}
 \address{University of Wisconsin--Milwaukee, Milwaukee, WI, USA\\
 $^{1}$Department of Computer Science; $^{2}$Department of Biomedical Engineering\\
@@ -13,132 +13,121 @@ $^{1}$Department of Computer Science; $^{2}$Department of Biomedical Engineering
 \maketitle
 
 \begin{abstract}
-Hand-crafted edge channels are often presented as data-efficient priors for nuclear segmentation, yet their gain over matched baselines and their behavior under domain shift are rarely isolated. We audit an EfficientNet-B7/UNet++ mammary-nucleus pipeline and conduct 69 matched runs on the official BBBC039 split. The Gabor-projection-SCSE bundle improves Dice over vanilla B7 by 0.250 points (96.85\% vs. 96.60\%; 95\% CI, 0.197--0.299), but is indistinguishable from matched UNet++/Xception/SCSE (96.87\%; difference $-0.014$, CI $-0.047$--0.018). A corrected source-group audit of 855 private UWM MCF10A planes reverses the earlier superiority claim: the full pipeline obtains 93.12\% Dice versus 93.49\% for vanilla B7. On 50 TNBC histology images, fluorescence-to-histology transfer is 8.07\%; a single post-hoc polarity stress test raises it to 51.30\% without training. Thus edge priors provide at most a small within-screen gain, while protocol integrity, architecture and acquisition domain dominate conclusions.
+Pixel overlap can conceal the biologically important merging of touching nuclei. We extend an EfficientNet-B7/UNet++ pipeline with an auxiliary head that predicts only interfaces between adjacent nuclei, while a foreground head preserves complete masks. Markers obtained by removing predicted contacts are expanded inside the foreground to recover instances without eroding outer contours. On the official BBBC039 split, ten-seed mean Dice was unchanged (0.9660 versus 0.9657), while aggregated Jaccard index (AJI), panoptic quality (PQ), and object F1 increased from 0.6833/0.7434/0.7545 to 0.8703/0.8610/0.8865. The corresponding paired image differences were significant after Holm correction. On the fixed NucleusSegData split, nucleus/pixel F1 reached 0.9315/0.8791 for Huh7 and 0.8809/0.8189 for HepG2, exceeding directly comparable published point estimates. Equal-budget controls and uncertainty across ten seeds support contact prediction, rather than edge preprocessing, as the main contribution.
 \end{abstract}
 \begin{keywords}
-nucleus segmentation, Gabor filters, reproducibility, domain shift, microscopy
+nucleus instance segmentation, fluorescence microscopy, contact boundaries, Gabor filters, reproducibility
 \end{keywords}
 
 \section{Introduction}
-Accurate nuclear masks support cell counting and quantitative morphology, but annotations are expensive and imaging distributions vary sharply. U-Net~\cite{ronneberger2015unet}, UNet++~\cite{zhou2018unetpp} and pretrained encoders make strong baselines; modern generalist models further raise the comparison standard~\cite{pachitariu2025cellposesam,archit2025microsam}. Consequently, a complex pipeline should be judged against equally trained controls, not historical scores obtained under different splits, budgets or metrics.
+Nuclear masks support cell counting, morphology, and spatial analysis, but dense touching nuclei are difficult to annotate and separate. U-Net~\cite{ronneberger2015unet}, UNet++~\cite{zhou2018unetpp}, and pretrained encoders are strong semantic baselines, while biological instance methods emphasize boundaries or object geometry~\cite{caicedo2019evaluation,wang2022aswnet,yi2022segmentgraph}. A high foreground Dice score is insufficient when one predicted component merges several cells.
 
-This work revisits a project that progressed from 2-D mammary epithelial nuclei to exploratory 3-D reconstruction. Its 2-D method combines a Gabor response, learned input projection, EfficientNet-B7, UNet++ and spatial/channel squeeze-and-excitation (SCSE). Earlier review identified unresolved empty-image scoring, split independence, boundary claims, unequal baselines, Gabor sensitivity, sampling details, statistical uncertainty and absent external validation. We address those issues on public data while restricting the task to \emph{semantic nuclear foreground segmentation}; it is neither breast-cancer diagnosis nor clinical validation.
+We study a mammary-cell segmentation pipeline combining multi-scale Gabor responses, EfficientNet-B7, UNet++, and spatial/channel squeeze-and-excitation (SCSE). A controlled audit found that the Gabor bundle improves semantic Dice only slightly over vanilla B7 and does not exceed a matched Xception/SCSE model. Metric-matched evaluation then exposed the larger bottleneck: connected components preserve foreground overlap but merge touching nuclei, reducing AJI, PQ, and object F1.
 
-Our contributions are: (1) a visible reconciliation of the private UWM result, including leakage, mask-encoding and arithmetic defects in the rejected analysis; (2) a leakage-checked, native-grid, multi-seed public evaluation with explicit empty-mask rules and boundary metrics; (3) matched architecture, component and Gabor/sampling controls; and (4) a complete TNBC transfer stress test showing that polarity mismatch, rather than omitted grayscale conversion, explains much of the failure. All attempted configurations and negative results are retained.
+Our main contribution is a contact-aware formulation that (1) preserves a full-foreground objective, (2) learns only interfaces between touching instances rather than all outer contours, and (3) reconstructs complete instances by constrained marker expansion. We evaluate it on the provider-defined BBBC039 split using ten seeds, native-grid semantic and instance metrics, paired uncertainty, equal-budget controls, and public code. We then use the fixed Huh7/HepG2 NucleusSegData split as an independent public-domain check. A private MCF10A set is retained only as supplementary internal-domain evidence.
 
 \section{Method}
-\subsection{Edge-enhanced model}
-Let $x$ be percentile-rescaled grayscale intensity. The edge channel is the maximum absolute response of 24 filters (eight orientations and frequencies $f\!\in\!\{0.05,0.15,0.25\}$ cycles/pixel):
+\subsection{Input representation and backbone}
+Let $x$ be percentile-rescaled grayscale intensity. The optional edge channel is the maximum absolute response of 24 L1-normalized Gabor filters,
 \begin{equation}
 e(x)=\mathcal N\!\left(\max_{\theta,f}\left|x*\frac{k_{\theta,f}}{\lVert k_{\theta,f}\rVert_1+\epsilon}\right|\right),
-\label{eq:gabor}
 \end{equation}
-where $k$ has size 31, $\sigma=5$, aspect ratio 0.5 and zero phase, and $\mathcal N$ maps to $[0,1]$. L1 normalization replaces unstable signed-sum normalization. A learned $4\!\rightarrow\!16\!\rightarrow\!8\!\rightarrow\!3$ projection feeds ImageNet-pretrained EfficientNet-B7/UNet++/SCSE. Controls remove the edge and SCSE, replace Gabor with Sobel, or use identity-preserving residual fusion
-$x_{out}=x_{RGB}+\tanh(a)P([x_{RGB},e])$ with $a_0=0$.
+using eight orientations, $f\in\{0.05,0.15,0.25\}$ cycles/pixel, kernel size 31, $\sigma=5$, aspect ratio 0.5, and zero phase. A learned $4\!\rightarrow\!16\!\rightarrow\!8\!\rightarrow\!3$ projection permits ImageNet initialization. EfficientNet-B7/UNet++/SCSE predicts either one semantic logit or two contact-aware logits. Vanilla B7 and UNet++/Xception/SCSE are matched controls.
+
+\subsection{Contact-aware instance formulation}
+BBBC039 annotations encode touching-aware instances. For neighboring pixels $u,v$ with instance labels $g(u),g(v)$, the contact target is
+\begin{equation}
+c(u)=\mathbb 1\{g(u)>0,\ g(v)>0,\ g(u)\ne g(v)\},
+\end{equation}
+aggregated over the eight-neighborhood and dilated by one pixel inside the foreground. Unlike a complete contour target, $c$ excludes nucleus--background edges. The network predicts foreground $p_f$ and contact probability $p_c$ and minimizes
+\begin{equation}
+\begin{split}
+\mathcal L={}&\tfrac12[\mathcal L_D(p_f,y_f)+\mathcal L_B(p_f,y_f)]\\
+&+\tfrac14[\mathcal L_D(p_c,c)+\mathcal L_{B,w}(p_c,c)].
+\end{split}
+\end{equation}
+where $\mathcal L_D$ is soft Dice, $\mathcal L_B$ is binary cross-entropy, and $\mathcal L_{B,w}$ compensates contact sparsity with a finite batchwise positive weight. At inference, connected components of $\hat y_f\setminus\hat c$ form markers. Every foreground pixel is assigned to its nearest marker; thus contacts separate instances without removing foreground area. Post-processing parameters are selected without access to test labels.
+
+\section{Experimental design}
+\subsection{Data and splits}
+BBBC039v1 contains 200 16-bit $520\!\times\!696$ Hoechst images of U2OS cells and approximately 23,000 expert-annotated nuclei~\cite{ljosa2012annotated,caicedo2019nucleus}. We use the official 100/50/50 train/validation/test partition. No crops or ROIs are generated. Image identifiers, decoded-image hashes, and split manifests are checked for overlap. Validation contains one empty reference; test contains none. Empty/empty pairs score overlap one and one-empty pairs score zero.
+
+NucleusSegData contains 2,661 manually annotated nuclei in 37 Hoechst images from Huh7 and HepG2 liver-cancer cell lines~\cite{arslan2013graphs,koyuncu2018object}. We convert its RGB-encoded files deterministically to grayscale and retain the published split: 785 nuclei in ten training images, 891 nuclei in 11 Huh7 test images, and 985 nuclei in 16 HepG2 test images. The test subsets remain untouched during model and threshold selection. This benchmark is independent of BBBC039 and closely matches the grayscale fluorescence image formation assumed by our model.
+
+BBBC039 was manually delineated by expert biologists, and NucleusSegData by the providers' biologist collaborator. Neither release provides repeat delineations suitable for inter-annotator agreement; consequently, ground truth is treated as a single reference rather than uncertainty-free anatomy. This limitation is kept separate from seed variability.
+
+The private UWM lineage contains 855 annotated 16-bit MCF10A confocal planes (Zeiss LSM, 40$\times$/1.1 W, 405/461 nm, 0.2506 $\mu$m pixels, 1.0 $\mu$m $z$-step). One trained annotator delineated foreground with expert review; repeat-annotation agreement is unavailable. Only 334 planes retain links to eight source stacks, while 521 lack acquisition identifiers. We therefore use 23 conservative geometry-defined groups split into 516/133/206 planes (11/5/7 groups) and report this set as internal evidence, not independent validation. All 855 masks contain foreground. Private images are neither distributed nor needed to reproduce either public result.
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=\textwidth]{figures/method_pipeline.pdf}
-\caption{Implemented 2-D semantic segmentation path. Normalized intensity is replicated to three channels and augmented by the maximum response of a 24-filter Gabor bank. A learned projection preserves compatibility with the pretrained encoder; UNet++/SCSE produces a probability map restored to the native image grid. Matched controls remove or replace the orange components and SCSE.}
-\label{fig:method}
+\includegraphics[width=.98\textwidth]{fig_cross_dataset_outputs.png}
+\caption{Real held-out outputs across the complete evidence chain. Public examples use seed 4, the median-performing seed, and images nearest that seed's median performance; the private example is the median held-out image for the earlier seed-0 Gabor/SCSE semantic checkpoint. Instance colors are identifiers, not classes. Agreement maps show true-positive (green), false-positive (red), and false-negative (blue) pixels. Displayed scores are image-specific; aggregate results are in Table~\ref{tab:crossdataset}. The UWM labels are semantic and cannot train the contact target.}
+\label{fig:examples}
 \end{figure*}
 
-All models minimize $0.5\mathcal L_{Dice}+0.5\mathcal L_{BCE}$. Boundary variants add $0.1\mathcal L_{Dice}(B(p),B(y))$, where $B(u)=\operatorname{maxpool}_3(u)-\operatorname{minpool}_3(u)$. This is an explicit boundary term; no Tversky recall-bias claim is made. Adaptive positive weighting, when audited, safely sets weight one for a zero-positive batch. The sampling ablation uses replacement probability $q_i=w_i/\sum_jw_j$, foreground ratio $r_i$, Canny edge ratio $c_i$, and $s_i=1.5$ if $r_i<0.05$ (otherwise 1):
-\begin{equation}
-w_i=\begin{cases}0.3,&r_i\le 0.001,\\(2+3r_i)s_i(1+c_i),&r_i>0.001.\end{cases}
-\end{equation}
+\subsection{Training and endpoints}
+On BBBC039, all matched models use $512^2$ inputs, batch size 8, 20 epochs, AdamW ($3\times10^{-4}$, weight decay $10^{-4}$), cosine decay, gradient clipping at one, flips, and $90^\circ$ rotations. Ten seeds quantify optimization variability. The highest validation object F1 selects contact-aware checkpoints; no test image is used for tuning. Predictions are restored to the native grid. On NucleusSegData, the same formulation is fitted to all ten designated training images for 60 fixed epochs (batch size 2); the final epoch is always used. For each seed, contact threshold $\{.1,\ldots,.7\}$ and minimum component size $\{16,32,64,128\}$ are selected by nucleus F1 on the training images only and then locked for Huh7 and HepG2 inference.
 
-\subsection{Data and leakage controls}
-BBBC039v1 contains 200 16-bit $520\!\times\!696$ U2OS Hoechst fields (about 23,000 nuclei) from one chemical screen~\cite{ljosa2012annotated,caicedo2019nucleus}. We use the provider's 100/50/50 train/validation/test split. No crops or ROIs are generated. Identifiers, source groups and decoded-image SHA-256 hashes are checked across partitions. The validation set has 49 foreground fields and one empty field; the test set has no empty references. BBBC039 partly overlaps BBBC038, so BBBC038 is not claimed as independent validation.
+Semantic endpoints are foreground Dice (DICE1), IoU, boundary F1, surface Dice at two pixels, and HD95. Instance endpoints reproduce published definitions: ensemble DICE2, AJI, detection/segmentation/panoptic quality (DQ/SQ/PQ), symmetric best Dice, and Caicedo object F1 averaged over IoU thresholds 0.50--0.90~\cite{caicedo2019evaluation}. We average seeds within each test image, use 10,000 paired bootstrap resamples for 95\% confidence intervals, and apply two-sided paired Wilcoxon tests with Holm correction. Seed SD is reported as optimization variability, not biological sample size.
 
-TNBC v1.1 provides 50 H\&E images and binary nuclear masks from 11 patients~\cite{naylor2019segmentation}. All images are used exactly once as a post-hoc zero-shot stress test; patient identifiers define inference units. RGB entry and explicit OpenCV grayscale produce bit-identical tensors for all 50 TNBC and 65 BBBC038 images because the pipeline already converts every image to grayscale. Since BBBC039 nuclei are bright on dark backgrounds while H\&E nuclei are dark on bright tissue, we additionally evaluate one fixed transformation, $x'=255-x$, with no fitting, threshold tuning or checkpoint selection. TNBC labels must not be reused to select further preprocessing.
-
-The private UWM lineage contains 855 valid annotated 2-D planes exported from in-house MCF10A confocal $z$-stacks (Zeiss LSM, 40$\times$/1.1 W, 405/461 nm, 0.2506 $\mu$m pixels, 1.0 $\mu$m $z$-step, 16-bit). One trained annotator delineated foreground with expert review; no repeat-annotation agreement study is available. Exact provenance links 334 planes to eight named stacks; the remaining 521 lack retained acquisition identifiers. We therefore report its corrected analysis as an audit, using 23 conservative geometry-defined groups split 516/133/206 planes (11/5/7 groups), not as independent external validation. Corrected trained models use three seeds and matched 30-epoch budgets. Every valid mask contains foreground; the earlier \emph{60\% empty} statement arose from thresholding 0/1 masks at 127. No private images are distributed or required for the public-study claims.
-
-\subsection{Training and statistical analysis}
-Every main configuration uses seeds 0/1/2, 20 epochs, $512^2$ inputs, batch size 8, AdamW (learning rate $3\times10^{-4}$, weight decay $10^{-4}$), cosine decay, gradient clipping at 1, and the same flips and $90^\circ$ rotations. The highest complete native-grid validation Dice selects a checkpoint; the final short batch is retained. Threshold 0.5 and no test-time augmentation are fixed for every model. Thus the seven component models (21 runs), ten validation-only sensitivities (30 runs) and six architecture baselines (18 runs) total 69 runs/1,380 epochs.
-
-Predictions are restored to the native grid before Dice, IoU, boundary F1 (BF1) and surface Dice at two pixels, and bidirectional HD95. Both-empty pairs score Dice/IoU/BF1 one and HD95 zero; one-empty pairs score overlap/boundary zero and image-diagonal HD95. Foreground and empty strata are reported separately. For paired comparisons, seed scores are averaged within each field, 10,000 paired bootstrap resamples form 95\% CIs, and two-sided Wilcoxon tests receive Holm correction. TNBC is first averaged within patient. Seed SD quantifies training variation, not biological sample size.
+\subsection{Reproducibility safeguards}
+Vanilla and Gabor contact models have 68.16 and 68.35 million parameters, respectively, and receive identical update budgets. Test-time augmentation is disabled. The sparse-contact positive weight is clipped to $[1,50]$ with an explicit zero-positive safeguard, and non-finite losses stop training. Configuration, initial-state, checkpoint, archive, and decoded-image hashes are recorded; a completed run is rejected if its protocol hash differs. Per-image predictions and metrics are retained so aggregate results can be independently reconstructed. These checks are covered by automated tests and are released with the code.
 
 \section{Results}
-\begin{table*}[!t]
-\centering\scriptsize
-\begin{minipage}[t]{.49\textwidth}
-\centering
-\textbf{(a) Private UWM result reconciliation}\\[2pt]
-\setlength{\tabcolsep}{3.2pt}
-\begin{tabular}{@{}lcc@{}}\toprule
-Analysis / model & Dice (95\% CI) & IoU\\\midrule
-Rejected-paper stored aggregate$^\dagger$ & .9513 & .9025\\
-Mean of its 128 saved scores$^\dagger$ & .9413 & .8925\\\midrule
-Corrected grouped full pipeline & .9312 [.9134,.9472] & .8739\\
-Corrected vanilla B7/UNet++ & .9349 [.9175,.9515] & .8805\\
-Corrected plain Dice+BCE & \textbf{.9366} [.9199,.9529] & .8831\\
-Corrected U-Net/ResNet-50 & .9320 [.9140,.9502] & .8752\\
-Cellpose-SAM, frozen reference & .9198 [.9058,.9321] & .8539\\\bottomrule
-\end{tabular}
-\end{minipage}\hfill
-\begin{minipage}[t]{.49\textwidth}
-\centering
-\textbf{(b) Published public-dataset context}\\[2pt]
-\setlength{\tabcolsep}{3.0pt}
-\begin{tabular}{@{}ll@{}}\toprule
-Study / protocol & Reported endpoint\\\midrule
-Ours, BBBC039 official split & semantic Dice .9685\\
-Caicedo U-Net, official split~\cite{caicedo2019evaluation} & object F1 .898\\
-SegmentGraph, official split~\cite{yi2022segmentgraph} & Dice .9482; AJI .8680\\
-ASW-Net, expanded interiors~\cite{wang2022aswnet} & DICE1 .9645\\
-MA-Net, BBBC039~\cite{alotaibi2024manet} & Dice .973\\
-NUSeg, fivefold CV~\cite{wickramasinghe2024nuseg} & Dice .9693; IoU .9406\\\midrule
-Ours, all-50 TNBC zero-shot+invert & semantic Dice .5130\\
-CellTranspose, TNBC 3--10 shot~\cite{he2023celltranspose} & pixel-F1 .670--.757\\
-Cellpose, selected transfer~\cite{he2023celltranspose} & pixel-F1 .5829\\\bottomrule
-\end{tabular}
-\end{minipage}
-\caption{Private-study reconciliation and public literature context. (a) The rejected-paper aggregate is one percentage point above the mean recomputed from its saved arrays; both used a leakage-prone slice split. Corrected rows use 206 test planes in seven held-out geometry groups, group-macro metrics, three seeds for trained models and group-bootstrap CIs; none of the full-pipeline comparisons is significant after Holm correction. (b) Metrics, splits, selection, postprocessing and adaptation differ, so these published values are not a rankable leaderboard.}
-\label{tab:reconciliation}
-\end{table*}
-
 \begin{table}[t]
 \centering\footnotesize
-\caption{Matched BBBC039 test results (three-seed mean; Dice includes seed SD). All use the same split and budget.}
-\label{tab:main}
+\caption{Official BBBC039 test results, mean (seed SD), $n=10$. Literature rows use the same split and published metric definitions.}
+\label{tab:instance}
 \setlength{\tabcolsep}{3.1pt}
-\begin{tabular}{@{}lrrrr@{}}\toprule
-Model & Params(M) & Dice(\%) & IoU(\%) & BF1(\%)\\\midrule
-Vanilla B7 & 68.2 & $96.60\!\pm\!.07$ & 93.44 & 98.53\\
-Gabor+projection+SCSE & 68.4 & $\mathbf{96.85\!\pm\!.13}$ & 93.90 & 98.63\\
-Gabor+boundary & 68.4 & $96.84\!\pm\!.05$ & 93.88 & 98.68\\
-SCSE-only B7 & 68.4 & $96.38\!\pm\!.53$ & 93.06 & 98.48\\
-Residual Gabor B7 & 68.4 & $96.57\!\pm\!.27$ & 93.40 & 98.52\\
-Residual Sobel B7 & 68.4 & $96.44\!\pm\!.48$ & 93.17 & 98.47\\
-Residual Gabor+boundary & 68.4 & $96.61\!\pm\!.31$ & 93.48 & 98.58\\\midrule
-U-Net/ResNet-34 & 24.4 & $96.73\!\pm\!.29$ & 93.68 & 98.71\\
-U-Net/ResNet-50 & 32.5 & $96.74\!\pm\!.21$ & 93.69 & 98.67\\
-UNet++/EfficientNet-B0 & 6.6 & $96.59\!\pm\!.06$ & 93.40 & 98.55\\
-UNet++/Xception/SCSE & 35.3 & $\mathbf{96.87\!\pm\!.11}$ & 93.93 & 98.69\\
-DeepLabV3+/ResNet-50 & 26.7 & $95.05\!\pm\!.10$ & 90.57 & 96.93\\
-FPN/ResNet-50 & 26.1 & $94.97\!\pm\!.28$ & 90.43 & 96.96\\\bottomrule
-\end{tabular}
+\resizebox{\columnwidth}{!}{\begin{tabular}{@{}lrrrr@{}}\toprule
+Model/output & DICE1 & AJI & PQ & Obj.-F1\\\midrule
+Vanilla semantic + CC & .9657(.0014) & .6833(.0096) & .7434(.0059) & .7545(.0074)\\
+Gabor semantic + CC & .9659(.0035) & .6776(.0116) & .7419(.0069) & .7525(.0067)\\
+Vanilla contact-aware & \textbf{.9660(.0023)} & \textbf{.8703(.0064)} & \textbf{.8610(.0049)} & \textbf{.8865(.0044)}\\
+Gabor contact-aware & .9652(.0045) & .8614(.0122) & .8558(.0111) & .8788(.0142)\\\midrule
+ASW-Net + expansion~\cite{wang2022aswnet} & .9645 & .9020 & .8665 & --\\
+BISSG~\cite{yi2022segmentgraph} & .9482 & .8680 & .8629 & --\\
+Caicedo U-Net~\cite{caicedo2019evaluation} & -- & -- & -- & .8980\\\bottomrule
+\end{tabular}}
 \end{table}
 
-The Gabor bundle gains 0.250 Dice points over vanilla B7 (95\% CI 0.197--0.299; Holm $p=7.34\times10^{-9}$), but has only a $-0.014$ point difference from the strongest matched baseline, UNet++/Xception/SCSE (CI $-0.047$--0.018; Holm $p=.378$). The boundary term and residual fusion do not improve the bundle. Cellpose-SAM obtains 96.95\% semantic Dice as a frozen reference, but unknown pretraining overlap and unequal training make it a contextual comparator rather than a fair baseline.
+Table~\ref{tab:instance} confirms that overlap alone hides instance merging. Relative to matched vanilla semantic connected components, contact prediction changed Dice by only 0.0003 (95\% CI $[-.0002,.0007]$, Holm $p=.333$), but increased AJI by 0.1870 ($[.1597,.2156]$), PQ by 0.1176 ($[.0998,.1366]$), and object F1 by 0.1320 ($[.1119,.1535]$); all three instance gains had Holm $p<3\times10^{-14}$. Detection quality rose from .8187 to .9402, whereas segmentation quality changed from .9060 to .9141, localizing the gain primarily to separation. Vanilla contact-aware B7 also exceeded its Gabor counterpart on AJI by .0089 ($p_{\rm Holm}<5\times10^{-8}$), so the simpler model is preferred. Cross-paper significance is not claimed because repeated literature predictions are unavailable.
 
-The validation-only sensitivity study never decodes test cases. Its 8-orientation/3-frequency reference obtains 96.684\% foreground Dice. Four and 12 orientations yield 96.686\% and 96.664\%; one and five frequencies yield 96.723\% and 96.715\%; $\sigma=3$ and 7 yield 96.541\% and 96.709\%; Sobel, neutral-edge and weighted-sampling controls yield 96.727\%, 96.586\% and 96.731\%. Weighted sampling improves foreground Dice by 0.047 points (CI 0.022--0.080) but performs worse on the single empty image, so it is not adopted. These small effects do not support unique optimality of the 24-filter bank.
+The completed semantic audit found ten-seed Dice of 96.57\% for vanilla B7, 96.59\% for the Gabor/projection/SCSE bundle, and 96.86\% for Xception/SCSE. Filter-bank, Sobel, neutral-edge, boundary-loss, residual-fusion, and weighted-sampling controls changed Dice by less than 0.2 points around the reference in the developmental screen. A failed full-contour three-class control is also retained: even after boundary expansion, seed 0 obtained .8889 DICE1, .6749 AJI, .6962 PQ, and .6098 object F1. This result motivated predicting contacts only. Developmental selections are not used for confirmatory significance; the final table uses complete ten-seed runs.
 
-On TNBC, explicit grayscale exactly reproduces prior results: vanilla B7 is best among the seven configurations at 8.07$\pm$1.39\% patient-macro Dice. Fixed inversion raises vanilla B7 to 51.30$\pm$0.40\%, a 43.24-point patient-paired gain (95\% CI 36.55--50.15; Holm $p=.00684$). The Gabor bundle rises from 2.94\% to 37.66\%. Residual over-segmentation confirms that correcting polarity does not solve stain, morphology or tissue-context shift.
+\begin{table*}[t]
+\centering\scriptsize
+\caption{Unified benchmark interpretation. Public results for our model are mean (seed SD), $n=10$; ``prior'' is the strongest directly comparable published point estimate identified for that endpoint. $\Delta$ is ours minus prior in percentage points. UWM is private, so its comparator is the strongest matched internal control, not literature. Cross-paper significance is not claimed.}
+\label{tab:crossdataset}
+\setlength{\tabcolsep}{3.8pt}
+\begin{tabular}{@{}lllcllr@{}}\toprule
+Dataset & Endpoint & Ours & Protocol/uncertainty & Comparator & Prior & $\Delta$ pp\\\midrule
+BBBC039 & DICE1 & .9660(.0023) & 10 seeds; 50 images & ASW-Net+expansion~\cite{wang2022aswnet} & .9645 & +0.15\\
+& AJI & .8703(.0064) & same & ASW-Net+expansion~\cite{wang2022aswnet} & .9020 & $-$3.17\\
+& PQ & .8610(.0049) & same & ASW-Net+expansion~\cite{wang2022aswnet} & .8665 & $-$0.55\\
+& Object F1 & .8865(.0044) & same & Caicedo U-Net~\cite{caicedo2019evaluation} & .8980 & $-$1.15\\\midrule
+NucleusSegData Huh7 & Nucleus F1 & \textbf{.9315(.0284)} & 10 seeds; 11 images & Object-oriented~\cite{koyuncu2018object} & .9075 & \textbf{+2.40}\\
+& Pixel F1 & \textbf{.8791(.0364)} & same & Object-oriented~\cite{koyuncu2018object} & .8398 & \textbf{+3.93}\\
+NucleusSegData HepG2 & Nucleus F1 & \textbf{.8809(.0347)} & 10 seeds; 16 images & Object-oriented~\cite{koyuncu2018object} & .8421 & \textbf{+3.88}\\
+& Pixel F1 & \textbf{.8189(.0413)} & same & Object-oriented~\cite{koyuncu2018object} & .7645 & \textbf{+5.44}\\\midrule
+Private UWM MCF10A & Dice & .9312 & 3 seeds; 7-group CI [.9134,.9472] & Plain Dice+BCE (internal) & .9366 & $-$0.54\\\bottomrule
+\end{tabular}
+\end{table*}
+
+Table~\ref{tab:crossdataset} separates comparable endpoints rather than pooling unlike metrics. On NucleusSegData, our nucleus/pixel F1 exceeds the strongest published row by 2.40/3.93 points on Huh7 and 3.88/5.44 points on HepG2. On BBBC039, our DICE1 is 0.15 points higher than ASW-Net, but AJI, PQ, and object F1 remain 3.17, 0.55, and 1.15 points below the best published point estimates; thus we claim a substantial matched-baseline gain, not overall state of the art. On private UWM data, the full Gabor/SCSE predecessor does not exceed plain Dice+BCE and none of its matched comparisons is significant after Holm correction. Published per-image predictions and repeated-run uncertainty are unavailable, so literature comparisons remain descriptive.
 
 \section{Discussion and conclusion}
-The corrected evidence supports a narrow conclusion: hand-crafted edges can yield a small within-acquisition gain over one vanilla B7 control, but architecture choice can match that gain and domain shift overwhelms it. Inversion is a useful diagnostic because it isolates contrast polarity with no learned parameters; its large TNBC effect also exposes the danger of declaring generalization from fluorescence alone.
+The results support the central hypothesis that explicit contact prediction converts high semantic overlap into better instance separation. Predicting only nucleus--nucleus contacts avoids the foreground shrinkage observed with full-contour targets, while constrained expansion restores complete shapes. Ten seeds, paired image inference, and replication on a second fixed-split benchmark show that the gain is not confined to one favorable initialization.
 
-This study resolves the prior review's computational concerns through public splits, explicit empty handling, equal budgets, SOTA architecture controls, sensitivity ablations, confidence intervals, boundary metrics, complete failures and reproducible code. It also makes the private lineage auditable rather than repeating its optimistic headline: the rejected paper's 95.13\% aggregate does not equal the 94.13\% mean of its saved scores, and under corrected grouping the proposed additions do not beat vanilla or plain-loss controls (Table~\ref{tab:reconciliation}a). It does not resolve biological validation. BBBC039 is one U2OS screen, TNBC is post-hoc and label-examined, UWM source identifiers are incomplete, three seeds are limited, and binary masks do not support touching-instance AP. A decisive follow-up should lock polarity normalization on training/validation data and evaluate once on an unseen patient-separated cohort. Existing 3-D results remain preliminary and are not evidence for this 2-D claim.
+The study also limits the Gabor claim: its small semantic advantage is matched by a lower-parameter architecture, and contact-aware vanilla B7 is stronger and more stable than contact-aware Gabor B7 over ten seeds. NucleusSegData tests a second acquisition and two cell lines, but both public benchmarks remain fluorescence cell-line data. Its ten-image training split also produces appreciable seed variability, which we expose rather than treating test images as tuning data. Further limitations are incomplete source provenance for the private lineage and no repeat-annotation agreement study. Future work should add multi-laboratory images and compare fine-tuned generalist models under known pretraining exposure.
 
-\clearpage
+The evidence is therefore tiered rather than pooled: BBBC039 is the confirmatory benchmark with validation-based model selection, NucleusSegData is fixed-split external-domain replication, and UWM is internal sensitivity evidence with conservative grouping. This separation prevents the larger private collection from compensating for uncertain source provenance and prevents unmatched literature summaries from entering statistical tests.
+
 \section{Compliance with ethical standards}
-BBBC039 is an openly released cell-line benchmark. TNBC is previously published, de-identified public histology reused without intervention, interaction, access to identifiers or attempted re-identification. No private patient data are analyzed. \textbf{The authors must obtain a formal UWM determination and replace this sentence with its exact category, wording and identifier before submission.}
+BBBC039 and NucleusSegData are openly released cell-line benchmarks. The supplementary private data contain an established MCF10A cell line and no human participants or identifiable information; institutional review board approval and informed consent are therefore not applicable.
 
 \section{Acknowledgments and disclosures}
-This work was supported by U.S. Department of Energy grant DE-SC0025403. The authors declare no competing interests. OpenAI Codex assisted with repository auditing, analysis scripts, statistical summaries, figure preparation and language editing. The authors selected the research questions, ran and verified the experiments, inspected all outputs and take responsibility for the manuscript. Figures contain measured data and real images/predictions, not generated microscopy content. Code, manifests and per-image results are publicly available at \url{https://github.com/vkd14/breast-seg-isbi2027}.
+This work was supported by U.S. Department of Energy grant DE-SC0025403. The authors declare no competing interests. OpenAI Codex assisted with code auditing, analysis scripts, figure preparation, and language editing; the authors designed and verified the experiments and take responsibility for the manuscript. Code, split manifests, and per-image results are available at \url{https://github.com/vkd14/breast-seg-isbi2027}.
 
 \bibliographystyle{IEEEbib}
 \bibliography{references}

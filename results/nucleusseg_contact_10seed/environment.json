@@ -1,0 +1,54 @@
+{
+  "torch": "2.11.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "protocol_sha256": "a3c8b8088b73dc9727f4a17dd9912ec2e9739d79ec495a3f3d88ef145ad8843a",
+  "config": {
+    "image_size": 512,
+    "batch_size": 2,
+    "epochs": 60,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0,
+    "contact_weight": 0.5,
+    "contact_radius": 1,
+    "foreground_threshold": 0.5,
+    "contact_thresholds": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ],
+    "min_sizes": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "models": {
+      "vanilla_contact_b7": "vanilla_b7"
+    },
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "archive_sha256": "6c9dc687f6fdbb56a46cda575a36186f0186a9dc83edfccfc32ee924fedb721a",
+  "code_sha256": {
+    "scripts/train_nucleusseg_contact.py": "be7d393d31280871b3310f7f4a26b1fc821b6b3b60eeb704e331cf942b851505",
+    "src/breastseg/core.py": "906204238835942202e7c92da598f4048dbd1cdf50c9e5ef51afa05398cbdc9d",
+    "src/breastseg/data.py": "33946de16f7c76352b9ad93f9d23055a172d1d1736d16374a2db7190d50c015d",
+    "src/breastseg/instance_metrics.py": "a2d47c2ca4b7cef640f948ad81a073b42abc9a948a2d259536b077f13acfd435"
+  }
+}
